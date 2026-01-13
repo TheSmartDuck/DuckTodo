@@ -292,11 +292,12 @@ public class StatisticsController {
         
         // 一次性查询所有未来任务（dueTime在统计区间内）且状态为进行中的任务
         // 查询条件：任务属于该用户，截止时间在[today, endDate]范围内，状态为进行中
-        List<Task> futureTasksInProgress = taskService.list(new LambdaQueryWrapper<Task>()
-                .in(Task::getTaskId, taskIds)
-                .eq(Task::getTaskStatus, TaskStatusEnum.IN_PROGRESS.getCode())
-                .ge(Task::getDueTime, today)
-                .le(Task::getDueTime, endDate));
+        List<Task> futureTasksInProgress = taskIds.isEmpty() ? Collections.emptyList() :
+                taskService.list(new LambdaQueryWrapper<Task>()
+                        .in(Task::getTaskId, taskIds)
+                        .eq(Task::getTaskStatus, TaskStatusEnum.IN_PROGRESS.getCode())
+                        .ge(Task::getDueTime, today)
+                        .le(Task::getDueTime, endDate));
         
         // 一次性查询所有未来子任务（dueTime在统计区间内）且状态为进行中的子任务
         // 查询条件：分配给该用户，截止时间在[today, endDate]范围内，状态为进行中
@@ -403,10 +404,10 @@ public class StatisticsController {
         Set<String> taskIds = taskIdsOfUser(cu.getUserId());
         List<TaskTrendResponse.DayTrend> items = new ArrayList<>();
         for (LocalDate d = start; !d.isAfter(end); d = d.plusDays(1)) {
-            int created = (int) taskService.count(new LambdaQueryWrapper<Task>()
+            int created = taskIds.isEmpty() ? 0 : (int) taskService.count(new LambdaQueryWrapper<Task>()
                     .in(Task::getTaskId, taskIds)
                     .between(Task::getCreateTime, d.atStartOfDay(), d.plusDays(1).atStartOfDay()));
-            int completed = (int) taskService.count(new LambdaQueryWrapper<Task>()
+            int completed = taskIds.isEmpty() ? 0 : (int) taskService.count(new LambdaQueryWrapper<Task>()
                     .in(Task::getTaskId, taskIds)
                     .eq(Task::getTaskStatus, TaskStatusEnum.COMPLETED.getCode())
                     .between(Task::getFinishTime, d, d));
@@ -456,10 +457,10 @@ public class StatisticsController {
         Set<String> taskIds = taskIdsOfUser(cu.getUserId());
         List<CompletionTrendResponse.DayCompletion> items = new ArrayList<>();
         for (LocalDate d = start; !d.isAfter(end); d = d.plusDays(1)) {
-            int created = (int) taskService.count(new LambdaQueryWrapper<Task>()
+            int created = taskIds.isEmpty() ? 0 : (int) taskService.count(new LambdaQueryWrapper<Task>()
                     .in(Task::getTaskId, taskIds)
                     .between(Task::getCreateTime, d.atStartOfDay(), d.plusDays(1).atStartOfDay()));
-            int completed = (int) taskService.count(new LambdaQueryWrapper<Task>()
+            int completed = taskIds.isEmpty() ? 0 : (int) taskService.count(new LambdaQueryWrapper<Task>()
                     .in(Task::getTaskId, taskIds)
                     .eq(Task::getTaskStatus, TaskStatusEnum.COMPLETED.getCode())
                     .between(Task::getFinishTime, d, d));
@@ -667,7 +668,9 @@ public class StatisticsController {
                 }
             } else {
                 Set<String> taskIds = taskIdsOfUser(cu.getUserId());
-                if ("today".equalsIgnoreCase(key)) {
+                if (taskIds.isEmpty()) {
+                    count = 0;
+                } else if ("today".equalsIgnoreCase(key)) {
                     count = (int) taskService.count(new LambdaQueryWrapper<Task>()
                             .in(Task::getTaskId, taskIds)
                             .eq(Task::getDueTime, today));
@@ -709,11 +712,12 @@ public class StatisticsController {
         LocalDate start = from == null ? LocalDate.now().minusDays(6) : LocalDate.parse(from.trim());
         LocalDate end = to == null ? LocalDate.now() : LocalDate.parse(to.trim());
         Set<String> taskIds = taskIdsOfUser(cu.getUserId());
-        List<Task> tasks = taskService.list(new LambdaQueryWrapper<Task>()
-                .in(Task::getTaskId, taskIds)
-                .isNotNull(Task::getDueTime)
-                .between(Task::getDueTime, start, end)
-                .in(Task::getTaskStatus, Arrays.asList(TaskStatusEnum.NOT_STARTED.getCode(), TaskStatusEnum.IN_PROGRESS.getCode())));
+        List<Task> tasks = taskIds.isEmpty() ? Collections.emptyList() :
+                taskService.list(new LambdaQueryWrapper<Task>()
+                        .in(Task::getTaskId, taskIds)
+                        .isNotNull(Task::getDueTime)
+                        .between(Task::getDueTime, start, end)
+                        .in(Task::getTaskStatus, Arrays.asList(TaskStatusEnum.NOT_STARTED.getCode(), TaskStatusEnum.IN_PROGRESS.getCode())));
         int total = 0, moderate = 0, severe = 0;
         LocalDate today = LocalDate.now();
         for (Task t : tasks) {
@@ -752,11 +756,12 @@ public class StatisticsController {
         LocalDate start = from == null ? LocalDate.now().minusDays(29) : LocalDate.parse(from.trim());
         LocalDate end = to == null ? LocalDate.now() : LocalDate.parse(to.trim());
         Set<String> taskIds = taskIdsOfUser(cu.getUserId());
-        List<Task> tasks = taskService.list(new LambdaQueryWrapper<Task>()
-                .in(Task::getTaskId, taskIds)
-                .isNotNull(Task::getStartTime)
-                .isNotNull(Task::getFinishTime)
-                .between(Task::getFinishTime, start, end));
+        List<Task> tasks = taskIds.isEmpty() ? Collections.emptyList() :
+                taskService.list(new LambdaQueryWrapper<Task>()
+                        .in(Task::getTaskId, taskIds)
+                        .isNotNull(Task::getStartTime)
+                        .isNotNull(Task::getFinishTime)
+                        .between(Task::getFinishTime, start, end));
         long totalHours = 0;
         int sample = 0;
         for (Task t : tasks) {
@@ -1133,7 +1138,7 @@ public class StatisticsController {
                 .stream().map(Task::getTaskId).filter(Objects::nonNull).collect(Collectors.toSet());
         List<ActivityTrendResponse.DayActivity> items = new ArrayList<>();
         for (LocalDate d = start; !d.isAfter(end); d = d.plusDays(1)) {
-            int count = (int) taskAuditService.count(new LambdaQueryWrapper<TaskAudit>()
+            int count = teamTaskIds.isEmpty() ? 0 : (int) taskAuditService.count(new LambdaQueryWrapper<TaskAudit>()
                     .in(TaskAudit::getTaskId, teamTaskIds)
                     .between(TaskAudit::getCreateTime, d.atStartOfDay(), d.plusDays(1).atStartOfDay()));
             items.add(new ActivityTrendResponse.DayActivity(d.toString(), count));
