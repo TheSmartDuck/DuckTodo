@@ -85,8 +85,11 @@ DuckTodo/
 │   ├── design/            # 设计文档（架构、需求、功能）
 │   └── sql/               # 数据库设计文档
 ├── docker/                 # Docker 相关配置
-│   ├── Dockerfile         # 容器构建文件
-│   └── nginx.conf         # Nginx 配置
+│   ├── Dockerfile                    # 容器构建文件（依赖外部构建产物）
+│   ├── Dockerfile-without-Jenkins    # 独立构建文件（容器内自动构建）✨
+│   ├── README-without-Jenkins.md     # 独立构建使用说明
+│   ├── nginx.conf                    # Nginx 配置
+│   └── supervisord.conf              # Supervisor 进程管理配置
 ├── docker-compose.yml      # Docker Compose 编排
 ├── env.example            # 环境变量示例
 └── README.md              # 项目说明文档
@@ -239,13 +242,65 @@ DuckTodo/
 
 ### Docker 镜像构建
 
-使用 `docker/Dockerfile` 构建镜像：
+#### 方式一：使用预构建产物（需要外部构建环境）
+
+使用 `docker/Dockerfile` 构建镜像，需要先在外部分别构建前后端：
+
 ```bash
+# 1. 构建后端
+cd backend
+mvn -DskipTests -Dspring.profiles.active=prod clean package
+
+# 2. 构建前端
+cd ../frontend
+npm install --legacy-peer-deps
+npm run build
+
+# 3. 构建Docker镜像
+cd ..
 docker build --build-arg JAR_FILE=backend/target/DuckTodo-0.0.1-SNAPSHOT.jar --build-arg FRONTEND_DIR=frontend/dist -t ducktodo:latest -f docker/Dockerfile .
-docker run -d -p 8080:80 ducktodo:latest
+
+# 4. 运行容器
+docker run -d -p 8080:80 -p 8081:8080 ducktodo:latest
 ```
 
-**注意**：构建时需要指定后端 JAR 文件路径和前端构建目录路径。
+**注意**：此方式需要预先安装 Maven 和 Node.js 环境，适合 CI/CD 流水线（如 Jenkins）场景。
+
+#### 方式二：容器内自动构建（无需外部构建环境）✨
+
+使用 `docker/Dockerfile-without-Jenkins` 构建镜像，Docker 会在容器内自动完成前后端的构建：
+
+```bash
+# 在项目根目录执行（无需预先构建前后端）
+docker build -f docker/Dockerfile-without-Jenkins -t ducktodo:latest .
+
+# 运行容器
+docker run -d \
+  -p 8080:80 \
+  -p 8081:8080 \
+  -e SPRING_PROFILES_ACTIVE=prod \
+  -e MYSQL_URL=your-mysql-host \
+  -e MYSQL_PORT=3306 \
+  -e MYSQL_DATABASE=DuckTodo \
+  -e MYSQL_USERNAME=your-username \
+  -e MYSQL_PASSWORD=your-password \
+  -e MINIO_ENDPOINT=http://minio:9000 \
+  -e MINIO_ACCESS_KEY=your-access-key \
+  -e MINIO_SECRET_KEY=your-secret-key \
+  -e MINIO_BUCKET=ducktodo \
+  -e JWT_SECRET=your-jwt-secret \
+  ducktodo:latest
+```
+
+**特点**：
+- ✅ **完全独立**：不需要外部 Maven 或 Node.js 环境
+- ✅ **自动化构建**：容器内自动完成 Maven 和 npm 构建
+- ✅ **多阶段构建**：优化镜像大小，只保留运行时文件
+- ✅ **适合场景**：本地开发、独立部署、无 CI/CD 环境
+
+**构建时间**：首次构建可能需要 10-30 分钟（需要下载依赖），后续构建会利用 Docker 缓存加速。
+
+**详细说明**：更多使用方法和故障排查请参考 [`docker/README-without-Jenkins.md`](./docker/README-without-Jenkins.md)
 
 ## 🔧 开发说明
 
@@ -315,7 +370,12 @@ docker run -d -p 8080:80 ducktodo:latest
 ### Docker 部署问题
 - **环境变量未生效**：确认 `.env` 文件存在且格式正确，检查 `docker-compose.yml` 中的环境变量映射
 - **端口冲突**：修改 `env.example` 中的 `HOST_HTTP_PORT` 和 `HOST_API_PORT` 避免端口冲突
-- **镜像构建失败**：确认构建参数 `JAR_FILE` 和 `FRONTEND_DIR` 路径正确
+- **镜像构建失败（方式一）**：确认构建参数 `JAR_FILE` 和 `FRONTEND_DIR` 路径正确，确保前后端已预先构建
+- **镜像构建失败（方式二）**：
+  - 首次构建时间较长（10-30分钟）属于正常现象，需要下载 Maven 和 npm 依赖
+  - 如果 Maven 依赖下载失败，检查网络连接或配置国内镜像源
+  - 如果 npm install 失败，尝试清理 Docker 缓存：`docker builder prune`
+  - 确保有足够的磁盘空间（建议至少 5GB）和内存（建议至少 2GB）
 
 ## 📝 许可证
 

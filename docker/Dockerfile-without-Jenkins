@@ -1,0 +1,79 @@
+# ============================================
+# 多阶段构建 Dockerfile - 不依赖外部Jenkins环境
+# 此Dockerfile会在容器内完成前后端的构建和打包
+# ============================================
+
+# ============================================
+# 第一阶段：构建后端（Maven + JDK 21）
+# ============================================
+FROM maven:3.9-eclipse-temurin-21 AS backend-builder
+
+WORKDIR /build
+
+# 复制Maven配置文件
+COPY backend/pom.xml ./backend/
+
+# 下载依赖（利用Docker缓存层）
+RUN cd backend && mvn dependency:go-offline -B || true
+
+# 复制后端源代码
+COPY backend/ ./backend/
+
+# 构建后端（跳过测试，使用prod profile）
+RUN cd backend && \
+    mvn clean package -DskipTests -Dspring.profiles.active=prod && \
+    echo "================ 后端构建完成 ====Ciallo～(∠・ω< )⌒★"
+
+# ============================================
+# 第二阶段：构建前端（Node.js）
+# ============================================
+FROM node:18-alpine AS frontend-builder
+
+WORKDIR /build
+
+# 复制前端package文件
+COPY frontend/package*.json ./frontend/
+
+# 安装前端依赖（利用Docker缓存层）
+RUN cd frontend && \
+    npm install --legacy-peer-deps && \
+    echo "================ 前端依赖安装完成 ====Ciallo～(∠・ω< )⌒★"
+
+# 复制前端源代码
+COPY frontend/ ./frontend/
+
+# 构建前端
+RUN cd frontend && \
+    npm run build && \
+    echo "================ 前端构建完成 ====Ciallo～(∠・ω< )⌒★"
+
+# ============================================
+# 第三阶段：运行阶段（Nginx + JRE）
+# ============================================
+FROM nginx:alpine
+
+# 安装JRE和supervisor
+RUN set -eux; \
+    echo "================ 安装 openjdk21-jre-headless 与初始化 Nginx 目录 ====Ciallo～(∠・ω< )⌒★"; \
+    apk add --no-cache openjdk21-jre-headless supervisor; \
+    mkdir -p /run/nginx /etc/nginx/conf.d /app
+
+# 设置工作目录
+WORKDIR /app
+
+# 从后端构建阶段复制JAR文件
+COPY --from=backend-builder /build/backend/target/*.jar /app/app.jar
+
+# 从前端构建阶段复制构建产物
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=frontend-builder /build/frontend/dist /usr/share/nginx/html
+
+# 复制Nginx配置和supervisor配置
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# 暴露端口
+EXPOSE 80 8080
+
+# 启动supervisord管理Nginx和Java应用
+ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -1,0 +1,67 @@
+# Git相关
+.git
+.gitignore
+.gitattributes
+
+# 文档
+README.md
+*.md
+docs/
+
+# IDE配置
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# 日志文件
+*.log
+logs/
+*.log.*
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.cache
+*.pid
+*.seed
+*.pid.lock
+
+# 构建产物（构建时会重新生成）
+backend/target/
+frontend/dist/
+frontend/node_modules/
+build.log
+
+# 环境配置文件（敏感信息）
+.env
+.env.local
+.env.*.local
+backend/src/main/resources/application-dev.yml
+
+# 测试文件
+**/test/
+**/__tests__/
+**/*.test.*
+**/*.spec.*
+
+# Docker相关（避免递归复制）
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile
+docker/Dockerfile
+
+# CI/CD配置
+Jenkinsfile
+.github/
+.gitlab-ci.yml
+
+# 其他
+.DS_Store
+Thumbs.db
+*.iml
