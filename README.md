@@ -379,7 +379,9 @@ docker run -d \
 
 ## 📝 许可证
 
-本项目采用 MIT 许可证。
+本项目采用 [MIT 许可证](./LICENSE)。
+
+Copyright (c) 2024 DuckTodo Contributors
 
 ## 📧 联系方式
 
