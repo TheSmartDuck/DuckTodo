@@ -133,7 +133,8 @@
 /* 第一个点：第一列，居中（占据第一行和第二行的中间位置） */
 .dashboard-metrics-deco-dots span:nth-child(1) {
     grid-column: 1;
-    grid-row: 1 / span 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
     align-self: center;
 }
 
@@ -571,7 +572,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   标题文字 // "KEY METRICS / 关键指标"
+   标题文字 "KEY METRICS 关键指标"
    -------------------------------------------------------------------------- */
 .dashboard-metrics-title {
     font-size: 14px;

@@ -38,7 +38,7 @@
 
 /* 装饰性顶部条 "SYSTEM_ACCESS" */
 .login-box::before {
-  content: "SYSTEM_ACCESS // 身份验证";
+  content: "SYSTEM_ACCESS - 身份验证";
   display: block;
   background: var(--color-black);
   color: var(--color-bg);
