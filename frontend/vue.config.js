@@ -21,43 +21,22 @@ module.exports = defineConfig({
   },
   chainWebpack: (config) => {
     if (process.env.NODE_ENV === 'production') {
-      // 配置 CSS 压缩器，避免解析注释中的 // 或 Grid 语法中的 / 时出错
+      // 配置 CSS 压缩器，避免解析错误
+      // 问题：postcss-selector-parser 在解析某些选择器时遇到 / 字符会报错
       config.optimization.minimizer('css').tap((args) => {
+        // 使用更安全的配置，禁用可能导致解析错误的优化
         args[0].minimizerOptions = {
           preset: [
             'default',
             {
-              // 保留注释，避免解析错误（注释中的 // 可能导致压缩器解析失败）
+              // 保留注释，避免解析错误
               discardComments: false,
-              // 禁用可能导致解析错误的优化
+              // 禁用选择器压缩，避免 postcss-selector-parser 解析错误
+              minifySelectors: false,
+              // 禁用其他可能导致问题的优化
               normalizeWhitespace: false,
-              // 禁用某些可能导致 Grid 语法解析错误的优化
-              colormin: true,
-              convertValues: true,
-              discardEmpty: true,
-              discardOverridden: true,
-              discardUnused: false,
-              mergeId: false,
-              mergeLonghand: true,
-              mergeRules: true,
-              minifyFontValues: true,
-              minifyGradients: true,
-              minifyParams: true,
-              minifySelectors: true,
-              normalizeCharset: true,
-              normalizeDisplayValues: true,
-              normalizePositions: true,
-              normalizeRepeatStyle: true,
-              normalizeString: true,
-              normalizeTimingFunctions: true,
-              normalizeUnicode: true,
-              normalizeUrl: true,
-              orderedValues: true,
-              reduceIdents: false,
-              reduceInitial: true,
-              reduceTransforms: true,
-              svgo: false,
-              uniqueSelectors: true
+              normalizePositions: false,
+              normalizeRepeatStyle: false
             }
           ]
         }
