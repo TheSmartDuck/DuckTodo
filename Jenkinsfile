@@ -49,7 +49,7 @@ pipeline {
           def frontEndDir = 'frontend/dist'
           def dockerImage = env.DOCKER_IMAGE
 
-          sh "docker build --build-arg JAR_FILE=${backEndJarPath} --build-arg FRONTEND_DIR=${frontEndDir} -t ${dockerImage} ."
+          sh "docker build -f docker/Dockerfile --build-arg JAR_FILE=${backEndJarPath} --build-arg FRONTEND_DIR=${frontEndDir} -t ${dockerImage} ."
         }
         echo "============ 构建Docker镜像完成 ====Ciallo～(∠・ω< )⌒★"
       }

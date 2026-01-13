@@ -21,13 +21,13 @@ COPY ${JAR_FILE} /app/app.jar
 # 复制前端
 RUN echo "================ 正在复制前端文件 ====Ciallo～(∠・ω< )⌒★"
 RUN rm -rf /usr/share/nginx/html/*
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY ${FRONTEND_DIR} /usr/share/nginx/html
 
 
 # 安装 supervisord 管理进程
 RUN apk add --no-cache supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # 暴露端口
 EXPOSE 80 8080
