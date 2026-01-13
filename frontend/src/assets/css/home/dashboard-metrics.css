@@ -133,7 +133,7 @@
 /* 第一个点：第一列，居中（占据第一行和第二行的中间位置） */
 .dashboard-metrics-deco-dots span:nth-child(1) {
     grid-column: 1;
-    grid-row: 1 / 3;
+    grid-row: 1 / span 2;
     align-self: center;
 }
 
