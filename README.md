@@ -317,14 +317,6 @@ docker run -d -p 8080:80 ducktodo:latest
 - **端口冲突**：修改 `env.example` 中的 `HOST_HTTP_PORT` 和 `HOST_API_PORT` 避免端口冲突
 - **镜像构建失败**：确认构建参数 `JAR_FILE` 和 `FRONTEND_DIR` 路径正确
 
-## 🤝 贡献指南
-
-1. Fork 本项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
-
 ## 📝 许可证
 
 本项目采用 MIT 许可证。
