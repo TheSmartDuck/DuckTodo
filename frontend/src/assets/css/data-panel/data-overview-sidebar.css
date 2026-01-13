@@ -1,0 +1,341 @@
+/* ==========================================================================
+   DATA OVERVIEW SIDEBAR // 数据概览侧边栏样式
+   ========================================================================== */
+
+/**
+ * 数据概览侧边栏根容器
+ * 使用flex布局，垂直排列头部和内容区域
+ */
+.data-overview-sidebar {
+  width: 100%;
+  height: 100%;
+  /* 使用主题边框宽度和颜色（带透明度） */
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-sizing: border-box;
+  gap: 20px;
+  position: relative;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  /* 改为 overflow: hidden 避免在装饰条上显示滚动条，如需滚动可在内部使用 */
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: var(--lunar-cream-light);
+}
+
+/**
+ * 侧边栏底部装饰条
+ * 三色渐变装饰条（芥末黄、鼠尾草绿、酒红）
+ */
+.data-overview-sidebar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--brand-warning) 0%, var(--brand-warning) 20%, 
+    var(--brand-success) 20%, var(--brand-success) 60%, 
+    var(--brand-danger) 60%, var(--brand-danger) 100%);
+  z-index: 10;
+}
+
+/**
+ * 侧边栏悬停效果
+ */
+.data-overview-sidebar:hover {
+  /* 使用主题阴影（增强版） */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/**
+ * ==========================================================================
+   HEADER // 头部样式
+   ========================================================================== */
+
+/**
+ * 侧边栏头部
+ * 包含标题和设置图标
+ */
+.data-overview-sidebar-header {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 12px;
+  background: transparent;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/**
+ * 侧边栏标题
+ * 使用Impact字体，大号粗体
+ */
+.data-overview-sidebar-title {
+  font-family: "Impact", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * ==========================================================================
+   CONTENT // 内容区域样式
+   ========================================================================== */
+
+/**
+ * 侧边栏内容区域
+ * 可滚动的flex容器，垂直排列各个统计区域
+ */
+.data-overview-sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px; /* 为滚动条留出空间 */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/**
+ * 自定义滚动条样式
+ */
+.data-overview-sidebar-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.data-overview-sidebar-content::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 2px;
+}
+
+/**
+ * ==========================================================================
+   SECTION // 统计区域样式
+   ========================================================================== */
+
+/**
+ * 概览统计区域
+ * 每个区域包含一个标题和统计网格
+ */
+.data-overview-sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/**
+ * 区域头部基础样式
+ * 深色背景的标题栏，显示区域名称和图标
+ * 所有区域头部统一使用黑色背景
+ */
+.data-overview-sidebar-section-header {
+  /* 使用主题颜色（黑色背景） */
+  background: var(--color-black);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  border-radius: 0;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 区域头部图标样式
+ */
+.data-overview-sidebar-section-header i { 
+  font-size: 14px; 
+}
+
+/**
+ * ==========================================================================
+   STAT GRID // 统计网格样式
+   ========================================================================== */
+
+/**
+ * 统计网格
+ * 默认两列网格布局
+ */
+.data-overview-sidebar-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/**
+ * 三列网格布局
+ * 用于已完成和逾期统计区域
+ */
+.data-overview-sidebar-stat-grid-three-col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/**
+ * ==========================================================================
+   STAT BOX // 统计框样式
+   ========================================================================== */
+
+/**
+ * 统计框基础样式
+ * 显示单个统计数值和标签
+ * 磁带未来主义风格：粗边框、高对比度
+ */
+.data-overview-sidebar-stat-box {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black);
+  padding: 10px 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  transition: all 0.2s;
+  position: relative;
+}
+
+/**
+ * 统计框悬停效果
+ * 磁带未来主义风格：提升阴影效果
+ */
+.data-overview-sidebar-stat-box:hover {
+  transform: translateY(-2px);
+  /* 使用主题阴影（增强版） */
+  box-shadow: var(--shadow-normal);
+  border-color: var(--color-black);
+  z-index: 1;
+}
+
+/**
+ * ==========================================================================
+   STAT BOX COLORS // 统计框颜色变体（磁带未来主义配色）
+   ========================================================================== */
+
+/**
+ * 铁锈红统计框
+ * 用于加入统计（团队）和进行中任务
+ */
+.data-overview-sidebar-stat-box-rust .data-overview-sidebar-stat-val { 
+  /* 使用任务铁锈红 */
+  color: var(--mission-rust); 
+}
+
+/**
+ * 鼠尾草绿统计框
+ * 用于加入统计（任务组）和已完成统计
+ */
+.data-overview-sidebar-stat-box-sage .data-overview-sidebar-stat-val { 
+  /* 使用氧化鼠尾草绿 */
+  color: var(--oxidized-sage); 
+}
+
+/**
+ * 芥末黄统计框
+ * 用于进行中子任务
+ */
+.data-overview-sidebar-stat-box-mustard .data-overview-sidebar-stat-val { 
+  /* 使用航空芥末黄 */
+  color: var(--avionics-mustard); 
+}
+
+/**
+ * 酒红色统计框
+ * 用于逾期统计
+ */
+.data-overview-sidebar-stat-box-burgundy .data-overview-sidebar-stat-val { 
+  /* 使用警报酒红 */
+  color: var(--alarm-burgundy); 
+}
+
+/**
+ * ==========================================================================
+   STAT VALUES & LABELS // 统计数值和标签样式
+   ========================================================================== */
+
+/**
+ * 统计数值
+ * 大号粗体数字显示
+ */
+.data-overview-sidebar-stat-val {
+  font-size: 24px;
+  font-weight: 900;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  line-height: 1.1;
+  font-family: "Impact", sans-serif;
+}
+
+/**
+ * 统计标签容器
+ * 包含英文注释和中文描述两行
+ */
+.data-overview-sidebar-stat-label {
+  font-size: 9px;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+/**
+ * 统计标签英文注释
+ * 显示为注释格式（/* text */）
+ */
+.data-overview-sidebar-stat-label-en {
+  font-size: 9px;
+  color: #999;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 统计标签中文描述
+ * 显示中文说明文字
+ */
+.data-overview-sidebar-stat-label-cn {
+  font-size: 10px;
+  color: #666;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * ==========================================================================
+   STATUS BAR // 状态栏样式
+   ========================================================================== */
+
+/**
+ * 状态栏
+ * 显示系统在线状态，位于内容区域底部
+ * 磁带未来主义风格：深色背景、高对比度文字
+ */
+.data-overview-sidebar-status-bar {
+  margin-top: auto;
+  /* 使用主题边框宽度和颜色 */
+  border-top: var(--border-width) solid var(--color-black);
+  padding-top: 12px;
+  text-align: right;
+  font-size: 10px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

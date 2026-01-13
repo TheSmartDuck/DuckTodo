@@ -1,0 +1,161 @@
+/* ==========================================================================
+   TEAM CREATE HEADER // 创建团队页面头部样式
+   Theme: Retro Futurism / Brutalism (Integrated with App Theme)
+   ========================================================================== */
+
+/**
+ * 创建团队页面头部根容器
+ * NASA/Rhine Lab 风格的页面头部
+ */
+.team-create-header-retro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-shrink: 0;
+  gap: 16px;
+  position: relative;
+}
+
+/**
+ * 左侧装饰标记（伪元素）
+ * 页面头部左侧的装饰性标记点
+ */
+.team-create-header-retro::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  /* 使用主题品牌主色（任务铁锈红色） */
+  background: var(--brand-primary);
+  margin-right: 4px;
+}
+
+/**
+ * ==========================================================================
+   HEADER BADGE // 标题徽章样式
+   ========================================================================== */
+
+/**
+ * 标题徽章
+ * 黑色背景的标题容器
+ */
+.team-create-header-badge {
+  /* 使用主题黑色背景 */
+  background: var(--color-black);
+  /* 使用主题白色文字 */
+  color: var(--color-white);
+  padding: 8px 24px;
+  font-weight: 900;
+  font-size: 32px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1;
+  /* 锐角边框 */
+  border: none;
+  border-radius: 0; /* 锐角 */
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   HEADER LINE // 连接线样式
+   ========================================================================== */
+
+/**
+ * 连接线
+ * 连接标题和副标题的装饰性线条
+ */
+.team-create-header-line {
+  flex: 1;
+  height: var(--border-width);
+  /* 使用主题颜色 */
+  background: var(--color-black);
+  position: relative;
+  opacity: 0.5;
+}
+
+/**
+ * 连接线上的技术装饰（伪元素）
+ * 线条右侧的装饰性标记
+ */
+.team-create-header-line::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 40px;
+  height: 10px;
+  /* 使用主题品牌警告色（航空芥末黄色） */
+  background: var(--brand-warning);
+}
+
+/**
+ * ==========================================================================
+   HEADER SUBTITLE // 副标题样式
+   ========================================================================== */
+
+/**
+ * 副标题容器
+ * 带边框的副标题文字容器
+ */
+.team-create-header-sub {
+  font-weight: 700;
+  font-size: 14px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  background: transparent;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black);
+  padding: 6px 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 0; /* 锐角 */
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   HEADER ACTIONS // 操作按钮样式
+   ========================================================================== */
+
+/**
+ * 操作按钮容器
+ * 包含返回按钮等操作按钮的容器
+ */
+.team-create-header-actions {
+  /* 继承父容器样式 */
+}
+
+/**
+ * 复古返回按钮
+ * 磁带未来主义风格的返回按钮
+ */
+.team-create-header-actions .team-create-header-retro-btn {
+  height: 32px;
+  line-height: 30px;
+  padding: 0 16px;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   TRANSITIONS // 过渡动画样式
+   ========================================================================== */
+
+/**
+ * 淡入淡出过渡动画
+ * 用于标题和副标题的过渡效果
+ */
+.team-create-header-fade-enter-active,
+.team-create-header-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.team-create-header-fade-enter,
+.team-create-header-fade-leave-to {
+  opacity: 0;
+}

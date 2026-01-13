@@ -1,0 +1,708 @@
+/* ==========================================================================
+   DASHBOARD METRICS // 仪表板指标卡片组件样式
+   Theme: Retro Futurism / Cassette Futurism
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   指标组件容器 // 整个指标组件的根容器
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   指标卡片容器 // 单个指标卡片的主容器
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-mission-card {
+    /* 使用全局背景色变量 */
+    background: var(--color-white);
+    border-radius: 4px; /* 特殊圆角值，不使用全局变量 */
+    height: 140px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    /* 使用全局阴影变量 */
+    box-shadow: var(--shadow-light);
+    transition: transform 0.2s;
+    /* 使用全局边框宽度变量 */
+    border: var(--border-width) solid #ddd;
+    text-align: left;
+}
+
+/* 指标卡片悬停效果 */
+.dashboard-metrics-mission-card:hover {
+    transform: translateY(-2px);
+    /* 使用全局阴影变量 */
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   卡片左侧区域 // 包含标题、标签和数值
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-card-left {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   英文标题 // 指标卡片的英文标题（大写）
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-title-eng {
+    font-family: "Impact", "黑体", "Arial Black", sans-serif;
+    font-size: 24px;
+    /* 使用全局颜色变量 */
+    color: #222;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+/* --------------------------------------------------------------------------
+   英文标题反射效果 // 标题下方的倒影效果
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-title-eng-reflect {
+    font-size: 24px;
+    /* 使用全局颜色变量 */
+    color: #222;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    transform: scaleY(-0.6); /* 翻转并压缩 */
+    transform-origin: top left;
+    opacity: 0.15; /* 淡反射效果 */
+    margin-top: -2px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    position: absolute;
+    top: 36px;
+    left: 16px;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   信息组 // 包含中文标签和装饰点
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-info-group {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   中文标签 // 指标的中文标签文字
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-label-cn {
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    margin-right: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   装饰点 // 三个小圆点装饰（三角形排列）
+   第一列：一个居中圆点
+   第二列：上下排列2个圆点
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-deco-dots {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    gap: 3px;
+    height: auto;
+    align-items: center;
+    position: relative;
+    width: auto;
+}
+
+.dashboard-metrics-deco-dots span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    /* 使用全局品牌主色变量（保持原颜色） */
+    background: var(--mission-rust);
+    border-radius: 50%;
+}
+
+/* 第一个点：第一列，居中（占据第一行和第二行的中间位置） */
+.dashboard-metrics-deco-dots span:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: center;
+}
+
+/* 第二个点：第二列，第一行（上方） */
+.dashboard-metrics-deco-dots span:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* 第三个点：第二列，第二行（下方） */
+.dashboard-metrics-deco-dots span:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* --------------------------------------------------------------------------
+   数值显示区域 // 显示指标数值和单位
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-value-display {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    right: auto;
+    display: flex;
+    align-items: baseline;
+    opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   数值 // 指标的主要数值
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-val-num {
+    font-family: "Impact", sans-serif;
+    font-size: 36px;
+    /* 使用全局品牌主色变量 */
+    color: var(--mission-rust);
+    line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   单位 // 指标的单位文字
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-val-unit {
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    font-size: 10px;
+    color: #888;
+    margin-left: 6px;
+    font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   卡片右侧区域 // 包含装饰图案
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-card-right {
+    width: 120px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   底部装饰条 // 卡片底部的三色装饰条
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    display: flex;
+}
+
+/* 装饰条段 */
+.dashboard-metrics-bar-seg {
+    flex: 1;
+}
+
+/* 芥末黄色段 */
+.dashboard-metrics-bar-seg.dashboard-metrics-seg-mustard {
+    /* 使用全局品牌警告色变量 */
+    background: var(--avionics-mustard);
+    flex: 0.3;
+}
+
+/* 鼠尾草绿色段 */
+.dashboard-metrics-bar-seg.dashboard-metrics-seg-sage {
+    /* 使用全局品牌成功色变量 */
+    background: var(--oxidized-sage);
+    flex: 0.4;
+}
+
+/* 酒红色段 */
+.dashboard-metrics-bar-seg.dashboard-metrics-seg-burgundy {
+    /* 使用全局品牌危险色变量 */
+    background: var(--alarm-burgundy);
+    flex: 1;
+}
+
+/* ==========================================================================
+   装饰图案样式 // 卡片右侧的四种装饰图案
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   图案 0：同心波纹 // 同心圆波纹效果（上下浮动动画）
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-pattern-ripples {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    opacity: 0.6;
+    /* 确保容器可以正确显示子元素 */
+    overflow: visible;
+}
+
+/* 波纹圆环 */
+.dashboard-metrics-ripple {
+    position: absolute;
+    /* 使用全局边框宽度变量 */
+    border: var(--border-width) solid #ddd;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 添加上下浮动动画 */
+    animation: dashboard-metrics-ripple-float 3s ease-in-out infinite;
+}
+
+/* 第一层波纹 */
+.dashboard-metrics-ripple.dashboard-metrics-r1 {
+    width: 40px;
+    height: 40px;
+    /* 使用全局品牌警告色变量 */
+    border-color: var(--avionics-mustard);
+    /* 第一层动画延迟 0s */
+    animation-delay: 0s;
+}
+
+/* 第二层波纹 */
+.dashboard-metrics-ripple.dashboard-metrics-r2 {
+    width: 70px;
+    height: 70px;
+    border-color: #ddd;
+    /* 第二层动画延迟 0.5s，形成错位效果 */
+    animation-delay: 0.5s;
+}
+
+/* 第三层波纹 */
+.dashboard-metrics-ripple.dashboard-metrics-r3 {
+    width: 100px;
+    height: 100px;
+    border-color: #eee;
+    /* 第三层动画延迟 1s，形成错位效果 */
+    animation-delay: 1s;
+}
+
+/* 波纹扇形 */
+.dashboard-metrics-ripple-sector {
+    position: absolute;
+    /* 使用全局品牌主色变量 */
+    background: var(--mission-rust);
+    border-radius: 50% 50% 0 0;
+    opacity: 0.8;
+    /* 添加上下浮动动画 */
+    animation: dashboard-metrics-ripple-float 3s ease-in-out infinite;
+}
+
+/* 扇形 1 - 右上象限的对角扇形 */
+.dashboard-metrics-ripple-sector.dashboard-metrics-s1 {
+    width: 20px;
+    height: 20px;
+    /* 定位到右上象限：从中心向右上偏移，使其覆盖金色圆环的右上部分 */
+    top: calc(50% - 20px);
+    left: calc(38% + 5px);
+    /* 扇形1动画延迟 0.25s */
+    animation-delay: 0.25s;
+    /* 使用动画中的 transform，包含旋转和浮动 */
+    animation-name: dashboard-metrics-ripple-float-s1;
+    /* 调整 transform-origin 使旋转以中心为基准 */
+    transform-origin: center center;
+}
+
+/* 扇形1的浮动动画（包含旋转，方向调整为右上象限对角线） */
+@keyframes dashboard-metrics-ripple-float-s1 {
+    0%, 100% {
+        transform: rotate(0deg) translateY(0);
+    }
+    50% {
+        transform: rotate(0deg) translateY(-8px);
+    }
+}
+
+/* 扇形 2 - 底部居中的半圆形基座 */
+.dashboard-metrics-ripple-sector.dashboard-metrics-s2 {
+    width: 20px;
+    height: 20px;
+    /* 定位到底部中心位置 */
+    top: calc(40%);
+    left: calc(42% - 10px);
+    /* 使用全局品牌危险色变量 */
+    background: var(--alarm-burgundy);
+    /* 扇形2动画延迟 0.75s */
+    animation-delay: 0.75s;
+    /* 不需要旋转，保持水平 */
+    transform-origin: center center;
+    rotate: 180deg;
+}
+
+/* 上下浮动动画 */
+@keyframes dashboard-metrics-ripple-float {
+    0%, 100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-8px);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   图案 1：六边形网格 // 六边形网格图案（波浪状上下浮动）
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-pattern-hex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    opacity: 0.5;
+    gap: 4px;
+}
+
+/* 六边形行 */
+.dashboard-metrics-hex-row {
+    display: flex;
+    gap: 4px;
+}
+
+/* 单个六边形 */
+.dashboard-metrics-hex {
+    width: 12px;
+    height: 14px;
+    /* 使用全局品牌成功色变量 */
+    background: var(--oxidized-sage);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    /* 添加波浪状上下浮动动画 */
+    animation: dashboard-metrics-hex-wave 2s ease-in-out infinite;
+}
+
+/* 第一行六边形：延迟递增，形成从左到右的波浪 */
+.dashboard-metrics-hex-row:nth-child(1) .dashboard-metrics-hex:nth-child(1) {
+    animation-delay: 0s;
+}
+.dashboard-metrics-hex-row:nth-child(1) .dashboard-metrics-hex:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.dashboard-metrics-hex-row:nth-child(1) .dashboard-metrics-hex:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* 第二行六边形：延迟递增，形成从左到右的波浪 */
+.dashboard-metrics-hex-row:nth-child(2) .dashboard-metrics-hex:nth-child(1) {
+    animation-delay: 0.15s;
+}
+.dashboard-metrics-hex-row:nth-child(2) .dashboard-metrics-hex:nth-child(2) {
+    animation-delay: 0.35s;
+}
+.dashboard-metrics-hex-row:nth-child(2) .dashboard-metrics-hex:nth-child(3) {
+    animation-delay: 0.55s;
+}
+
+/* 第三行六边形：延迟递增，形成从左到右的波浪 */
+.dashboard-metrics-hex-row:nth-child(3) .dashboard-metrics-hex:nth-child(1) {
+    animation-delay: 0.3s;
+}
+.dashboard-metrics-hex-row:nth-child(3) .dashboard-metrics-hex:nth-child(2) {
+    animation-delay: 0.5s;
+}
+.dashboard-metrics-hex-row:nth-child(3) .dashboard-metrics-hex:nth-child(3) {
+    animation-delay: 0.7s;
+}
+
+/* 六边形波浪状浮动动画 */
+@keyframes dashboard-metrics-hex-wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-6px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    75% {
+        transform: translateY(6px);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   图案 2：雷达扫描 // 雷达扫描效果
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-pattern-radar {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 雷达圆圈 */
+.dashboard-metrics-radar-circle {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    /* 使用全局边框宽度变量 */
+    border: var(--border-width) solid #ccc;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: repeating-radial-gradient(var(--color-white), var(--color-white) 4px, #f0f0f0 5px);
+    z-index: 1;
+}
+
+/* 雷达扫描扇形 */
+.dashboard-metrics-radar-sweep {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 50%;
+    left: 50%;
+    /* 创建从中心向外辐射的扇形扫描效果 */
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 270deg,
+        rgba(255, 107, 0, 0.4) 270deg,
+        rgba(255, 107, 0, 0.6) 280deg,
+        rgba(255, 107, 0, 0.3) 290deg,
+        transparent 300deg,
+        transparent 360deg
+    );
+    border-radius: 50%;
+    /* 设置旋转中心为圆心 */
+    transform-origin: center center;
+    transform: translate(-50%, -50%);
+    animation: dashboard-metrics-radar-spin 4s linear infinite;
+    z-index: 2;
+}
+
+/* 雷达旋转动画 */
+@keyframes dashboard-metrics-radar-spin {
+    from { 
+        transform: translate(-50%, -50%) rotate(0deg); 
+    }
+    to { 
+        transform: translate(-50%, -50%) rotate(360deg); 
+    }
+}
+
+/* --------------------------------------------------------------------------
+   图案 3：均衡器 // 音频均衡器效果
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-pattern-eq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 6px;
+}
+
+/* 均衡器条 */
+.dashboard-metrics-eq-bar {
+    width: 8px;
+    /* 使用全局品牌危险色变量 */
+    background: var(--alarm-burgundy);
+    animation: dashboard-metrics-eq-bounce 1s ease-in-out infinite alternate;
+}
+
+/* 均衡器条：第1条 */
+.dashboard-metrics-eq-bar:nth-child(1) {
+    height: 20px;
+    animation-delay: 0s;
+}
+
+/* 均衡器条：第2条 */
+.dashboard-metrics-eq-bar:nth-child(2) {
+    height: 40px;
+    animation-delay: 0.2s;
+}
+
+/* 均衡器条：第3条 */
+.dashboard-metrics-eq-bar:nth-child(3) {
+    height: 60px;
+    animation-delay: 0.4s;
+}
+
+/* 均衡器条：第4条 */
+.dashboard-metrics-eq-bar:nth-child(4) {
+    height: 30px;
+    animation-delay: 0.1s;
+}
+
+/* 均衡器条：第5条 */
+.dashboard-metrics-eq-bar:nth-child(5) {
+    height: 50px;
+    animation-delay: 0.3s;
+}
+
+/* 均衡器弹跳动画 */
+@keyframes dashboard-metrics-eq-bounce {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0.5); }
+}
+
+/* ==========================================================================
+   头部区域样式 // 指标卡片区域的头部
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   头部栏 // 包含标题和配置按钮
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* 底部对齐 */
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+/* --------------------------------------------------------------------------
+   标题组 // 包含装饰块和标题文字
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-title-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   标题文字 // "KEY METRICS / 关键指标"
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-title {
+    font-size: 14px;
+    font-weight: 900;
+    /* 使用全局品牌成功色变量 */
+    color: var(--oxidized-sage) !important;
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    text-transform: uppercase;
+    margin-left: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   装饰线 // 包含三个彩色装饰块和横线
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-deco-line {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 6px;
+}
+
+/* 装饰块 */
+.dashboard-metrics-deco-block {
+    width: 24px;
+    height: 8px;
+    margin-right: 4px;
+}
+
+/* 芥末黄色装饰块 */
+.dashboard-metrics-deco-block.dashboard-metrics-block-mustard {
+    /* 使用全局品牌警告色变量 */
+    background-color: var(--avionics-mustard);
+}
+
+/* 鼠尾草绿色装饰块 */
+.dashboard-metrics-deco-block.dashboard-metrics-block-sage {
+    /* 使用全局品牌成功色变量 */
+    background-color: var(--oxidized-sage);
+}
+
+/* 酒红色装饰块 */
+.dashboard-metrics-deco-block.dashboard-metrics-block-burgundy {
+    /* 使用全局品牌危险色变量 */
+    background-color: var(--alarm-burgundy);
+}
+
+/* 装饰横线 */
+.dashboard-metrics-deco-strip {
+    height: 1px;
+    width: 400px; /* 固定宽度，或使用 flex-grow */
+    /* 使用全局颜色变量 */
+    background-color: var(--color-black);
+    margin-left: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   配置触发器 // 点击打开配置对话框的按钮
+   -------------------------------------------------------------------------- */
+.dashboard-metrics-config-trigger {
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    /* 使用全局品牌警告色变量 */
+    color: var(--avionics-mustard);
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 2px; /* 轻微调整 */
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+}
+
+/* 配置触发器悬停效果 */
+.dashboard-metrics-config-trigger:hover {
+    opacity: 1;
+    text-shadow: 0 0 5px var(--avionics-mustard);
+}
+
+/* ==========================================================================
+   已废弃样式 // 以下样式已废弃，保留以防引用
+   ========================================================================== */
+
+/* 隐藏旧样式 */
+.dashboard-metrics-retro-ref-card {
+    display: none;
+}
+
+/* 配置按钮（旧样式，已废弃） */
+.dashboard-metrics-config-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    /* 使用全局颜色变量 */
+    background: var(--color-black);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.dashboard-metrics-retro-ref-card:hover .dashboard-metrics-config-btn {
+    opacity: 1;
+}
+
+/* 指标行（旧样式，已废弃） */
+.dashboard-metrics-row {
+    position: relative;
+}
+
+.dashboard-metrics-row:hover .dashboard-metrics-row-config-trigger {
+    opacity: 1;
+}
+
+.dashboard-metrics-row-config-trigger {
+    position: absolute;
+    right: 0;
+    top: -30px;
+    /* 使用全局颜色变量 */
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}

@@ -1,0 +1,248 @@
+/* Child Task Drawer Retro Styles */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+.child-drawer-body {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  font-family: "Courier Prime", "Noto Sans SC", sans-serif;
+  color: #1a1a1a;
+}
+
+/* Drawer Header */
+/* 参考 BasicInfoCard 的抽屉头样式 */
+.child-drawer .el-drawer__header {
+  /* 使用主题颜色 */
+  background-color: var(--color-black) !important;
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  padding: 20px 25px !important;
+  margin-bottom: 0 !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative; /* 用于伪元素定位 */
+}
+
+/**
+ * 抽屉头部三色装饰条（伪元素）
+ * 底部三色渐变装饰条
+ * 参考 BasicInfoCard 的抽屉头样式
+ */
+.child-drawer .el-drawer__header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--brand-warning) 0%, var(--brand-warning) 33.33%,
+    var(--brand-success) 33.33%, var(--brand-success) 66.66%,
+    var(--brand-danger) 66.66%, var(--brand-danger) 100%
+  );
+  z-index: 10;
+}
+
+.child-drawer .el-drawer__header .el-drawer__title {
+  display: block;
+  max-width: calc(100% - 40px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  color: var(--color-bg) !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+}
+
+/**
+ * 抽屉关闭按钮样式覆盖
+ */
+.child-drawer .el-drawer__close-btn {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  font-size: 24px !important;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-weight: bold !important;
+  top: 15px !important;
+  right: 20px !important;
+}
+
+/**
+ * 抽屉关闭按钮悬停效果
+ */
+.child-drawer .el-drawer__close-btn:hover {
+  transform: rotate(90deg) scale(1.2);
+  /* 使用品牌警告色 */
+  color: var(--brand-warning) !important;
+}
+
+.child-drawer ::v-deep .el-drawer__body {
+  padding: 0; /* Let .child-drawer-body handle padding */
+  background-color: #f2f0e6;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Tags Section */
+.child-drawer-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.child-drawer-tags ::v-deep .el-tag {
+  border: 1px solid #1a1a1a !important;
+  border-radius: 0 !important;
+  color: #1a1a1a !important;
+  font-weight: 700;
+  background: #fff;
+  box-shadow: 2px 2px 0 #1a1a1a;
+  height: 24px;
+  line-height: 22px;
+}
+
+.child-drawer-tags ::v-deep .el-tag.el-tag--danger {
+  color: #F56C6C !important;
+}
+
+.child-divider {
+  margin: 16px 0;
+  background-color: #1a1a1a;
+  height: 2px;
+}
+
+/* Chain Box */
+.chain-box {
+  text-align: left;
+}
+
+.chain-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 12px 0 16px;
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 4px 12px;
+  display: inline-flex;
+  box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+.chain-title-icon {
+  color: #ff6b00;
+}
+
+.process-chain-timeline {
+  margin-top: 16px;
+  padding-left: 2px;
+}
+
+.process-chain-timeline ::v-deep .el-timeline-item__tail {
+  border-left: 2px solid #1a1a1a;
+}
+
+.process-chain-timeline ::v-deep .el-timeline-item__node {
+  background-color: #fff;
+  border: 2px solid #1a1a1a;
+  box-shadow: 1px 1px 0 #1a1a1a;
+}
+
+/* Chain Card */
+.chain-card {
+  margin-bottom: 8px;
+  border: 2px solid #1a1a1a !important;
+  background: #fff !important;
+  box-shadow: 4px 4px 0 #1a1a1a !important;
+  border-radius: 0 !important;
+  transition: transform 0.1s;
+}
+
+.chain-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #1a1a1a !important;
+}
+
+.chain-card ::v-deep .el-card__body {
+  padding: 12px;
+  background: #fff;
+}
+
+.chain-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chain-name-actions {
+  display: flex;
+  align-items: center;
+}
+
+.chain-item-divider {
+  margin: 8px 0;
+  background-color: #e6e6e6;
+}
+
+.chain-note {
+  font-size: 12px;
+  font-family: "Courier Prime", "Noto Sans SC", sans-serif;
+}
+
+/* Inputs in Card */
+.chain-card ::v-deep .el-input__inner,
+.chain-card ::v-deep .el-textarea__inner {
+  font-size: 12px;
+  font-family: "Courier Prime", "Noto Sans SC", sans-serif;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  padding: 0;
+  color: #1a1a1a;
+}
+
+.chain-card ::v-deep .el-input__inner::placeholder,
+.chain-card ::v-deep .el-textarea__inner::placeholder {
+  color: #909399;
+}
+
+/* Add Chain Button */
+.add-chain-btn {
+  margin-top: 16px;
+  background: #ff6b00 !important;
+  color: #fff !important;
+  border: 2px solid #1a1a1a !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 #1a1a1a !important;
+  font-weight: 700;
+  font-family: "Courier Prime", sans-serif;
+}
+
+.add-chain-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #1a1a1a !important;
+}
+
+/* Status Colors */
+.st-1 { color: #E6A23C; } /* Todo */
+.st-2 { color: #409EFF; } /* In Progress */
+.st-3 { color: #67C23A; } /* Done */
+.st-0, .st-4, .st-5 { color: #909399; } /* Others */

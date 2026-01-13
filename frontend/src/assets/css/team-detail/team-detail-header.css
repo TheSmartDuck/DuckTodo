@@ -1,0 +1,57 @@
+/* Team Detail Header Styles */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--mission-rust);
+  background: var(--lunar-cream);
+  padding: 8px 16px;
+  margin-bottom: 4px;
+  height: 48px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.header-main-title {
+  font-family: "Impact", sans-serif;
+  font-size: 32px;
+  color: var(--space-black);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.header-subtitle {
+  font-family: "SimHei", "Heiti SC", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--mission-rust);
+}
+
+.header-separator {
+  font-family: var(--font-family);
+  font-weight: 900;
+  color: var(--space-black);
+}
+
+.header-context {
+  font-family: "SimHei", "Heiti SC", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--oxidized-sage);
+}
+
+.header-right {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 900;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

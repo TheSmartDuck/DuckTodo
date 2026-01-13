@@ -1,0 +1,496 @@
+/* ==========================================================================
+   BASIC INFO CARD // 基本信息卡片样式
+   Theme: Cassette Futurism / Operator Style
+   ========================================================================== */
+
+/**
+ * 基本信息卡片根容器
+ * 操作员风格卡片，包含左侧内容和右侧装饰
+ */
+.basic-info-card-operator {
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  /* 使用主题边框宽度和颜色 */
+  border: 1px solid var(--color-black);
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  height: 220px; /* 固定高度，保持一致的视觉效果 */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/**
+ * 卡片悬停效果
+ */
+.basic-info-card-operator:hover {
+  transform: translateY(-2px);
+  /* 使用主题阴影（增强版） */
+  box-shadow: var(--shadow-normal);
+}
+
+/**
+ * ==========================================================================
+   LEFT CONTENT // 左侧内容区域样式
+   ========================================================================== */
+
+/**
+ * 左侧内容区域
+ * 包含标题、信息网格和操作按钮
+ */
+.basic-info-card-left-content {
+  flex: 1;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+/**
+ * 卡片头部行
+ * 包含标题和副标题
+ */
+.basic-info-card-header-row {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+/**
+ * 卡片标题
+ * 大号粗体标题
+ */
+.basic-info-card-title {
+  font-size: 28px;
+  font-weight: 900;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+/**
+ * 卡片副标题
+ * 使用品牌主色
+ */
+.basic-info-card-subtitle {
+  font-size: 14px;
+  /* 使用品牌主色 */
+  color: var(--brand-primary);
+  font-weight: bold;
+}
+
+/**
+ * ==========================================================================
+   INFO GRID // 信息网格样式
+   ========================================================================== */
+
+/**
+ * 信息网格容器
+ * 垂直排列的信息项列表
+ */
+.basic-info-card-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+/**
+ * 信息项
+ * 单个信息条目（标签+值）
+ */
+.basic-info-card-info-item {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+/**
+ * 信息项标签
+ * 左侧标签文字
+ */
+.basic-info-card-info-item .basic-info-card-label {
+  color: #999;
+  width: 60px;
+  font-weight: bold;
+}
+
+/**
+ * 信息项值
+ * 右侧值文字
+ */
+.basic-info-card-info-item .basic-info-card-value {
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  font-weight: bold;
+}
+
+/**
+ * ==========================================================================
+   CARD ACTIONS // 卡片操作按钮样式
+   ========================================================================== */
+
+/**
+ * 卡片操作按钮区域
+ * 包含编辑和上传头像按钮
+ */
+.basic-info-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/**
+ * 操作按钮基础样式
+ * 胶囊形状的按钮
+ */
+.basic-info-card-action-btn {
+  padding: 6px 16px;
+  /* 使用主题颜色 */
+  background: var(--color-black);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 20px; /* 胶囊形状 */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+/**
+ * 操作按钮悬停效果
+ */
+.basic-info-card-action-btn:hover {
+  background: #333;
+}
+
+/**
+ * 次要操作按钮
+ * 透明背景，带边框
+ */
+.basic-info-card-action-btn-secondary {
+  background: transparent;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  border: 1px solid var(--color-black);
+}
+
+/**
+ * 次要操作按钮悬停效果
+ */
+.basic-info-card-action-btn-secondary:hover {
+  background: #f0f0f0;
+}
+
+/**
+ * 内联上传组件
+ */
+.basic-info-card-inline-upload {
+  display: inline-block;
+}
+
+/**
+ * ==========================================================================
+   RIGHT DECO // 右侧装饰区域样式
+   ========================================================================== */
+
+/**
+ * 右侧装饰区域
+ * 包含大图标圆圈和装饰文字
+ */
+.basic-info-card-right-deco {
+  width: 150px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 使用品牌主色的径向渐变背景 */
+  background: radial-gradient(circle at center, rgba(178, 101, 59, 0.1) 0%, transparent 70%);
+  border-left: 1px dashed #eee;
+}
+
+/**
+ * 大图标圆圈
+ * 圆形图标容器，带边框和装饰环
+ */
+.basic-info-card-big-icon-circle {
+  width: 80px;
+  height: 80px;
+  /* 使用品牌主色边框 */
+  border: 4px solid var(--brand-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  /* 使用品牌主色 */
+  color: var(--brand-primary);
+  position: relative;
+}
+
+/**
+ * 部分环效果（伪元素）
+ * 图标圆圈外的装饰环
+ */
+.basic-info-card-big-icon-circle::after {
+  content: '';
+  position: absolute;
+  top: -10px; 
+  left: -10px; 
+  right: -10px; 
+  bottom: -10px;
+  border: 1px solid var(--brand-primary);
+  border-radius: 50%;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  transform: rotate(-45deg);
+}
+
+/**
+ * 装饰文字
+ * 右下角的"OPERATOR"文字
+ */
+.basic-info-card-deco-text {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 900;
+  color: #ddd;
+  text-transform: uppercase;
+}
+
+/**
+ * ==========================================================================
+   DRAWER STYLES // 抽屉样式
+   ========================================================================== */
+
+/**
+ * 复古风格抽屉
+ * 右侧滑出的编辑抽屉
+ */
+.basic-info-card-retro-drawer {
+  outline: none !important;
+  /* 使用主题边框宽度和颜色 */
+  border-left: var(--border-width-bold) solid var(--color-black) !important;
+  box-shadow: -10px 0 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+/**
+ * 抽屉头部
+ * 深色背景的标题栏
+ */
+.basic-info-card-retro-drawer .el-drawer__header {
+  /* 使用主题颜色 */
+  background-color: var(--color-black) !important;
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  padding: 20px 25px !important;
+  margin-bottom: 0 !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative; /* 用于伪元素定位 */
+}
+
+/**
+ * 抽屉头部三色装饰条（伪元素）
+ * 底部三色渐变装饰条
+ */
+.basic-info-card-retro-drawer .el-drawer__header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--brand-warning) 0%, var(--brand-warning) 33.33%,
+    var(--brand-success) 33.33%, var(--brand-success) 66.66%,
+    var(--brand-danger) 66.66%, var(--brand-danger) 100%
+  );
+  z-index: 10;
+}
+
+/**
+ * 抽屉关闭按钮
+ */
+.basic-info-card-retro-drawer .el-drawer__close-btn {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  font-size: 24px !important;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-weight: bold !important;
+  top: 15px !important;
+  right: 20px !important;
+}
+
+/**
+ * 抽屉关闭按钮悬停效果
+ */
+.basic-info-card-retro-drawer .el-drawer__close-btn:hover {
+  transform: rotate(90deg) scale(1.2);
+  /* 使用品牌警告色 */
+  color: var(--brand-warning) !important;
+}
+
+/**
+ * 抽屉主体
+ * 包含表单内容的区域，带网格背景
+ */
+.basic-info-card-retro-drawer .el-drawer__body {
+  padding: 30px !important;
+  overflow-y: auto;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg) !important;
+  /* 网格背景图案 */
+  background-image:
+    linear-gradient(rgba(24, 24, 24, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/**
+ * ==========================================================================
+   FORM IN DRAWER // 抽屉内表单样式
+   ========================================================================== */
+
+/**
+ * 表单项
+ */
+.basic-info-card-retro-drawer .el-form-item {
+  margin-bottom: 15px !important;
+  position: relative;
+}
+
+/**
+ * 表单标签
+ */
+.basic-info-card-retro-drawer .el-form-item__label {
+  /* 使用主题颜色 */
+  color: var(--color-black) !important;
+  font-weight: 900 !important;
+  font-family: var(--font-family) !important;
+  line-height: 24px !important; /* 从40px减少到24px以收紧间距 */
+  padding-bottom: 0 !important;
+  font-size: 14px !important;
+  text-transform: uppercase;
+}
+
+/**
+ * 输入框和文本域样式覆盖
+ */
+.basic-info-card-retro-drawer .el-input__inner,
+.basic-info-card-retro-drawer .el-textarea__inner {
+  /* 使用主题白色背景 */
+  background-color: var(--color-white) !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light) !important;
+  border-radius: 0 !important; /* 强制锐角 */
+  font-family: var(--font-family) !important;
+  font-weight: bold;
+}
+
+/**
+ * 输入框和文本域聚焦状态
+ */
+.basic-info-card-retro-drawer .el-input__inner:focus,
+.basic-info-card-retro-drawer .el-textarea__inner:focus {
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  border-color: var(--color-black) !important;
+  background-color: #fffdf5 !important; /* 聚焦时略微黄色调 */
+}
+
+/**
+ * 输入框组附加元素
+ */
+.basic-info-card-retro-drawer .el-input-group__append,
+.basic-info-card-retro-drawer .el-input-group__prepend {
+  /* 使用主题颜色 */
+  background-color: var(--color-black) !important;
+  /* 使用主题白色 */
+  color: var(--color-white) !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  font-weight: bold;
+}
+
+/**
+ * 抽屉操作按钮区域
+ */
+.basic-info-card-retro-drawer .basic-info-card-drawer-actions {
+  margin-top: 20px !important; /* 减少边距，因为装饰页脚占用空间 */
+  padding-top: 20px;
+  border-top: 2px dashed rgba(24, 24, 24, 0.2);
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+/**
+ * ==========================================================================
+   DRAWER INTERNAL DECO // 抽屉内部装饰样式
+   ========================================================================== */
+
+/**
+ * 抽屉装饰页脚
+ */
+.basic-info-card-drawer-deco-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  font-family: var(--font-family);
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+/**
+ * 系统文字装饰（伪元素）
+ */
+.basic-info-card-sys-text::before {
+  content: '■ ';
+  /* 使用品牌主色 */
+  color: var(--brand-primary);
+}
+
+/**
+ * 状态指示器
+ */
+.basic-info-card-status-indicator {
+  /* 使用品牌成功色 */
+  background: var(--brand-success);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  padding: 2px 6px;
+  font-weight: bold;
+  animation: basic-info-card-blink 2s infinite;
+}
+
+/**
+ * 闪烁动画
+ */
+@keyframes basic-info-card-blink {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.5; 
+  }
+}

@@ -1,0 +1,425 @@
+/* ==========================================================================
+   TEAM CREATE LEFT PANEL // 创建团队左侧面板样式
+   Theme: Retro Futurism / Brutalism (Integrated with App Theme)
+   ========================================================================== */
+
+/**
+ * 创建团队左侧面板根容器
+ * 使用 flex 布局，垂直居中排列内容
+ */
+.team-create-left-panel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/**
+ * ==========================================================================
+   PANEL CONTENT // 面板内容样式
+   ========================================================================== */
+
+/**
+ * 面板内容区域
+ * 包含所有可见内容元素
+ */
+.team-create-left-panel-content {
+  z-index: 5;
+  position: relative;
+  padding: 0 40px;
+}
+
+/**
+ * ==========================================================================
+   BRAND & TITLE // 品牌标识和标题样式
+   ========================================================================== */
+
+/**
+ * 品牌标识（大号）
+ * 显示 "DUCK // TODO" 品牌文字
+ */
+.team-create-left-panel-brand-large {
+  font-size: 24px;
+  font-weight: 900;
+  /* 使用主题任务铁锈红色 */
+  color: var(--mission-rust);
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  /* 使用主题边框宽度和任务铁锈红色 */
+  border-bottom: var(--border-width) solid var(--mission-rust);
+  display: inline-block;
+  padding-bottom: 8px;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 装饰性标题主标题（h1）
+ * 大号粗体标题，使用主题月球奶油色
+ */
+.team-create-left-panel-decor-title h1 {
+  font-size: 64px;
+  line-height: 1.2;
+  font-weight: 900;
+  margin: 0;
+  /* 使用主题月球奶油色 */
+  color: var(--lunar-cream);
+  letter-spacing: -2px;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 装饰性标题副标题（h2）
+ * 中等大小标题，使用主题氧化鼠尾草绿色
+ */
+.team-create-left-panel-decor-title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  /* 使用主题氧化鼠尾草绿色 */
+  color: var(--oxidized-sage);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   CHARTS // 图表样式
+   ========================================================================== */
+
+/**
+ * 图表标签
+ * 图表上方的标签文字
+ */
+.team-create-left-panel-chart-label {
+  font-size: 10px;
+  /* 使用主题航空芥末黄色 */
+  color: var(--avionics-mustard);
+  font-weight: bold;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 图表容器
+ * 柱状图或波形图的容器
+ */
+.team-create-left-panel-chart-container {
+  margin: 40px 0 20px 0;
+  height: auto;
+}
+
+/**
+ * 柱状图容器
+ * 横向排列的柱状图
+ */
+.team-create-left-panel-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 60px;
+  /* 使用主题月球奶油色半透明边框 */
+  border-bottom: 1px solid rgba(245, 237, 220, 0.3);
+  padding-bottom: 2px;
+}
+
+/**
+ * 柱状图单个柱子
+ * 动画柱状图元素
+ */
+.team-create-left-panel-bar {
+  width: 8px;
+  /* 使用主题品牌主色 */
+  background-color: var(--brand-primary);
+  opacity: 0.8;
+  animation: team-create-left-panel-bar-bounce 1.5s infinite ease-in-out alternate;
+}
+
+/**
+ * 柱状图弹跳动画
+ * 柱子高度和透明度的脉冲动画
+ */
+@keyframes team-create-left-panel-bar-bounce {
+  0% { 
+    height: 10%; 
+    opacity: 0.5; 
+  }
+  100% { 
+    height: 90%; 
+    opacity: 1; 
+    /* 动画结束时使用主题品牌警告色 */
+    background-color: var(--brand-warning); 
+  }
+}
+
+/**
+ * 波形容器
+ * 正弦波图表的容器
+ */
+.team-create-left-panel-wave-container {
+  margin-bottom: 40px;
+}
+
+/**
+ * 正弦波 SVG
+ * 波形图 SVG 元素
+ */
+.team-create-left-panel-sine-wave {
+  width: 100%;
+  height: 60px;
+  /* 使用主题月球奶油色半透明边框 */
+  border: 1px solid rgba(245, 237, 220, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 波形路径基础样式
+ * SVG 路径的基础样式
+ */
+.team-create-left-panel-wave-path {
+  fill: none;
+  /* 使用主题边框宽度 */
+  stroke-width: var(--border-width);
+  stroke-dasharray: 300;
+  animation: team-create-left-panel-wave-move 3s linear infinite;
+}
+
+/**
+ * 第一层波形路径
+ * 使用主题氧化鼠尾草绿色
+ */
+.team-create-left-panel-layer1 { 
+  /* 使用主题氧化鼠尾草绿色 */
+  stroke: var(--oxidized-sage); 
+  animation-duration: 3s; 
+}
+
+/**
+ * 第二层波形路径
+ * 使用主题品牌警告色，透明度较低
+ */
+.team-create-left-panel-layer2 { 
+  /* 使用主题品牌警告色 */
+  stroke: var(--brand-warning); 
+  animation-duration: 4s; 
+  opacity: 0.7; 
+}
+
+/**
+ * 波形移动动画
+ * 波形路径的虚线移动动画
+ */
+@keyframes team-create-left-panel-wave-move {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -600; }
+}
+
+/**
+ * ==========================================================================
+   SYSTEM STATUS // 系统状态样式
+   ========================================================================== */
+
+/**
+ * 系统状态容器
+ * 显示操作员、已加入项目、待处理邀请等信息
+ */
+.team-create-left-panel-system-status {
+  font-size: 14px;
+  font-weight: bold;
+  /* 使用主题月球奶油色半透明 */
+  color: rgba(245, 237, 220, 0.6);
+  margin-top: 20px;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 状态行
+ * 单个状态信息行
+ */
+.team-create-left-panel-status-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  /* 使用主题月球奶油色半透明虚线边框 */
+  border-bottom: 1px dashed rgba(245, 237, 220, 0.2);
+  padding-bottom: 4px;
+  width: 300px;
+}
+
+/**
+ * 状态值（正常状态）
+ * 使用主题品牌成功色
+ */
+.team-create-left-panel-status-row .team-create-left-panel-ok { 
+  /* 使用主题品牌成功色 */
+  color: var(--brand-success); 
+}
+
+/**
+ * 状态值（警告状态）
+ * 使用主题品牌警告色
+ */
+.team-create-left-panel-status-row .team-create-left-panel-warning { 
+  /* 使用主题品牌警告色 */
+  color: var(--brand-warning); 
+}
+
+/**
+ * ==========================================================================
+   NAVIGATION ACTIONS // 导航操作样式
+   ========================================================================== */
+
+/**
+ * 导航操作容器
+ * 包含返回按钮等操作按钮
+ */
+.team-create-left-panel-nav-actions {
+  margin-bottom: 20px;
+}
+
+/**
+ * 复古返回按钮
+ * 磁带未来主义风格的返回按钮
+ */
+.team-create-left-panel-retro-back-btn {
+  background: transparent;
+  /* 使用主题边框宽度和任务铁锈红色 */
+  border: var(--border-width) solid var(--mission-rust);
+  color: var(--mission-rust);
+  padding: 10px 20px;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 0; /* 锐角 */
+}
+
+/**
+ * 返回按钮悬停效果
+ * 悬停时使用任务铁锈红色背景和黑色文字
+ */
+.team-create-left-panel-retro-back-btn:hover {
+  background: var(--mission-rust);
+  color: var(--color-black);
+}
+
+/**
+ * ==========================================================================
+   PANEL FOOTER // 面板底部样式
+   ========================================================================== */
+
+/**
+ * 面板底部容器
+ */
+.team-create-left-panel-footer { 
+  margin-top: 60px; 
+}
+
+/**
+ * 代码块样式
+ * 显示会话ID等信息
+ */
+.team-create-left-panel-code-block {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 8px;
+  display: inline-block;
+  font-size: 12px;
+  /* 使用主题任务铁锈红色 */
+  color: var(--mission-rust);
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   BACKGROUND DECORATIONS // 背景装饰样式
+   ========================================================================== */
+
+/**
+ * 面板背景装饰
+ * 径向渐变点阵背景
+ */
+.team-create-left-panel-bg-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: 1;
+}
+
+/**
+ * 粒子画布
+ * Canvas 粒子效果层
+ */
+.team-create-left-panel-particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none; /* 让点击事件穿透 */
+}
+
+/**
+ * 扫描线效果
+ * CRT 显示器风格的扫描线效果
+ */
+.team-create-left-panel-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(255, 255, 255, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 10;
+  pointer-events: none; /* 让点击事件穿透 */
+}
+
+/**
+ * ==========================================================================
+   TYPWRITER EFFECT // 打字机效果样式
+   ========================================================================== */
+
+/**
+ * 打字机光标
+ * 闪烁的光标效果
+ */
+.team-create-left-panel-cursor {
+  display: inline-block;
+  /* 使用主题任务铁锈红色 */
+  color: var(--mission-rust);
+  font-weight: 900;
+  animation: team-create-left-panel-blink 1s step-end infinite;
+  margin-left: 4px;
+}
+
+/**
+ * 光标闪烁动画
+ * 光标显示/隐藏的闪烁效果
+ */
+@keyframes team-create-left-panel-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

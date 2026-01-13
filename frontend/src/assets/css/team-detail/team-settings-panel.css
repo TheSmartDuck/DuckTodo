@@ -1,0 +1,285 @@
+/* ==========================================================================
+   TEAM SETTINGS PANEL // 团队设置面板样式表
+   Component: TeamSettingsPanel.vue
+   ========================================================================== */
+
+/**
+ * 团队设置面板根容器
+ */
+.team-settings-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* 使用主题背景色 */
+  background: var(--lunar-cream);
+  font-family: var(--font-family);
+}
+
+/**
+ * 主卡片容器
+ * 白色背景，带边框和阴影
+ */
+.team-settings-panel-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* 使用主题背景色 */
+  background: var(--color-white);
+  /* 使用主题边框 */
+  border: var(--border-width) solid var(--color-black);
+  /* 使用主题圆角 */
+  border-radius: var(--border-radius);
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  overflow: hidden;
+}
+
+/**
+ * 面板头部
+ * 包含标题
+ */
+.team-settings-panel-header {
+  padding: 20px 24px;
+  /* 使用主题边框 */
+  border-bottom: var(--border-width) solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--lunar-cream-light);
+}
+
+/**
+ * 面板标题
+ * 粗体、大写、黑色文字
+ */
+.team-settings-panel-title {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--space-black);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/**
+ * 设置内容区域
+ * 占据剩余空间，支持滚动
+ */
+.team-settings-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/**
+ * 危险操作区域
+ * 独立的区域，使用红色主题强调
+ */
+.team-settings-panel-danger-section {
+  /* 使用主题边框 */
+  border: var(--border-width) solid var(--alarm-burgundy);
+  /* 使用主题圆角 */
+  border-radius: var(--border-radius);
+  background: rgba(168, 45, 52, 0.05); /* 浅红色背景（alarm-burgundy 5% 透明度） */
+  padding: 20px;
+}
+
+/**
+ * 区域头部
+ * 包含标题和副标题
+ */
+.team-settings-panel-section-header {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/**
+ * 区域标题
+ * 粗体、大写、红色文字
+ */
+.team-settings-panel-section-title {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--alarm-burgundy);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * 区域副标题
+ * 较小字体、灰色文字
+ */
+.team-settings-panel-section-subtitle {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: normal;
+}
+
+/**
+ * 危险操作内容区域
+ */
+.team-settings-panel-danger-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/**
+ * 危险操作项
+ * 每个操作项包含说明和按钮
+ */
+.team-settings-panel-danger-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px;
+  background: var(--color-white);
+  /* 使用主题边框 */
+  border: var(--border-width) solid rgba(168, 45, 52, 0.2);
+  /* 使用主题圆角 */
+  border-radius: var(--border-radius);
+}
+
+/**
+ * 危险操作信息区域
+ * 包含标签和描述
+ */
+.team-settings-panel-danger-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/**
+ * 危险操作标签
+ * 粗体、大写、黑色文字
+ */
+.team-settings-panel-danger-label {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--space-black);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * 危险操作描述
+ * 较小字体、灰色文字
+ */
+.team-settings-panel-danger-desc {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1.5;
+  font-weight: normal;
+}
+
+/**
+ * ==========================================================================
+   DANGER SPLIT BUTTON // 危险分割按钮
+   ========================================================================== */
+
+/**
+ * 危险分割按钮基础样式
+ * 深红色背景，双色按钮设计，体现磁带复古主义风格
+ */
+.team-settings-panel-btn-danger-split {
+  background: #3a1c1c; /* 深红色背景 */
+  border: var(--border-width) solid #5a2c2c; /* 深红色边框 */
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  padding: 8px 16px; /* 较大的内边距 */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  /* 使用主题阴影变量 */
+  box-shadow: var(--shadow-light);
+  min-width: auto;
+}
+
+/**
+ * 危险分割按钮悬停状态
+ */
+.team-settings-panel-btn-danger-split:hover {
+  background: #4a2424; /* 稍浅的深红色 */
+  transform: translateY(-1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 危险分割按钮按下状态
+ */
+.team-settings-panel-btn-danger-split:active {
+  transform: translateY(0);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 危险分割按钮左侧文字（英文）
+ * 较大、粗体、大写
+ */
+.team-settings-panel-btn-danger-split-left {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-weight: 900;
+  font-size: 13px; /* 较大字体 */
+  color: #ff8a80; /* 浅红色 */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * 危险分割按钮分隔符
+ */
+.team-settings-panel-btn-danger-split-sep {
+  color: rgba(255, 255, 255, 0.4); /* 半透明白色分隔符 */
+  font-weight: 300;
+  font-size: 12px;
+}
+
+/**
+ * 危险分割按钮右侧文字（中文）
+ * 较小、普通粗细
+ */
+.team-settings-panel-btn-danger-split-right {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 11px; /* 较小字体 */
+  color: var(--color-white); /* 使用主题白色 */
+  letter-spacing: 0.3px;
+  font-weight: normal;
+}
+
+/**
+ * ==========================================================================
+   CONFIRM DIALOG OVERRIDES // 确认对话框样式覆盖
+   ========================================================================== */
+
+/**
+ * 删除确认对话框的危险按钮样式
+ */
+::v-deep .team-settings-panel-confirm-btn-danger {
+  background: var(--alarm-burgundy) !important;
+  border-color: var(--alarm-burgundy) !important;
+  color: var(--color-white) !important;
+}
+
+::v-deep .team-settings-panel-confirm-btn-danger:hover {
+  background: #8a1f25 !important;
+  border-color: #8a1f25 !important;
+}

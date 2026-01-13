@@ -1,0 +1,1292 @@
+/* ==========================================================================
+   TASK LIST COMPONENT // 任务列表组件样式表
+   Component: TaskList.vue
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   根容器样式
+   -------------------------------------------------------------------------- */
+
+/**
+ * 任务列表面板根容器
+ * 使用 Flexbox 布局，占据左侧空间（flex: 6）
+ */
+.task-list-pane {
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+  background: transparent;
+  height: 100%;
+  flex: 6;
+  width: 0; /* 让 flex 控制宽度 */
+  padding: 0;
+  white-space: normal;
+  border-right: var(--border-width) solid var(--color-black);
+}
+
+/* --------------------------------------------------------------------------
+   头部和工具栏样式
+   -------------------------------------------------------------------------- */
+
+/**
+ * 列表头部容器
+ * 包含标题和工具栏，底部有三色渐变装饰条
+ */
+.task-list-header {
+  background: var(--lunar-cream);
+  border: var(--border-width) solid var(--space-black);
+  box-shadow: none;
+  padding: 10px 14px;
+  padding-bottom: 16px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 20;
+}
+
+/**
+ * 头部底部三色渐变装饰条
+ * 使用主题色：avionics-mustard、oxidized-sage、alarm-burgundy
+ */
+.task-list-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(
+    to right, 
+    var(--avionics-mustard) 33.33%, 
+    var(--oxidized-sage) 33.33% 66.66%, 
+    var(--alarm-burgundy) 66.66%
+  );
+}
+
+/**
+ * 头部标题行
+ * 包含标题文本组和装饰线
+ */
+.task-list-header-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: var(--border-width) solid rgba(24, 24, 24, 0.1);
+  padding-bottom: 2px;
+}
+
+/**
+ * 标题文本组
+ * 包含英文标题和中文标题
+ */
+.task-list-title-text-group {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+/**
+ * 英文标题
+ * 使用 Impact 字体，大字号，深色
+ */
+.task-list-title-en {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 28px;
+  color: var(--space-black);
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+/**
+ * 中文标题
+ * 使用主题字体，中等字号，主题色
+ */
+.task-list-title-cn {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--mission-rust);
+}
+
+/**
+ * 头部装饰线
+ * 显示装饰文字和形状
+ */
+.task-list-header-decor-line {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: #999; /* 可以使用 var(--color-black) with opacity */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/**
+ * 工具栏容器
+ * 包含排序、筛选、搜索、创建等操作按钮
+ */
+.task-list-toolbar {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  height: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   自定义单选按钮组（排序）
+   -------------------------------------------------------------------------- */
+
+/**
+ * 排序单选按钮组样式
+ * 覆盖 Element UI 默认样式，使用主题风格
+ */
+.task-list-retro-radio-group .el-radio-button__inner {
+  border: 1px solid var(--space-black) !important;
+  border-radius: var(--border-radius) !important;
+  background: transparent !important;
+  color: var(--space-black) !important;
+  font-family: 'Impact', sans-serif !important;
+  font-size: 13px !important;
+  padding: 6px 12px !important;
+  box-shadow: none !important;
+  margin-right: 6px;
+  transition: all 0.2s;
+}
+
+.task-list-retro-radio-group .el-radio-button__inner:hover {
+  background: var(--color-white) !important;
+  color: var(--space-black) !important;
+}
+
+.task-list-retro-radio-group .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  background: var(--space-black) !important;
+  color: var(--lunar-cream) !important;
+  box-shadow: var(--shadow-active) !important;
+  transform: translate(-1px, -1px);
+}
+
+/* --------------------------------------------------------------------------
+   复古风格筛选按钮
+   -------------------------------------------------------------------------- */
+
+/**
+ * 筛选按钮基础样式
+ * "与我相关"切换按钮
+ */
+.task-list-retro-filter-btn {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  border: 1px solid var(--space-black);
+  background: transparent;
+  padding: 0 10px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+  margin-right: 10px;
+  gap: 6px;
+  user-select: none;
+  margin-left: 6px;
+}
+
+.task-list-retro-filter-btn:hover {
+  background: var(--color-white);
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+
+.task-list-retro-filter-btn .task-list-btn-text {
+  font-size: 12px;
+  color: #555; /* 可以使用 var(--color-black) with opacity */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.task-list-retro-filter-btn.task-list-active {
+  background: var(--space-black);
+  box-shadow: var(--shadow-active);
+  transform: translate(-1px, -1px);
+}
+
+.task-list-retro-filter-btn.task-list-active .task-list-btn-text {
+  color: var(--lunar-cream);
+}
+
+/* --------------------------------------------------------------------------
+   复古风格状态触发器样式
+   -------------------------------------------------------------------------- */
+
+/**
+ * 状态筛选触发器
+ * 点击后弹出状态筛选弹窗
+ */
+.task-list-retro-status-trigger {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  background: transparent;
+  border: 1px solid var(--space-black);
+  cursor: pointer;
+  margin-right: 8px;
+  transition: all 0.2s;
+  user-select: none;
+  padding: 3px 0 0 0;
+  position: relative;
+}
+
+/**
+ * 状态触发器悬停和有值状态
+ * 显示阴影和轻微位移
+ */
+.task-list-retro-status-trigger:hover,
+.task-list-retro-status-trigger.task-list-has-value {
+  border-color: var(--space-black);
+  box-shadow: var(--shadow-active);
+  transform: translate(-1px, -1px);
+}
+
+/**
+ * 有值状态的状态触发器
+ * 深色背景，浅色文字
+ */
+.task-list-retro-status-trigger.task-list-has-value {
+  background: var(--space-black);
+}
+
+.task-list-retro-status-trigger .task-list-trigger-label {
+  font-family: 'Impact', sans-serif;
+  font-size: 15px;
+  padding: 0 6px;
+  color: var(--space-black);
+  border-right: 1px solid var(--space-black);
+  height: 100%;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+
+.task-list-retro-status-trigger.task-list-has-value .task-list-trigger-label {
+  color: var(--lunar-cream);
+  border-right-color: var(--lunar-cream);
+}
+
+.task-list-retro-status-trigger .task-list-trigger-value-box {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 0 8px;
+  color: var(--space-black);
+  height: 100%;
+  line-height: 22px;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.task-list-retro-status-trigger.task-list-has-value .task-list-trigger-value-box {
+  color: var(--brand-warning);
+}
+
+.task-list-status-icon-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.task-list-status-icon-item {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   复古风格筛选弹窗样式
+   -------------------------------------------------------------------------- */
+
+/**
+ * 筛选弹窗容器
+ * 覆盖 Element UI Popover 默认样式
+ */
+.task-list-retro-filter-popover {
+  padding: 0 !important;
+  border: var(--border-width) solid var(--space-black) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow-normal) !important;
+  background: var(--lunar-cream) !important;
+}
+
+/**
+ * 筛选弹窗内容区域
+ */
+.task-list-retro-filter-content {
+  padding: 8px;
+}
+
+/**
+ * 筛选弹窗头部标题
+ * 显示 "SELECT STATUS //"
+ */
+.task-list-filter-header-line {
+  font-family: 'Impact', sans-serif;
+  font-size: 12px;
+  color: var(--mission-rust);
+  border-bottom: var(--border-width) solid var(--space-black);
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 筛选选项
+ * 可点击的状态选项项
+ */
+.task-list-filter-option {
+  display: flex;
+  align-items: center;
+  padding: 6px 4px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border: 1px solid transparent;
+}
+
+.task-list-filter-option:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+/**
+ * 选中状态的筛选选项
+ * 深色背景，浅色文字
+ */
+.task-list-filter-option.task-list-is-selected {
+  background: var(--space-black);
+}
+
+/**
+ * 选项复选框
+ * 方形复选框，显示选中状态
+ */
+.task-list-option-checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--space-black);
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+}
+
+.task-list-filter-option.task-list-is-selected .task-list-option-checkbox {
+  border-color: var(--lunar-cream);
+  background: var(--space-black);
+}
+
+/**
+ * 复选框内部标识
+ * 选中时显示的小方块
+ */
+.task-list-checkbox-inner {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+
+.task-list-filter-option.task-list-is-selected .task-list-checkbox-inner {
+  background: var(--brand-warning);
+  box-shadow: 0 0 2px var(--brand-warning);
+}
+
+/**
+ * 选项标签文本
+ */
+.task-list-option-label {
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--space-black);
+}
+
+.task-list-filter-option.task-list-is-selected .task-list-option-label {
+  color: var(--lunar-cream);
+}
+
+/**
+ * 选项图标
+ * 状态图标
+ */
+.task-list-option-icon {
+  margin-right: 6px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/**
+ * 筛选操作行
+ * 包含清除选择按钮
+ */
+.task-list-filter-actions-line {
+  margin-top: 8px;
+  border-top: 1px dashed var(--space-black);
+  padding-top: 6px;
+  text-align: right;
+}
+
+/**
+ * 操作文本
+ * 清除选择链接
+ */
+.task-list-action-text {
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--mission-rust);
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   搜索框样式
+   -------------------------------------------------------------------------- */
+
+/**
+ * 复古风格搜索框
+ * 带有边框和装饰性角落
+ */
+.task-list-retro-search-box {
+  display: flex;
+  align-items: center;
+  border: var(--border-width) solid var(--space-black);
+  background-color: var(--lunar-cream);
+  height: 28px;
+  padding: 0 10px;
+  position: relative;
+  min-width: 140px;
+  max-width: 280px;
+  flex: 1 1 auto;
+  margin: 0 10px;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+/**
+ * 搜索框聚焦状态
+ * 显示阴影和轻微位移
+ */
+.task-list-retro-search-box:focus-within {
+  box-shadow: var(--shadow-active);
+  transform: translate(-1px, -1px);
+}
+
+/**
+ * 搜索图标
+ * 位于输入框左侧
+ */
+.task-list-retro-search-box .task-list-search-icon {
+  font-weight: 800;
+  color: var(--space-black);
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/**
+ * 搜索输入框
+ * 透明背景，无边框
+ */
+.task-list-retro-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--space-black);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+/**
+ * 搜索输入框占位符
+ * 灰色文字
+ */
+.task-list-retro-search-input::placeholder {
+  color: rgba(160, 170, 181, 1); /* #a0aab5 */
+  font-weight: 700;
+  opacity: 1;
+}
+
+/**
+ * 搜索框装饰角落
+ * 右下角三角形装饰
+ */
+.task-list-retro-search-box .task-list-search-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 6px solid var(--space-black);
+  border-left: 6px solid transparent;
+  pointer-events: none;
+}
+
+/* Create Button */
+/**
+ * 创建按钮样式
+ * 深色背景，主题色阴影
+ */
+.task-list-retro-btn.task-list-create-btn {
+  background: var(--space-black) !important;
+  color: var(--color-white) !important;
+  border: none !important;
+  padding: 0 14px !important;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  box-shadow: 3px 3px 0 var(--mission-rust) !important;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: var(--border-radius) !important;
+}
+
+.task-list-retro-btn.task-list-create-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-active) !important;
+}
+
+.task-list-retro-btn.task-list-create-btn .task-list-btn-content {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.task-list-retro-btn.task-list-create-btn .task-list-btn-icon {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.task-list-retro-btn.task-list-create-btn .task-list-btn-text-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-align: left;
+}
+
+.task-list-retro-btn.task-list-create-btn .task-list-btn-en {
+  font-size: 6px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.task-list-retro-btn.task-list-create-btn .task-list-btn-cn {
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   任务列表容器样式
+   -------------------------------------------------------------------------- */
+
+/**
+ * 任务列表包装容器
+ * 占据剩余空间，包含滚动列表
+ */
+.task-list-wrap {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: transparent;
+}
+
+/**
+ * 复古风格列表容器
+ * 使用主题背景色和边框
+ */
+.task-list-retro-list-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--lunar-cream);
+  border-top: var(--border-width) solid var(--space-black);
+}
+
+/**
+ * 任务列表滚动容器
+ * 使用主题网格背景，支持垂直滚动
+ */
+.task-list {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  background-color: var(--lunar-cream);
+  background-image: 
+    linear-gradient(rgba(24, 24, 24, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/**
+ * 任务列表滚动条样式
+ * 自定义滚动条外观
+ */
+.task-list::-webkit-scrollbar { 
+  width: 10px; 
+  background-color: transparent; 
+}
+.task-list::-webkit-scrollbar-track { 
+  background-color: transparent; 
+}
+.task-list::-webkit-scrollbar-thumb { 
+  background-color: var(--brand-primary); /* 使用主题色替代 #ff6b00 */
+  border: var(--border-width) solid var(--color-black); 
+}
+
+/* 
+   RHINE TASK STRIP STYLES 
+   Refactored List Item Style
+*/
+
+.task-list-rhine-task-strip {
+  display: flex;
+  background-color: #181818 !important;
+  border: 1px solid #333;
+  margin-bottom: 8px;
+  position: relative;
+  transition: all 0.2s;
+  min-height: 56px;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+.task-list-rhine-task-strip.task-list-main-task-strip:hover {
+  transform: translateX(4px);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+  border-color: #555;
+}
+
+.task-list-rhine-task-strip.task-list-is-selected {
+  border-color: #ff6b00;
+  box-shadow: 0 0 0 1px #ff6600, 4px 4px 8px rgba(255, 102, 0, 0.2);
+  z-index: 1;
+}
+
+.task-list-rhine-task-strip.task-list-is-timeout {
+  background-color: var(--mission-rust) !important;
+  border-color: rgba(124, 70, 41, 1); /* #7c4629，mission-rust 的深色变体 */
+}
+.task-list-rhine-task-strip.task-list-is-timeout .task-list-task-name-text,
+.task-list-rhine-task-strip.task-list-is-timeout .task-list-meta-text-item,
+.task-list-rhine-task-strip.task-list-is-timeout .task-list-meta-right,
+.task-list-rhine-task-strip.task-list-is-timeout .task-list-subtask-indicator {
+  color: var(--color-white) !important;
+}
+
+/* Left Tri-Color Bar */
+.task-list-rhine-strip-left-tri {
+  width: 6px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(0,0,0,0.1);
+}
+.task-list-tri-bar { flex: 1; width: 100%; }
+.task-list-bar-mustard { background-color: var(--avionics-mustard); }
+.task-list-bar-sage { background-color: var(--oxidized-sage); }
+.task-list-bar-burgundy { background-color: var(--alarm-burgundy); }
+
+/* Strip Body */
+.task-list-rhine-strip-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 16px;
+  min-width: 0;
+}
+
+/* Row 1: Meta Info */
+.task-list-strip-row-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 10px;
+  color: #999;
+  width: 100%;
+}
+
+.task-list-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.task-list-meta-text-item {
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+}
+.task-list-meta-text-item .task-list-process { color: #ff6b00; }
+.task-list-meta-text-item .task-list-completed { color: #999; text-decoration: line-through; }
+.task-list-meta-text-item .task-list-timeout { color: #F56C6C; }
+.task-list-meta-text-item .task-list-disabled { color: #909399; }
+
+.task-list-meta-right {
+  display: flex;
+  align-items: center;
+}
+
+.task-list-rhine-task-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Impact', sans-serif;
+  font-size: 14px;
+  color: rgb(238, 171, 63);
+  letter-spacing: 0.5px;
+}
+
+.task-list-rhine-task-date .task-list-date-text {
+  opacity: 0.8;
+}
+
+.task-list-rhine-task-date.task-list-is-overdue {
+  color: #fff;
+}
+
+.task-list-date-icon-dots {
+  display: flex;
+  gap: 2px;
+  /* Rotate to form a triangle-like shape if needed, or just 3 dots */
+}
+.task-list-date-icon-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.6;
+}
+/* Triangle arrangement for the dots to match reference */
+.task-list-date-icon-dots {
+  width: 10px;
+  height: 10px;
+  position: relative;
+  gap: 0;
+}
+.task-list-date-icon-dots span {
+  position: absolute;
+}
+.task-list-date-icon-dots span:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+.task-list-date-icon-dots span:nth-child(2) { bottom: 0; left: 0; }
+.task-list-date-icon-dots span:nth-child(3) { bottom: 0; right: 0; }
+
+/* Row 2: Main Title & Subtasks */
+.task-list-strip-row-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.task-list-task-name-text {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-white);
+  letter-spacing: 1px; /* 略微增大字间距 */
+  line-height: 1.2;
+}
+
+.task-list-task-id-suffix {
+  font-size: 12px;
+  color: rgba(102, 102, 102, 1); /* #666 */
+  margin-left: 8px;
+  font-weight: normal;
+}
+
+.task-list-task-name-text.task-list-completed {
+  text-decoration: line-through;
+  color: rgba(102, 102, 102, 1); /* #666 */
+}
+.task-list-task-name-text.task-list-timeout {
+  color: var(--brand-danger);
+}
+
+.task-list-subtask-indicator {
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #999;
+  transition: color 0.2s;
+}
+.task-list-subtask-indicator:hover {
+  color: var(--brand-primary);
+}
+.task-list-subtask-indicator i {
+  transition: transform 0.2s;
+}
+.task-list-subtask-indicator i.task-list-is-expanded {
+  transform: rotate(90deg);
+}
+
+/* Priority Logo Mini */
+.task-list-rhine-priority-logo.task-list-mini {
+  margin-top: 0px;
+  display: flex;
+  width: 50px;
+  height: 20px;
+}
+.task-list-rhine-priority-logo.task-list-mini .task-list-logo-half {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task-list-rhine-priority-logo.task-list-mini .task-list-logo-half.task-list-left {
+  background-color: #4e4e4e;
+  color: var(--lunar-cream);
+}
+.task-list-rhine-priority-logo.task-list-mini .task-list-logo-circle {
+  font-family: 'Impact', sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  padding-top: 0px;
+  background-color: white;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+.task-list-rhine-priority-logo.task-list-mini .task-list-logo-half.task-list-right {
+    color: #fff;
+}
+
+/* Status Pill */
+.task-list-rhine-status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-family: 'Impact', sans-serif;
+  font-size: 12px;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  min-width: 60px;
+  position: relative;
+  cursor: default;
+  user-select: none;
+  margin-left: 8px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+  background-color: var(--oxidized-sage); 
+  color: #fff; 
+}
+/* Dots */
+.task-list-rhine-status-pill::before, .task-list-rhine-status-pill::after {
+  content: ''; 
+  position: absolute; 
+  width: 4px; 
+  height: 4px; 
+  border-radius: 50%; 
+  top: 50%; 
+  transform: translateY(-50%);
+  background-color: #fff;
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+.task-list-rhine-status-pill::before { left: 6px; }
+.task-list-rhine-status-pill::after { right: 6px; }
+
+/* Status Colors */
+.task-list-rhine-status-pill.process { 
+    background-color: var(--oxidized-sage); 
+    color: #fff; 
+}
+
+.task-list-rhine-status-pill.completed { 
+    background-color: #EAE0C8; 
+    color: var(--mission-rust); 
+}
+.task-list-rhine-status-pill.completed::before, .task-list-rhine-status-pill.completed::after { 
+    background-color: #333; 
+}
+
+.task-list-rhine-status-pill.disabled { 
+    background-color: #909399; 
+    color: #fff; 
+}
+
+.task-list-rhine-status-pill.timeout { 
+    background-color: #802520; 
+    color: #fff; 
+}
+
+
+/* Task Name */
+.task-list-task-name-text {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+  cursor: pointer;
+  width: 88%;
+  text-align: left;
+  letter-spacing: 0.5px; /* 略微增大字间距 */
+}
+/* .task-list-task-name-text:hover { color: var(--brand-primary); } */
+/**
+ * 已完成状态的任务名称
+ * 添加删除线，文字变灰
+ * 使用 !important 确保优先级高于其他状态样式
+ */
+.task-list-task-name-text.task-list-is-completed {
+  color: rgba(170, 170, 170, 1) !important; /* #aaa，灰色 */
+  text-decoration: line-through !important; /* 删除线 */
+}
+
+.task-list-task-name-text.task-list-is-overdue { color: var(--alarm-burgundy); }
+
+/* Task Meta */
+.task-meta-row {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  color: #999;
+  font-family: 'Courier Prime', monospace;
+  margin-top: 2px;
+}
+.meta-id { margin-right: 12px; }
+.meta-subtasks { color: var(--mission-rust); cursor: pointer; display: flex; align-items: center; }
+.meta-subtasks:hover { text-decoration: underline; }
+.meta-subtasks i { margin-right: 2px; transition: transform 0.2s; }
+.meta-subtasks i.task-list-is-expanded { transform: rotate(90deg); }
+
+/* Date Pill */
+.rhine-date-pill {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--space-black);
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 0;
+  border: 1px solid transparent;
+}
+.rhine-date-pill.task-list-is-overdue { background: #fee; color: var(--alarm-burgundy); border: 1px solid var(--alarm-burgundy); }
+
+/* Avatar */
+.assignee-avatar-container {
+  width: 24px; height: 24px; border-radius: 50%; overflow: hidden; border: 1px solid var(--space-black);
+}
+.avatar-img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Subtask List Mini */
+.task-list-subtask-collapse-panel {
+  background-color: var(--lunar-cream);
+  padding: 0 0 8px 2px;
+}
+
+.task-list-subtask-list-mini {
+  display: flex;
+  flex-direction: column;
+  /* gap removed for continuous timeline */
+}
+
+.task-list-rhine-task-strip.task-list-sub-strip {
+  background-color: #181818 !important; /* Default: Sync with normal main task bg */
+  border: 1px solid #333;
+  margin-bottom: 4px;
+  min-height: 32px;
+  height: 32px;
+  box-shadow: none;
+}
+
+.task-list-rhine-task-strip.task-list-sub-strip.task-list-is-parent-timeout {
+  background-color: #B2653B !important; /* Timeout: Sync with timeout main task bg */
+  border-color: #5c1915;
+}
+
+.task-list-rhine-task-strip.task-list-sub-strip:hover {
+  transform: translateX(4px);
+  border-color: #666;
+}
+
+.task-list-rhine-task-strip.task-list-sub-strip.task-list-is-parent-timeout:hover {
+  border-color: #fff;
+}
+
+.task-list-rhine-task-strip.task-list-sub-strip .task-list-rhine-strip-body.task-list-sub-body {
+  padding: 0 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.task-list-sub-status-box {
+  flex-shrink: 0;
+}
+
+.task-list-rhine-status-pill.task-list-mini {
+  height: 16px; padding: 0 8px; font-size: 9px; min-width: 60px;
+}
+.task-list-rhine-status-pill.task-list-mini::before { left: 4px; }
+.task-list-rhine-status-pill.task-list-mini::after { right: 4px; }
+
+.task-list-sub-name-text {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  letter-spacing: 0.5px; /* 略微增大字间距 */
+}
+
+/**
+ * 已完成状态的子任务名称
+ * 添加删除线，文字变灰
+ * 优先级需要高于活动状态的样式
+ */
+.task-list-sub-name-text.completed {
+  color: rgba(170, 170, 170, 1) !important; /* #aaa，灰色 */
+  text-decoration: line-through !important; /* 删除线 */
+}
+
+/**
+ * 已完成状态的子任务名称（即使处于活动状态）
+ * 确保已完成状态的样式优先级高于活动状态
+ */
+.task-list-rhine-task-strip.task-list-sub-strip.task-list-is-active-sub .task-list-sub-name-text.completed {
+  color: rgba(170, 170, 170, 1) !important; /* #aaa，灰色 */
+  text-decoration: line-through !important; /* 删除线 */
+}
+
+.task-list-sub-date {
+  font-size: 10px;
+  font-family: 'Impact', sans-serif;
+  color: rgba(255,255,255,0.8);
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.task-list-no-subtasks-mini { font-size: 12px; color: #999; font-style: italic; padding: 4px 0; }
+
+/* Footer */
+.task-list-footer {
+  height: 56px;
+  padding: 0 20px;
+  border-top: 2px solid #1a1a1a;
+  background: var(--lunar-cream);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+/**
+ * Footer 右侧区域
+ * 包含设置下拉菜单
+ */
+.task-list-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/**
+ * Footer 下拉菜单容器
+ */
+.task-list-footer-menu {
+  display: inline-block;
+}
+
+/**
+ * Footer 下拉菜单样式覆盖
+ * 符合磁带复古主义主题风格
+ */
+.task-list-footer-dropdown-menu {
+  /* 使用主题背景色 */
+  background: var(--lunar-cream) !important;
+  /* 使用主题边框 */
+  border: var(--border-width) solid var(--color-black) !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  /* 使用主题圆角 */
+  border-radius: var(--border-radius) !important;
+  padding: 2px 0 !important;
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * Footer 下拉菜单项样式
+ */
+.task-list-footer-dropdown-menu .el-dropdown-menu__item {
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--space-black) !important;
+  padding: 4px 16px !important;
+  transition: all 0.2s !important;
+}
+
+/**
+ * Footer 下拉菜单项悬停状态
+ */
+.task-list-footer-dropdown-menu .el-dropdown-menu__item:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: var(--space-black) !important;
+}
+
+/**
+ * Footer 下拉菜单项禁用状态
+ */
+.task-list-footer-dropdown-menu .el-dropdown-menu__item.is-disabled {
+  color: rgba(0, 0, 0, 0.3) !important;
+  cursor: not-allowed !important;
+}
+
+/**
+ * Footer 下拉菜单项图标
+ */
+.task-list-footer-dropdown-menu .el-dropdown-menu__item i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.task-list-footer-left {
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.task-list-loading-more { padding: 10px 0; text-align: center; color: #909399; font-size: 12px; font-weight: 700; }
+.task-list-end { height: 20px; }
+
+/* Subtask Timeline Styles */
+.task-list-subtask-timeline-row {
+  display: flex;
+  align-items: stretch; /* Stretch so line can be full height */
+  min-height: 36px;
+  position: relative;
+  /* padding removed to allow continuous line via margin on children */
+}
+
+.task-list-timeline-col {
+  width: 12px;
+  margin-left: 10px;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Node centered vertically */
+}
+
+.task-list-timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background-color: #333;
+  z-index: 0;
+}
+
+/* Line trimming for first/last items to connect to nodes cleanly */
+.task-list-subtask-timeline-row:first-child .task-list-timeline-line {
+  top: 50%;
+}
+.task-list-subtask-timeline-row:last-child .task-list-timeline-line {
+  bottom: 50%;
+}
+
+.task-list-timeline-node {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #181818;
+  border: 2px solid #666;
+  z-index: 1;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.task-list-timeline-node.task-list-completed {
+  border-color: #999;
+  background-color: #181818;
+}
+
+.task-list-timeline-node.task-list-timeout {
+  border-color: #F56C6C;
+  background-color: #181818;
+}
+
+.task-list-timeline-node.task-list-active {
+  width: 14px;
+  height: 14px;
+  background-color: #ff6b00; /* Orange active */
+  border: 2px solid #ff6b00;
+  box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.2);
+}
+
+/* Ripple Animation */
+.task-list-ripple-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid #ff6b00;
+  opacity: 0;
+  animation: task-list-ripple-effect 2s infinite;
+}
+
+@keyframes task-list-ripple-effect {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    border-width: 2px;
+  }
+  100% {
+    width: 300%;
+    height: 300%;
+    opacity: 0;
+    border-width: 0px;
+  }
+}
+
+/* Adjust Subtask Strip */
+.task-list-rhine-task-strip.task-list-sub-strip {
+  flex: 1;
+  margin-left: 4px; /* 与时间线的间距 */
+  border-left: 1px solid rgba(51, 51, 51, 1); /* #333，可以使用 var(--color-black) with opacity */
+}
+
+/* Active Subtask Strip Highlight */
+.task-list-rhine-task-strip.task-list-sub-strip.task-list-is-active-sub {
+  border-color: #ff6b00;
+  background-color: #2a2a2a !important;
+}
+.task-list-rhine-task-strip.task-list-sub-strip.task-list-is-active-sub .task-list-sub-name-text {
+  color: #ff6b00;
+}

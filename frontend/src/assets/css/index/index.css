@@ -1,0 +1,75 @@
+/* ==========================================================================
+   INDEX LAYOUT // 首页布局样式
+   -------------------------------------------------------------------------- */
+
+/* 整体布局容器 */
+.index-dashboard {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  /* 顶部橙色线条 */
+  border-top: 4px solid var(--space-black);
+  /* 使用 Lunar Grid Dense 主题背景 */
+  background-color: var(--lunar-cream);
+  background-image: 
+    linear-gradient(rgba(24, 24, 24, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 右侧内容区 */
+.index-content {
+  flex: 1;
+  background: transparent; /* 透出网格背景 */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0; /* 由子页面决定 padding */
+}
+
+/* 左侧侧边栏 */
+.index-sidebar {
+  width: 11%; /* 改为百分比宽度，保持固定比例 */
+  flex-shrink: 0;
+  background: transparent; /* 去除背景，透出 Lunar Grid */
+  border-right: 6px solid var(--space-black);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  box-shadow: 4px 0 0 rgba(0,0,0,0.1);
+}
+
+/* 侧边栏滚动区域 */
+.index-sidebar-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden; /* 防止横向滚动条 */
+  min-height: 0; /* 确保 flex item 内部滚动生效 */
+  width: 100%; /* 确保宽度不超过父容器 */
+  box-sizing: border-box; /* 确保 padding 和 border 包含在宽度内 */
+  
+  /* 使用主题定义的默认滚动条样式 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--space-black) transparent;
+}
+
+.index-sidebar-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.index-sidebar-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.index-sidebar-scroll-area::-webkit-scrollbar-thumb {
+  background-color: var(--space-black);
+  border-radius: var(--border-radius);
+}
+
+.index-sidebar-scroll-area::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mission-rust);
+}

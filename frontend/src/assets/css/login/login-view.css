@@ -1,0 +1,193 @@
+/* --------------------------------------------------------------------------
+   LOGIN VIEW // 登录页面主布局
+   -------------------------------------------------------------------------- */
+
+/* 页面容器：米色背景 + 网格线 */
+.login-page {
+  position: relative; /* Create stacking context for absolute children */
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-bg);
+  /* 使用主题中定义的网格背景，或手动定义以确保一致性 */
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: var(--font-family);
+}
+
+/* 登录卡片 */
+.login-box {
+  width: 500px;
+  min-height: 540px;
+  max-width: 92vw;
+  padding: 28px 24px 16px;
+  background: var(--color-bg-light);
+  border: 3px solid var(--color-black); /* 加粗边框 */
+  border-radius: 0;
+  box-shadow: 12px 12px 0 var(--color-black);
+  text-align: center;
+  transition: min-height 420ms ease, padding 420ms ease;
+  position: relative;
+  z-index: 10; /* Ensure it floats above stardust */
+}
+
+/* 装饰性顶部条 "SYSTEM_ACCESS" */
+.login-box::before {
+  content: "SYSTEM_ACCESS // 身份验证";
+  display: block;
+  background: var(--color-black);
+  color: var(--color-bg);
+  font-size: 12px;
+  font-weight: bold;
+  text-align: left;
+  padding: 4px 8px;
+  margin: -28px -24px 20px -24px; /* 抵消 padding */
+  border-bottom: 3px solid var(--color-black);
+}
+
+.login-box.login-register-mode {
+  min-height: 620px;
+}
+
+/* 头像 */
+.login-avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin: 0 auto 8px;
+  display: block;
+  border: 3px solid var(--color-black);
+  background: #fff;
+  padding: 10px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+}
+
+/* 标题区域 */
+.login-title {
+  font-weight: 700;
+  margin: 8px 0 10px;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-left: 40px; /* Logo 向右偏移 */
+}
+
+.login-title .login-title-duck {
+  font-size: 64px;
+  color: var(--color-black);
+  margin-right: 8px;
+  text-shadow: 4px 4px 0 var(--brand-primary); /* 黑色字体，橙色(rust)阴影 */
+  display: inline-block;
+  vertical-align: bottom;
+  clip-path: inset(0 100% 0 0);
+  animation: logo-type 0.3s steps(4) 0.1s forwards;
+}
+
+.login-title .login-title-todo {
+  font-size: 64px;
+  color: var(--brand-primary); /* 橙色(rust)字体 */
+  text-shadow: 4px 4px 0 var(--color-black); /* 黑色阴影 */
+  display: inline-block;
+  vertical-align: bottom;
+  clip-path: inset(0 100% 0 0);
+  animation: logo-type 0.3s steps(4) 0.5s forwards;
+}
+
+/* 光标动画 */
+.login-title-logo-cursor {
+  font-size: 64px;
+  color: var(--brand-primary);
+  text-shadow: 4px 4px 0 var(--color-black);
+  display: inline-block;
+  vertical-align: bottom;
+  margin-left: 10px;
+  opacity: 0;
+  animation: cursor-appear 0.1s 0.9s forwards, blink 1s 0.9s step-end infinite;
+}
+
+@keyframes logo-type {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes cursor-appear {
+  to { opacity: 1; }
+}
+
+/* 表单容器 */
+.login-form {
+  text-align: left;
+}
+
+/* 高度切换动画包裹器 */
+.login-switch-wrapper {
+  transition: height 420ms ease;
+  overflow: hidden;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+/* 动画定义 */
+.login-fade-enter-active, .login-fade-leave-active {
+  transition: opacity 0.5s;
+}
+.login-fade-enter, .login-fade-leave-to {
+  opacity: 0;
+}
+
+.login-slide-up-enter-active {
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.login-slide-up-leave-active {
+  transition: all 0.3s ease;
+}
+.login-slide-up-enter {
+  transform: translateY(100vh);
+  opacity: 1;
+}
+.login-slide-up-leave-to {
+  opacity: 0;
+}
+
+.login-fade-switch-enter-active, .login-fade-switch-leave-active {
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+.login-fade-switch-enter, .login-fade-switch-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Global Retro Dropdown Styles for Login Page */
+.login-retro-dropdown.el-select-dropdown {
+  border: 2px solid var(--color-black);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--color-black);
+  background-color: #fff;
+  font-family: var(--font-family);
+  margin-top: 2px !important;
+}
+
+.login-retro-dropdown .el-select-dropdown__item {
+  color: var(--color-black);
+  font-weight: bold;
+  padding: 0 20px;
+}
+
+.login-retro-dropdown .el-select-dropdown__item.selected {
+  color: var(--brand-primary);
+  font-weight: 900;
+}
+
+.login-retro-dropdown .el-select-dropdown__item.hover,
+.login-retro-dropdown .el-select-dropdown__item:hover {
+  background-color: var(--color-black);
+  color: var(--lunar-cream);
+}
+
+.login-retro-dropdown .popper__arrow {
+  display: none !important;
+}

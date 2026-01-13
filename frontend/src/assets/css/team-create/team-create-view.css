@@ -1,0 +1,396 @@
+/* ==========================================================================
+   TEAM CREATE VIEW // 创建团队视图样式
+   Theme: Retro Futurism / Brutalism (Integrated with App Theme)
+   ========================================================================== */
+
+/**
+ * 创建团队页面根容器
+ * 使用 flex 布局，横向排列左右两个面板
+ */
+.team-create-page {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 分割布局容器
+ * 用于标识页面使用分割布局
+ */
+.team-create-split-layout {
+  /* 继承父容器样式 */
+}
+
+/**
+ * ==========================================================================
+   LEFT PANEL // 左侧面板样式
+   ========================================================================== */
+
+/**
+ * 左侧装饰面板
+ * 显示用户信息和团队统计信息
+ */
+.team-create-left-panel {
+  width: 35%;
+  height: 100%;
+  /* 使用主题深空黑色背景 */
+  background-color: var(--space-black);
+  /* 使用主题月球奶油色文字 */
+  color: var(--lunar-cream);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 内边距由子组件处理 */
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* 使用主题任务铁锈红色边框（粗边框） */
+  border-right: var(--border-width-bold) solid var(--mission-rust);
+}
+
+/**
+ * ==========================================================================
+   RIGHT PANEL // 右侧面板样式
+   ========================================================================== */
+
+/**
+ * 右侧内容面板
+ * 包含模式选择器、创建表单、加入列表等内容
+ */
+.team-create-right-panel {
+  width: 65%;
+  height: 100%;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+  /* 保持静态网格作为基础纹理（使用主题网格样式） */
+  background-image:
+    linear-gradient(rgba(24, 24, 24, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * ==========================================================================
+   DYNAMIC BACKGROUND // 动态背景样式
+   ========================================================================== */
+
+/**
+ * 动态背景容器（右侧面板）
+ * 包含柱状图、曲线、粒子效果等装饰性背景元素
+ */
+.team-create-dynamic-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none; /* 让点击事件穿透 */
+}
+
+/**
+ * 背景柱状图区域
+ * 底部柱状图动画区域
+ */
+.team-create-bg-chart-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 2%;
+  box-sizing: border-box;
+}
+
+/**
+ * 背景柱状图单个柱子
+ * 使用主题任务铁锈红色创建渐变柱状图效果
+ */
+.team-create-bg-bar {
+  width: 3%;
+  /* 使用主题任务铁锈红色低透明度渐变 */
+  background: linear-gradient(to top, rgba(178, 101, 59, 0.1), transparent);
+  height: 20%;
+  animation: team-create-bg-bar-anim 4s infinite ease-in-out alternate;
+  animation-delay: var(--delay);
+  animation-duration: var(--duration);
+  /* 使用主题任务铁锈红色边框 */
+  border-top: var(--border-width) solid rgba(178, 101, 59, 0.2);
+}
+
+/**
+ * 背景柱状图动画
+ * 柱子高度和透明度的脉冲动画
+ */
+@keyframes team-create-bg-bar-anim {
+  0% { 
+    height: 10%; 
+    opacity: 0.3; 
+  }
+  50% { 
+    height: 40%; 
+    opacity: 0.6; 
+  }
+  100% { 
+    height: 25%; 
+    opacity: 0.4; 
+  }
+}
+
+/**
+ * 背景曲线区域
+ * SVG 曲线装饰区域
+ */
+.team-create-bg-curve-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/**
+ * 背景曲线 SVG
+ * 底部波浪曲线装饰
+ */
+.team-create-bg-curve-area svg {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.6;
+}
+
+/**
+ * 顶部粒子画布
+ * Canvas 粒子效果层，覆盖右侧面板的上半部分
+ */
+.team-create-top-particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%; /* 覆盖右侧面板的上 60% */
+  z-index: 5; /* 在动态背景（0）之上，但在内容层（10）之下 */
+  pointer-events: none; /* 让点击事件穿透 */
+}
+/**
+ * ==========================================================================
+   CONTENT LAYER // 内容层样式
+   ========================================================================== */
+
+/**
+ * 内容层
+ * 包含主内容区域，位于所有背景层之上
+ */
+.team-create-content-layer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* 增加内边距以获得更清晰的视觉效果 */
+  padding: 40px 60px;
+  box-sizing: border-box;
+}
+
+/**
+ * 主内容区域
+ * 包含模式选择器、创建表单、加入列表等内容组件
+ */
+.team-create-main-content-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  position: relative;
+}
+
+/**
+ * ==========================================================================
+   DECORATIVE LAYER // 装饰层样式
+   ========================================================================== */
+
+/**
+ * 装饰层（右侧面板）
+ * 包含角落括号、十字准星、浮动文字等装饰性元素
+ */
+.team-create-decorative-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* 在背景之上，但在内容层之下 */
+  pointer-events: none; /* 让点击事件穿透 */
+  overflow: hidden;
+}
+
+/**
+ * ==========================================================================
+   CORNER BRACKETS // 角落括号样式
+   ========================================================================== */
+
+/**
+ * 角落括号基础样式
+ * 装饰性的角落标记
+ */
+.team-create-corner-bracket {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width-bold) solid var(--color-black);
+  opacity: 0.3;
+}
+
+/**
+ * 右上角括号
+ */
+.team-create-corner-bracket.team-create-top-right {
+  top: 20px;
+  right: 20px;
+  border-left: none;
+  border-bottom: none;
+}
+
+/**
+ * 右下角括号
+ */
+.team-create-corner-bracket.team-create-bottom-right {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+}
+
+/**
+ * ==========================================================================
+   CROSSHAIRS // 十字准星样式
+   ========================================================================== */
+
+/**
+ * 十字准星基础样式
+ * 装饰性的十字标记
+ */
+.team-create-crosshair {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+/**
+ * 十字准星横线（伪元素）
+ */
+.team-create-crosshair::before,
+.team-create-crosshair::after {
+  content: '';
+  position: absolute;
+  /* 使用主题品牌警告色 */
+  background-color: var(--brand-warning);
+}
+
+/**
+ * 十字准星横线
+ */
+.team-create-crosshair::before {
+  top: 9px;
+  left: 0;
+  width: 20px;
+  height: var(--border-width);
+}
+
+/**
+ * 十字准星竖线
+ */
+.team-create-crosshair::after {
+  top: 0;
+  left: 9px;
+  width: var(--border-width);
+  height: 20px;
+}
+
+/**
+ * 右上角十字准星
+ */
+.team-create-crosshair.team-create-top-right {
+  top: 40px;
+  right: 60px;
+}
+
+/**
+ * ==========================================================================
+   FLOATING TEXT // 浮动文字样式
+   ========================================================================== */
+
+/**
+ * 浮动文字基础样式
+ * 装饰性的浮动文字元素
+ */
+.team-create-floating-text {
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  opacity: 0.4;
+  letter-spacing: 1px;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 版本浮动文字
+ */
+.team-create-floating-text.team-create-version {
+  bottom: 25px;
+  left: 40px;
+}
+
+/**
+ * ==========================================================================
+   TRANSITIONS // 过渡动画样式
+   ========================================================================== */
+
+/**
+ * 淡入淡出过渡动画
+ * 用于模式选择器的显示和隐藏
+ */
+.team-create-fade-enter-active, 
+.team-create-fade-leave-active { 
+  transition: opacity 0.3s ease; 
+}
+
+.team-create-fade-enter, 
+.team-create-fade-leave-to { 
+  opacity: 0; 
+}
+
+/**
+ * 上升淡入淡出过渡动画
+ * 用于表单和列表的显示和隐藏，带有向上移动效果
+ */
+.team-create-rise-fade-enter-active, 
+.team-create-rise-fade-leave-active { 
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+.team-create-rise-fade-enter, 
+.team-create-rise-fade-leave-to { 
+  opacity: 0; 
+  transform: translateY(20px); 
+}

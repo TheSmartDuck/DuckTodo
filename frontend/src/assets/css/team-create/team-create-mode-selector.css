@@ -1,0 +1,524 @@
+/* ==========================================================================
+   TEAM CREATE MODE SELECTOR // 创建团队模式选择器样式
+   Theme: Retro Futurism / Brutalism (Integrated with App Theme)
+   ========================================================================== */
+
+/**
+ * ==========================================================================
+   CHOICE GRID // 选择网格容器样式
+   ========================================================================== */
+
+/**
+ * 选择网格容器
+ * 包含两个模式选择卡片的容器
+ */
+.team-create-mode-selector-choice-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  z-index: 50; /* 确保卡片在粒子层之上 */
+}
+
+/**
+ * ==========================================================================
+   MISSION CARD // 任务卡片样式
+   ========================================================================== */
+
+/**
+ * 任务卡片基础样式
+ * 磁带未来主义风格的选择卡片
+ */
+.team-create-mode-selector-mission-card {
+  width: 100%;
+  height: 240px; /* 增加高度 */
+  /* 使用主题浅色背景 */
+  background: var(--lunar-cream-light);
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+  /* 使用主题边框 */
+  border: var(--border-width) solid var(--color-black);
+  border-radius: 0; /* 锐角 */
+}
+
+/**
+ * 任务卡片悬停效果
+ * 悬停时提升卡片并增强阴影
+ */
+.team-create-mode-selector-mission-card:hover {
+  transform: translateY(-4px);
+  /* 增强阴影效果 */
+  box-shadow: 
+    12px 12px 30px rgba(0, 0, 0, 0.3), 
+    0 0 20px rgba(178, 101, 59, 0.2);
+}
+
+/**
+ * ==========================================================================
+   CARD LEFT SECTION // 卡片左侧区域样式（文字内容）
+   ========================================================================== */
+
+/**
+ * 卡片左侧区域
+ * 包含标题和副标题的文字区域
+ */
+.team-create-mode-selector-card-left {
+  flex: 1;
+  padding: 30px 60px; /* 增加内边距 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+/**
+ * 英文标题
+ * 大号粗体英文标题
+ */
+.team-create-mode-selector-title-en {
+  /* 使用主题字体 */
+  font-family: mono;
+  font-weight: 900;
+  font-size: 64px; /* 增加字体大小 */
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/**
+ * 英文标题前的装饰符号（伪元素）
+ * 悬停时显示的 ">>" 符号
+ */
+.team-create-mode-selector-title-en::before {
+  content: ">> ";
+  position: absolute;
+  left: -80px;
+  /* 使用主题任务铁锈红色 */
+  color: var(--mission-rust);
+  opacity: 0;
+  transform: translateX(-20px);
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+  font-size: 48px;
+  top: 10px;
+  letter-spacing: 0;
+}
+
+/**
+ * 卡片悬停时，标题向右移动
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-title-en {
+  transform: translateX(60px);
+}
+
+/**
+ * 卡片悬停时，显示装饰符号动画
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-title-en::before {
+  animation: team-create-mode-selector-echo-fade 0.4s forwards;
+  transform: translateX(0);
+}
+
+/**
+ * 装饰符号淡入淡出动画
+ */
+@keyframes team-create-mode-selector-echo-fade {
+  0% { opacity: 0; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.6; }
+}
+
+/**
+ * 标题倒影效果
+ * 标题的镜像反射效果
+ */
+.team-create-mode-selector-title-reflect {
+  /* 使用主题字体 */
+  font-family: mono;
+  font-weight: 900;
+  font-size: 64px; /* 增加字体大小 */
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  transform: scaleY(-1); /* 垂直翻转 */
+  opacity: 0.1;
+  margin-top: -12px; /* 向上拉近以接触 */
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/**
+ * 卡片悬停时，倒影也向右移动
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-title-reflect {
+  transform: translateX(40px) scaleY(-1);
+}
+
+/**
+ * 中文副标题
+ * 显示中文描述文字
+ */
+.team-create-mode-selector-subtitle-cn {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #888;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 装饰点符号
+ * 副标题中的 "::" 装饰符号
+ */
+.team-create-mode-selector-deco-dots {
+  /* 使用主题任务铁锈红色 */
+  color: var(--mission-rust);
+  font-weight: 900;
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+/**
+ * ==========================================================================
+   CARD RIGHT SECTION // 卡片右侧区域样式（雷达图形）
+   ========================================================================== */
+
+/**
+ * 卡片右侧区域
+ * 包含雷达图形的区域
+ */
+.team-create-mode-selector-card-right {
+  width: 260px; /* 增加宽度 */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(to left, rgba(0,0,0,0.02), transparent);
+}
+
+/**
+ * 雷达图形容器
+ * 包含圆环、扇形和图标的基础容器
+ */
+.team-create-mode-selector-radar-graphic {
+  width: 200px; /* 增加尺寸 */
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * ==========================================================================
+   RADAR RINGS // 雷达圆环样式
+   ========================================================================== */
+
+/**
+ * 雷达圆环基础样式
+ * 雷达图中的同心圆环
+ */
+.team-create-mode-selector-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+}
+
+/**
+ * 第一层圆环（最外层）
+ */
+.team-create-mode-selector-ring.team-create-mode-selector-r1 { 
+  width: 180px; 
+  height: 180px; 
+  /* 使用主题边框宽度 */
+  border-width: var(--border-width); 
+  border-color: #f0f0f0; 
+}
+
+/**
+ * 第二层圆环（中间层）
+ */
+.team-create-mode-selector-ring.team-create-mode-selector-r2 { 
+  width: 130px; 
+  height: 130px; 
+  border-color: #e0e0e0; 
+}
+
+/**
+ * 第三层圆环（最内层）
+ */
+.team-create-mode-selector-ring.team-create-mode-selector-r3 { 
+  width: 80px; 
+  height: 80px; 
+  border-color: #d0d0d0; 
+}
+
+/**
+ * ==========================================================================
+   RADAR SECTORS // 雷达扇形区域样式
+   ========================================================================== */
+
+/**
+ * 雷达扇形区域基础样式
+ * 雷达图中的扇形区域
+ */
+.team-create-mode-selector-sector {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  /* 使用主题任务铁锈红色 */
+  background-color: var(--mission-rust);
+  opacity: 0.8;
+  border-radius: 0 100% 0 0;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+}
+
+/**
+ * 卡片悬停时，扇形区域旋转动画
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-sector.team-create-mode-selector-s1 {
+  transform: rotate(0deg); /* 从 -30 度旋转到 -120 度（逆时针） */
+}
+
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-sector.team-create-mode-selector-s3 {
+  transform: rotate(-90deg); /* 从 135 度旋转到 225 度（顺时针） */
+}
+
+/**
+ * ==========================================================================
+   CREATE CARD SPECIFIC SECTORS // 创建卡片专用扇形样式
+   ========================================================================== */
+
+/**
+ * 创建卡片的第一个扇形区域
+ */
+.team-create-mode-selector-create-card .team-create-mode-selector-sector.team-create-mode-selector-s1 {
+  width: 64px;
+  height: 64px;
+  transform: rotate(180deg);
+  border-radius: 0 0 100% 0;
+}
+
+/**
+ * 创建卡片的第二个扇形区域（边框样式）
+ */
+.team-create-mode-selector-create-card .team-create-mode-selector-sector.team-create-mode-selector-s2 {
+  width: 90px;
+  height: 90px;
+  transform: rotate(-270deg);
+  left: 190px;
+  background: transparent;
+  /* 使用主题边框宽度和任务铁锈红色 */
+  border: 6px solid var(--mission-rust);
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0 90px 0 0px;
+}
+
+/**
+ * ==========================================================================
+   JOIN CARD SPECIFIC SECTORS // 加入卡片专用扇形样式
+   ========================================================================== */
+
+/**
+ * 加入卡片的第三个扇形区域
+ */
+.team-create-mode-selector-join-card .team-create-mode-selector-sector.team-create-mode-selector-s3 {
+  width: 70px;
+  height: 70px;
+  transform: rotate(-270deg);
+  /* 使用主题航空芥末黄色 */
+  background-color: var(--avionics-mustard);
+  border-radius: 0 0 70px 0;
+}
+
+/**
+ * 加入卡片的第四个扇形区域（边框样式）
+ */
+.team-create-mode-selector-join-card .team-create-mode-selector-sector.team-create-mode-selector-s4 {
+  width: 70px;
+  height: 70px;
+  transform: rotate(0deg);
+  background: transparent;
+  top: 30px;
+  /* 使用主题边框宽度和航空芥末黄色 */
+  border: 6px solid var(--avionics-mustard);
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0 95px 0 0;
+}
+
+/**
+ * ==========================================================================
+   HOVER ANIMATIONS // 悬停动画效果
+   ========================================================================== */
+
+/**
+ * 卡片悬停时，雷达图形放大
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-radar-graphic {
+  transform: scale(1.05);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/**
+ * 卡片悬停时，第一层圆环旋转并改变样式
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-ring.team-create-mode-selector-r1 {
+  transform: translate(-50%, -50%) rotate(180deg);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* 使用主题任务铁锈红色 */
+  border-color: var(--mission-rust);
+  /* 使用主题边框宽度 */
+  border-width: var(--border-width);
+  border-style: dashed;
+}
+
+/**
+ * 卡片悬停时，第二层圆环旋转并改变颜色
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-ring.team-create-mode-selector-r2 {
+  transform: translate(-50%, -50%) rotate(-180deg);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+  /* 使用主题航空芥末黄色 */
+  border-color: var(--avionics-mustard);
+}
+
+/**
+ * 卡片悬停时，第三层圆环旋转并改变颜色
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-ring.team-create-mode-selector-r3 {
+  transform: translate(-50%, -50%) rotate(180deg);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  /* 使用主题颜色 */
+  border-color: var(--color-black);
+}
+
+/**
+ * 卡片悬停时，扇形区域完全不透明
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-sector {
+  opacity: 1;
+}
+
+/**
+ * 卡片悬停时，图标放大
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-icon-overlay {
+  transform: scale(1.1);
+  transition: transform 0.4s ease;
+}
+
+/**
+ * ==========================================================================
+   ICON OVERLAY // 图标覆盖层样式
+   ========================================================================== */
+
+/**
+ * 图标覆盖层
+ * 显示在雷达图形中心的图标
+ */
+.team-create-mode-selector-icon-overlay {
+  position: absolute;
+  z-index: 10;
+  font-size: 48px; /* 增加图标大小 */
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  opacity: 0.8;
+  transition: transform 0.4s ease;
+}
+
+/**
+ * ==========================================================================
+   BOTTOM STRIP // 底部装饰条样式
+   ========================================================================== */
+
+/**
+ * 底部装饰条
+ * 卡片底部的三色渐变装饰条
+ */
+.team-create-mode-selector-bottom-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to right,
+    var(--oxidized-sage) 0%,
+    var(--oxidized-sage) 10%,
+    var(--avionics-mustard) 10%,
+    var(--avionics-mustard) 40%,
+    var(--mission-rust) 40%,
+    var(--mission-rust) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  transition: background-position 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/**
+ * 卡片悬停时，底部装饰条渐变位置移动
+ */
+.team-create-mode-selector-mission-card:hover .team-create-mode-selector-bottom-strip {
+  background-position: 100% 0%;
+  /* 视觉上移动渐变停止点 */
+  background: linear-gradient(to right,
+    var(--oxidized-sage) 0%,
+    var(--oxidized-sage) 20%,
+    var(--avionics-mustard) 20%,
+    var(--avionics-mustard) 60%,
+    var(--mission-rust) 60%,
+    var(--mission-rust) 100%
+  );
+}
+
+/**
+ * ==========================================================================
+   BACKGROUND PARTICLE CANVAS // 背景粒子画布样式
+   ========================================================================== */
+
+/**
+ * 背景粒子画布
+ * 用于显示背景粒子效果的 Canvas 元素
+ * 注意：此样式用于定位粒子画布，实际粒子效果由 JavaScript 控制
+ */
+.team-create-mode-selector-bg-particle-canvas {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 65vw; /* 右侧面板宽度 */
+  height: 60vh; /* 屏幕高度的 60% */
+  z-index: 1; /* 低正数索引，在卡片之下 */
+  pointer-events: none; /* 让点击事件穿透 */
+}

@@ -1,0 +1,970 @@
+/* ==========================================================================
+   TEAM MEMBERS PANEL // 团队成员管理面板样式表
+   Component: TeamMembersPanel.vue
+   ========================================================================== */
+
+/**
+ * 团队成员管理面板根容器
+ * 使用 Flexbox 纵向布局，占据全高
+ */
+.team-members-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * ==========================================================================
+   PANEL CARD // 主卡片容器
+   ========================================================================== */
+
+/**
+ * 主卡片容器
+ * 白色背景，带底部彩色渐变装饰条
+ */
+.team-members-panel-card {
+  width: 100%;
+  height: 100%;
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid rgba(0, 0, 0, 0.1);
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  box-sizing: border-box;
+  /* 使用主题阴影变量 */
+  box-shadow: var(--shadow-light);
+  position: relative;
+  overflow: hidden;
+}
+
+/**
+ * 卡片底部装饰条
+ * 使用主题色创建渐变效果，体现磁带复古主义风格
+ */
+.team-members-panel-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  /* 使用主题色创建渐变装饰条 */
+  background: linear-gradient(90deg, 
+    var(--avionics-mustard) 0%, var(--avionics-mustard) 20%, 
+    var(--oxidized-sage) 20%, var(--oxidized-sage) 60%, 
+    var(--alarm-burgundy) 60%, var(--alarm-burgundy) 100%);
+  z-index: 10;
+}
+
+/**
+ * ==========================================================================
+   PANEL HEADER // 面板头部
+   ========================================================================== */
+
+/**
+ * 面板头部容器
+ * 包含标题和操作按钮组
+ */
+.team-members-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 4px 12px 4px;
+  flex-shrink: 0;
+}
+
+/**
+ * 面板标题样式
+ * 粗体大写文字
+ */
+.team-members-panel-title {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--space-black); /* 使用主题黑色 */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * 头部操作按钮组容器
+ */
+.team-members-panel-header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/**
+ * ==========================================================================
+   INPUTS & BUTTONS // 输入框和按钮
+   ========================================================================== */
+
+/**
+ * 搜索输入框样式覆盖
+ */
+.team-members-panel-search-input ::v-deep .el-input__inner {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid rgba(0, 0, 0, 0.2);
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  background: #f9f9f9; /* 浅灰色背景 */
+  color: var(--space-black); /* 使用主题黑色 */
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-weight: bold;
+  height: 32px;
+  line-height: 32px;
+}
+
+/**
+ * 搜索输入框聚焦状态
+ */
+.team-members-panel-search-input ::v-deep .el-input__inner:focus {
+  border-color: var(--mission-rust); /* 使用主题橙色 */
+  background: var(--color-white); /* 使用主题白色 */
+}
+
+/**
+ * 操作按钮基础样式
+ * 黑色背景，白色文字
+ */
+.team-members-panel-action-btn {
+  background: var(--space-black); /* 使用主题黑色 */
+  color: var(--color-white); /* 使用主题白色 */
+  border: none;
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  padding: 6px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+
+/**
+ * 添加成员按钮样式
+ * 拉长按钮长度
+ */
+.team-members-panel-add-btn {
+  padding: 6px 24px; /* 增加水平内边距，拉长按钮 */
+  min-width: 140px; /* 设置最小宽度，确保按钮足够长 */
+}
+
+/**
+ * 操作按钮悬停状态
+ */
+.team-members-panel-action-btn:hover {
+  background: #333; /* 深灰色 */
+  transform: translateY(-1px);
+}
+
+/**
+ * 操作按钮按下状态
+ */
+.team-members-panel-action-btn:active {
+  transform: translateY(0);
+}
+
+/**
+ * ==========================================================================
+   TABLE STYLES // 表格样式
+   ========================================================================== */
+
+/**
+ * 表格包装器
+ * 占据剩余空间，支持滚动
+ */
+.team-members-panel-table-wrapper {
+  flex: 1;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 8px;
+}
+
+/**
+ * Element UI 表格样式覆盖
+ */
+.team-members-panel-mission-table {
+  border: none;
+}
+
+/**
+ * 表格表头样式
+ * 符合磁带复古主义主题风格
+ */
+.team-members-panel-mission-table ::v-deep th {
+  background-color: var(--lunar-cream-light) !important; /* 使用主题浅奶油色 */
+  color: var(--space-black) !important; /* 使用主题黑色 */
+  font-weight: 900 !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  padding: 12px 8px !important;
+}
+
+/**
+ * 表格单元格样式
+ * 符合磁带复古主义主题风格
+ */
+.team-members-panel-mission-table ::v-deep td {
+  border-bottom: var(--border-width) solid rgba(0, 0, 0, 0.1) !important;
+  color: var(--space-black) !important; /* 使用主题黑色 */
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  padding: 10px 8px !important;
+}
+
+/**
+ * 表格行悬停状态
+ * 浅色背景高亮
+ */
+.team-members-panel-mission-table ::v-deep .el-table__row:hover > td {
+  background-color: rgba(0, 0, 0, 0.02) !important; /* 极浅的黑色背景 */
+}
+
+/**
+ * 用户头像样式
+ */
+.team-members-panel-user-avatar {
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * ==========================================================================
+   CONTACT INFO // 联系信息
+   ========================================================================== */
+
+/**
+ * 联系信息文本样式
+ * 邮箱和联系电话的显示样式
+ */
+.team-members-panel-contact-info {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--space-black);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/**
+ * 空联系信息文本样式
+ * 当邮箱或电话为空时显示的占位符
+ */
+.team-members-panel-contact-info-empty {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.3);
+  font-weight: normal;
+  font-style: italic;
+}
+
+/**
+ * ==========================================================================
+   ROLE TAGS // 角色标签
+   ========================================================================== */
+
+/**
+ * 角色标签基础样式
+ */
+.team-members-panel-role-tag {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 900;
+  /* 使用主题圆角变量 */
+  border-radius: 2px;
+  text-transform: uppercase;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 所有者角色标签
+ */
+.team-members-panel-role-tag-owner { 
+  background: var(--space-black); /* 使用主题黑色 */
+  color: var(--color-white); /* 使用主题白色 */
+}
+
+/**
+ * 管理者角色标签
+ */
+.team-members-panel-role-tag-manager { 
+  background: var(--avionics-mustard); /* 使用主题黄色 */
+  color: var(--space-black); /* 使用主题黑色 */
+}
+
+/**
+ * 成员角色标签
+ */
+.team-members-panel-role-tag-member { 
+  background: #eee; /* 浅灰色背景 */
+  color: #666; /* 灰色文字 */
+}
+
+/**
+ * ==========================================================================
+   STATUS TEXT // 状态文字
+   ========================================================================== */
+
+/**
+ * 状态文字基础样式
+ */
+.team-members-panel-status-text { 
+  font-weight: 900; 
+  font-size: 11px;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 状态文字加粗样式
+ * 确保状态文字显示为粗体
+ */
+.team-members-panel-status-text-bold {
+  font-weight: 900 !important;
+}
+
+/**
+ * 成功状态（已加入）
+ */
+.team-members-panel-status-text-success { 
+  color: var(--oxidized-sage); /* 使用主题绿色 */
+}
+
+/**
+ * 警告状态（邀请中）
+ */
+.team-members-panel-status-text-warning { 
+  color: var(--avionics-mustard); /* 使用主题黄色 */
+}
+
+/**
+ * 危险状态（已拒绝）
+ */
+.team-members-panel-status-text-danger { 
+  color: var(--alarm-burgundy); /* 使用主题红色 */
+}
+
+/**
+ * 信息状态（未知）
+ */
+.team-members-panel-status-text-info { 
+  color: #999; /* 灰色 */
+}
+
+/**
+ * ==========================================================================
+   BUTTONS // 按钮样式
+   ========================================================================== */
+
+/**
+ * 文本按钮基础样式
+ */
+.team-members-panel-btn-text {
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--space-black); /* 使用主题黑色 */
+  font-size: 11px;
+  padding: 4px 8px;
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 文本按钮悬停状态
+ */
+.team-members-panel-btn-text:hover { 
+  background: #eee; /* 浅灰色背景 */
+}
+
+/**
+ * 文本按钮危险状态
+ */
+.team-members-panel-btn-text.danger { 
+  color: var(--alarm-burgundy); /* 使用主题红色 */
+}
+
+/**
+ * 文本按钮危险状态悬停
+ */
+.team-members-panel-btn-text.danger:hover { 
+  background: rgba(211, 47, 47, 0.1); /* 浅红色背景 */
+}
+
+/**
+ * 文本按钮禁用状态
+ */
+.team-members-panel-btn-text:disabled { 
+  color: #ccc; /* 浅灰色 */
+  cursor: not-allowed; 
+  background: none; 
+}
+
+/**
+ * ==========================================================================
+   EDIT SPLIT BUTTON // 修改角色分割按钮
+   ========================================================================== */
+
+/**
+ * 修改角色分割按钮基础样式
+ * 使用浅绿色主题，双色按钮设计，体现磁带复古主义风格
+ */
+.team-members-panel-btn-edit-split {
+  background: rgba(92, 127, 113, 0.3); /* 浅绿色背景（oxidized-sage 30% 透明度） */
+  border: var(--border-width) solid var(--oxidized-sage); /* 使用主题绿色边框 */
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  padding: 4px 8px; /* 减小内边距使按钮变窄 */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* 减小间距 */
+  cursor: pointer;
+  transition: all 0.2s;
+  /* 使用主题阴影变量 */
+  box-shadow: var(--shadow-light);
+  min-width: auto; /* 允许按钮根据内容自适应宽度 */
+}
+
+/**
+ * 修改角色分割按钮悬停状态
+ */
+.team-members-panel-btn-edit-split:hover {
+  background: rgba(92, 127, 113, 0.5); /* 稍深的浅绿色 */
+  transform: translateY(-1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 修改角色分割按钮按下状态
+ */
+.team-members-panel-btn-edit-split:active {
+  transform: translateY(0);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 修改角色分割按钮左侧文字（英文）
+ * 较大、粗体、大写
+ */
+.team-members-panel-btn-edit-split-left {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-weight: 900;
+  font-size: 12px; /* 较大字体 */
+  color: var(--space-black); /* 使用主题黑色 */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * 修改角色分割按钮分隔符
+ */
+.team-members-panel-btn-edit-split-sep {
+  color: rgba(92, 127, 113, 0.6); /* 浅绿色分隔符 */
+  font-weight: 300;
+  font-size: 12px;
+}
+
+/**
+ * 修改角色分割按钮右侧文字（中文）
+ * 较小、普通粗细
+ */
+.team-members-panel-btn-edit-split-right {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 10px; /* 较小字体 */
+  color: var(--oxidized-sage); /* 使用主题绿色 */
+  letter-spacing: 0.3px;
+  font-weight: normal;
+}
+
+/**
+ * ==========================================================================
+   DANGER SPLIT BUTTON // 危险分割按钮
+   ========================================================================== */
+
+/**
+ * 危险分割按钮基础样式
+ * 特殊的双色按钮设计，体现磁带复古主义风格
+ * 与修改角色按钮保持一致的窄宽度
+ */
+.team-members-panel-btn-danger-split {
+  background: #3a1c1c; /* 深红色背景 */
+  border: var(--border-width) solid #5a2c2c; /* 深红色边框 */
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  padding: 4px 8px; /* 减小内边距使按钮变窄，与修改角色按钮一致 */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* 减小间距，与修改角色按钮一致 */
+  cursor: pointer;
+  transition: all 0.2s;
+  /* 使用主题阴影变量 */
+  box-shadow: var(--shadow-light);
+  min-width: auto; /* 允许按钮根据内容自适应宽度 */
+}
+
+/**
+ * 危险分割按钮悬停状态
+ */
+.team-members-panel-btn-danger-split:hover {
+  background: #4a2424; /* 稍浅的深红色 */
+  transform: translateY(-1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 危险分割按钮按下状态
+ */
+.team-members-panel-btn-danger-split:active {
+  transform: translateY(0);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 危险分割按钮禁用状态
+ */
+.team-members-panel-btn-danger-split:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/**
+ * 危险分割按钮左侧文字（英文）
+ * 较大、粗体、大写
+ */
+.team-members-panel-btn-danger-split-left {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-weight: 900;
+  font-size: 12px; /* 较大字体 */
+  color: #ff8a80; /* 浅红色 */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * 危险分割按钮分隔符
+ */
+.team-members-panel-btn-danger-split-sep {
+  color: rgba(255, 255, 255, 0.4); /* 半透明白色分隔符 */
+  font-weight: 300;
+  font-size: 12px;
+}
+
+/**
+ * 危险分割按钮右侧文字（中文）
+ * 较小、普通粗细
+ */
+.team-members-panel-btn-danger-split-right {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 10px; /* 较小字体 */
+  color: var(--color-white); /* 使用主题白色 */
+  letter-spacing: 0.3px;
+  font-weight: normal;
+}
+
+/**
+ * ==========================================================================
+   DRAWER STYLES // 抽屉样式
+   ========================================================================== */
+
+/**
+ * 抽屉主体容器
+ * 使用磁带复古主义主题风格
+ */
+.team-members-panel-drawer-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  /* 使用主题背景色 */
+  background: var(--lunar-cream);
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 抽屉工具栏
+ * 包含搜索输入框
+ */
+.team-members-panel-drawer-toolbar {
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+/**
+ * 抽屉表格容器
+ * 白色背景卡片，带边框和阴影
+ */
+.team-members-panel-drawer-table-container {
+  flex: 1;
+  overflow: hidden;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black);
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  background: var(--color-white); /* 使用主题白色 */
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+}
+
+/**
+ * 小按钮样式（用于抽屉中的添加操作）
+ * 黑色背景，白色文字，符合磁带复古主义风格
+ */
+.team-members-panel-btn-sm {
+  background: var(--space-black); /* 使用主题黑色 */
+  color: var(--color-white); /* 使用主题白色 */
+  border: var(--border-width) solid var(--space-black);
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 11px;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  min-width: 70px;
+}
+
+/**
+ * 小按钮悬停状态
+ */
+.team-members-panel-btn-sm:hover:not(:disabled) { 
+  background: #333; /* 深灰色 */
+  transform: translateY(-1px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 小按钮按下状态
+ */
+.team-members-panel-btn-sm:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 小按钮禁用状态（已添加或正在邀请中）
+ * 灰色背景，表示不可操作
+ */
+.team-members-panel-btn-sm:disabled,
+.team-members-panel-btn-sm-disabled {
+  background: rgba(0, 0, 0, 0.2) !important; /* 半透明黑色 */
+  color: rgba(0, 0, 0, 0.4) !important; /* 半透明黑色文字 */
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/**
+ * 已添加状态按钮样式（已加入）
+ * 使用绿色主题表示已加入
+ */
+.team-members-panel-btn-sm-added:disabled {
+  background: rgba(92, 127, 113, 0.2) !important; /* 浅绿色背景（oxidized-sage 20% 透明度） */
+  color: var(--oxidized-sage) !important; /* 绿色文字 */
+  border-color: var(--oxidized-sage) !important;
+}
+
+/**
+ * 等待中状态按钮样式（邀请中）
+ * 使用黄色主题表示邀请中
+ */
+.team-members-panel-btn-sm-waiting:disabled {
+  background: rgba(241, 227, 38, 0.2) !important; /* 浅黄色背景（avionics-mustard 20% 透明度） */
+  color: var(--avionics-mustard) !important; /* 黄色文字 */
+  border-color: var(--avionics-mustard) !important;
+}
+
+/**
+ * ==========================================================================
+   DRAWER OVERRIDES // Element UI 抽屉样式覆盖
+   ========================================================================== */
+
+/**
+ * Element UI 抽屉容器样式覆盖
+ * 符合磁带复古主义主题风格
+ */
+.team-members-panel-mission-drawer {
+  outline: none !important;
+  /* 使用主题阴影 */
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/**
+ * Element UI 抽屉头部样式覆盖
+ * 参考 BasicInfoCard 的抽屉头样式
+ */
+.team-members-panel-mission-drawer .el-drawer__header {
+  /* 使用主题颜色 */
+  background-color: var(--color-black) !important;
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  padding: 20px 25px !important;
+  margin-bottom: 0 !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative; /* 用于伪元素定位 */
+}
+
+/**
+ * 抽屉头部三色装饰条（伪元素）
+ * 底部三色渐变装饰条
+ * 使用主题色：橙色、青色、红色
+ */
+.team-members-panel-mission-drawer .el-drawer__header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--mission-rust) 0%, var(--mission-rust) 33.33%,
+    var(--oxidized-sage) 33.33%, var(--oxidized-sage) 66.66%,
+    var(--alarm-burgundy) 66.66%, var(--alarm-burgundy) 100%
+  );
+  z-index: 10;
+}
+
+/**
+ * 抽屉标题样式覆盖
+ */
+.team-members-panel-mission-drawer .el-drawer__title {
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  color: var(--color-bg) !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+}
+
+/**
+ * 抽屉关闭按钮样式覆盖
+ */
+.team-members-panel-mission-drawer .el-drawer__close-btn {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  font-size: 24px !important;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-weight: bold !important;
+  top: 15px !important;
+  right: 20px !important;
+}
+
+/**
+ * 抽屉关闭按钮悬停效果
+ */
+.team-members-panel-mission-drawer .el-drawer__close-btn:hover {
+  transform: rotate(90deg) scale(1.2);
+  /* 使用主题黄色 */
+  color: var(--avionics-mustard) !important;
+}
+
+/**
+ * Element UI 抽屉主体样式覆盖
+ */
+.team-members-panel-mission-drawer .el-drawer__body {
+  padding: 0 !important;
+  background: var(--lunar-cream) !important; /* 使用主题背景色 */
+}
+
+/**
+ * ==========================================================================
+   ACTIONS GROUP // 操作按钮组
+   ========================================================================== */
+
+/**
+ * 操作按钮组容器
+ * 横向排列多个操作按钮，确保在同一行显示
+ */
+.team-members-panel-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap; /* 不换行，确保按钮在同一行 */
+  white-space: nowrap; /* 防止文本换行 */
+}
+
+
+/**
+ * ==========================================================================
+   EDIT ROLE DIALOG // 修改角色对话框
+   ========================================================================== */
+
+/**
+ * Element UI 对话框样式覆盖
+ */
+::v-deep .team-members-panel-edit-role-dialog {
+  border: var(--border-width-bold) solid var(--color-black) !important;
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius) !important;
+  /* 使用主题阴影变量 */
+  box-shadow: var(--shadow-normal) !important;
+}
+
+/**
+ * Element UI 对话框头部样式覆盖
+ */
+::v-deep .team-members-panel-edit-role-dialog .el-dialog__header {
+  background-color: var(--space-black) !important; /* 使用主题黑色 */
+  color: var(--color-white) !important; /* 使用主题白色 */
+  padding: 16px 20px !important;
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 900;
+}
+
+/**
+ * Element UI 对话框标题样式覆盖
+ */
+::v-deep .team-members-panel-edit-role-dialog .el-dialog__title {
+  color: var(--color-white) !important; /* 使用主题白色 */
+  font-weight: 900;
+}
+
+/**
+ * Element UI 对话框关闭按钮样式覆盖
+ */
+::v-deep .team-members-panel-edit-role-dialog .el-dialog__close {
+  color: var(--color-white) !important; /* 使用主题白色 */
+}
+
+/**
+ * Element UI 对话框主体样式覆盖
+ */
+::v-deep .team-members-panel-edit-role-dialog .el-dialog__body {
+  padding: 20px !important;
+  background-color: var(--color-white) !important; /* 使用主题白色 */
+}
+
+/**
+ * 修改角色对话框内容容器
+ */
+.team-members-panel-edit-role-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/**
+ * 修改角色对话框信息行
+ */
+.team-members-panel-edit-role-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/**
+ * 修改角色对话框标签
+ */
+.team-members-panel-edit-role-label {
+  font-weight: 900;
+  color: var(--space-black); /* 使用主题黑色 */
+  font-size: 12px;
+  text-transform: uppercase;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 修改角色对话框成员名称
+ */
+.team-members-panel-edit-role-name {
+  font-weight: bold;
+  color: var(--space-black); /* 使用主题黑色 */
+  font-size: 13px;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 修改角色对话框选择器容器
+ */
+.team-members-panel-edit-role-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/**
+ * 角色选择器样式覆盖
+ */
+.team-members-panel-role-select {
+  flex: 1;
+}
+
+.team-members-panel-role-select ::v-deep .el-input__inner {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius) !important;
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  font-weight: bold;
+}
+
+.team-members-panel-role-select ::v-deep .el-input__inner:focus {
+  border-color: var(--mission-rust) !important; /* 使用主题橙色 */
+}
+
+/**
+ * 修改角色对话框底部按钮组
+ */
+.team-members-panel-edit-role-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: var(--border-width) solid rgba(0, 0, 0, 0.1);
+}

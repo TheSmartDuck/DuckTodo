@@ -1,0 +1,278 @@
+/* 容器整体 */
+.sidebar-brand-wrapper {
+  width: 100%;
+  padding: 12px 12px 16px 12px;
+  background: var(--mission-rust); /* 任务铁锈红背景 */
+  border-bottom: 4px solid var(--space-black);
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+/* 顶部装饰条 */
+.sidebar-brand-header-strip {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  height: 8px;
+}
+.sidebar-brand-strip-block {
+  width: 20px;
+  height: 8px;
+  background: var(--space-black);
+  margin-right: 4px;
+}
+.sidebar-brand-strip-line {
+  flex: 1;
+  height: 2px;
+  background: var(--space-black);
+  margin-left: 4px;
+}
+
+/* 品牌身份区 */
+.sidebar-brand-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  background: var(--lunar-cream); /* 月球奶油色 */
+  border: 2px solid var(--space-black);
+  margin-bottom: 16px;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--space-black);
+}
+
+.sidebar-brand-info {
+  flex: 1;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 2px solid var(--space-black);
+  min-width: 0;
+}
+
+.sidebar-brand-info-label {
+  font-size: 10px;
+  color: #666;
+  font-weight: bold;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.sidebar-brand-info-name-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 确保左右对齐 */
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+}
+
+.sidebar-brand-name-scroll-wrapper {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 8px;
+  position: relative;
+}
+
+.sidebar-brand-name-scroll-content {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.sidebar-brand-name-scroll-content.sidebar-brand-is-scrolling {
+  animation: scroll-left 10s linear infinite;
+}
+
+.sidebar-brand-name-scroll-content.sidebar-brand-is-scrolling:hover {
+  animation-play-state: paused;
+}
+
+.sidebar-brand-info-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--space-black);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+}
+
+.sidebar-brand-info-name-duplicate {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--space-black);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+  margin-right: 30px; /* Consistent spacing for loop */
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Scroll exactly half (one item + gap) */
+}
+
+/* Specific styling when scrolling is active */
+.sidebar-brand-name-scroll-content.sidebar-brand-is-scrolling .sidebar-brand-info-name {
+  margin-right: 30px; /* Consistent spacing for loop */
+}
+
+.sidebar-brand-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--oxidized-sage);
+  border-radius: 50%;
+  margin-left: 6px;
+  border: 1px solid var(--space-black);
+  box-shadow: 0 0 4px var(--oxidized-sage);
+  flex-shrink: 0;
+}
+
+/* 控制按钮 */
+.sidebar-brand-controls {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--space-black);
+  cursor: pointer;
+}
+
+.sidebar-brand-control-btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.sidebar-brand-control-btn i {
+  color: var(--lunar-cream);
+  font-size: 20px;
+}
+
+.sidebar-brand-control-btn:hover i {
+  color: var(--mission-rust);
+  text-shadow: 0 0 5px var(--mission-rust);
+}
+
+/* 搜索区 */
+.sidebar-brand-search-panel {
+  position: relative;
+}
+
+.sidebar-brand-search-label {
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: var(--space-black);
+  text-transform: uppercase;
+  text-align: left;
+  letter-spacing: 1px;
+}
+
+.sidebar-brand-search-input-wrapper {
+  position: relative;
+}
+
+/* 搜索框样式深度定制 */
+.sidebar-brand-retro-search-input >>> .el-input__inner {
+  border-radius: 0;
+  border: 2px solid var(--space-black);
+  background: var(--lunar-cream);
+  color: var(--space-black);
+  height: 36px;
+  line-height: 36px;
+  font-family: var(--font-family);
+  font-weight: bold;
+  padding-left: 32px;
+  box-shadow: none;
+  transition: all 0.2s;
+}
+
+.sidebar-brand-retro-search-input >>> .el-input__inner:focus {
+  background: var(--space-black);
+  color: var(--lunar-cream);
+  border-color: var(--space-black);
+}
+/* 聚焦时图标变色 */
+.sidebar-brand-retro-search-input >>> .el-input__prefix {
+  left: 8px;
+  color: var(--space-black);
+}
+.sidebar-brand-retro-search-input:focus-within >>> .el-input__prefix {
+  color: var(--lunar-cream);
+}
+
+.sidebar-brand-input-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 10px 10px;
+  border-color: transparent transparent var(--space-black) transparent;
+  pointer-events: none;
+}
+
+/* 下拉菜单样式覆盖 - 全局 */
+.sidebar-brand-dropdown-menu.el-dropdown-menu {
+  border: 2px solid var(--space-black) !important;
+  border-radius: 0 !important;
+  box-shadow: 8px 8px 0 var(--space-black) !important;
+  padding: 0 !important;
+  margin: 4px 0 0 0 !important;
+  background: var(--lunar-cream) !important;
+}
+
+.sidebar-brand-dropdown-menu .el-dropdown-menu__item {
+  line-height: 40px;
+  padding: 0 16px;
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--space-black);
+  border-bottom: 1px solid var(--space-black);
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-brand-dropdown-menu .el-dropdown-menu__item:last-child {
+  border-bottom: none;
+}
+
+.sidebar-brand-dropdown-menu .sidebar-brand-menu-code {
+  color: var(--mission-rust);
+  margin-right: 12px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.sidebar-brand-dropdown-menu .sidebar-brand-menu-text {
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.sidebar-brand-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):hover {
+  background-color: var(--space-black) !important;
+  color: var(--lunar-cream) !important;
+}
+
+.sidebar-brand-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):hover .sidebar-brand-menu-code {
+  color: var(--mission-rust);
+}
+
+/* 隐藏默认箭头 */
+.sidebar-brand-dropdown-menu .popper__arrow {
+  display: none !important;
+}
+
+/* 分割线处理 */
+.sidebar-brand-dropdown-menu .el-dropdown-menu__item--divided {
+  border-top: 2px solid var(--space-black) !important;
+  margin-top: 0 !important;
+}
+.sidebar-brand-dropdown-menu .el-dropdown-menu__item--divided:before {
+  display: none !important;
+}

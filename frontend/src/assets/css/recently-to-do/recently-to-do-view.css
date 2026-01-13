@@ -1,0 +1,60 @@
+/* ==========================================================================
+   RECENTLY TO DO VIEW // 最近待办视图样式
+   ========================================================================== */
+
+/**
+ * 最近待办视图根容器
+ * 使用flex布局，横向排列左右两个模块
+ */
+.recently-to-do-body {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+}
+
+/**
+ * 左侧模块：任务列表区域
+ * 占据3/5的宽度，包含任务列表组件
+ */
+.recently-to-do-left-module {
+  flex: 3;
+  height: 100%;
+  /* 使用主题边框宽度和颜色 */
+  border-right: var(--border-width) solid var(--color-black);
+  display: flex;
+  flex-direction: column;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+  z-index: 10;
+}
+
+/**
+ * 右侧模块：任务详情区域
+ * 占据2/5的宽度，显示任务详情或空状态
+ */
+.recently-to-do-right-module {
+  flex: 2;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  /* 使用主题浅色背景 */
+  background-color: var(--color-bg-light);
+}
+
+/**
+ * 空状态容器
+ * 当未选择任务时显示，居中显示空状态提示
+ */
+.recently-to-do-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+}

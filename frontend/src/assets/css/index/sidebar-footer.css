@@ -1,0 +1,151 @@
+/* ==========================================================================
+   SIDEBAR FOOTER // 侧边栏底部组件样式
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   根容器 // 侧边栏底部根元素
+   -------------------------------------------------------------------------- */
+.sidebar-footer {
+  padding: 0;
+  margin-top: auto; /* 在 flex 容器中自动推到底部 */
+  margin-bottom: 0;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   内容容器 // 底部内容盒子
+   -------------------------------------------------------------------------- */
+.sidebar-footer-box {
+  /* 使用全局样式变量替代硬编码值 */
+  border-top: var(--border-width) solid var(--color-black);
+  background: var(--color-bg);
+  padding: 12px;
+  box-sizing: border-box;
+  /* 可选：添加阴影效果以符合主题风格 */
+  /* box-shadow: var(--shadow-normal); */
+}
+
+/* --------------------------------------------------------------------------
+   行容器 // 底部内容行
+   -------------------------------------------------------------------------- */
+.sidebar-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* 最后一行不需要底部边距 */
+.sidebar-footer-row:last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   标签文本 // CRT 效果标签
+   -------------------------------------------------------------------------- */
+.sidebar-footer-label {
+  font-size: 10px;
+  font-weight: bold;
+  /* 使用全局颜色变量 */
+  color: var(--color-black);
+  letter-spacing: 1px;
+  /* 使用全局字体族 */
+  font-family: var(--font-family);
+}
+
+/* --------------------------------------------------------------------------
+   CRT 开关 // CRT 效果切换开关
+   -------------------------------------------------------------------------- */
+.sidebar-footer-crt-switch {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 16px;
+}
+
+/* 隐藏原生 checkbox 输入框 */
+.sidebar-footer-crt-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* --------------------------------------------------------------------------
+   滑动条 // 开关滑动条
+   -------------------------------------------------------------------------- */
+.sidebar-footer-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* 使用全局颜色变量 */
+  background-color: var(--color-black);
+  transition: .4s;
+  /* 使用全局边框宽度变量 */
+  border: 1px solid var(--color-black);
+}
+
+/* 滑动条内部圆形滑块 */
+.sidebar-footer-slider:before {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  left: 2px;
+  bottom: 2px;
+  /* 使用全局背景色变量 */
+  background-color: var(--color-bg);
+  transition: .4s;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* 开关激活状态：滑动条背景色 */
+input:checked + .sidebar-footer-slider {
+  /* 使用主题成功色（氧化鼠尾草绿） */
+  background-color: var(--brand-success);
+}
+
+/* 开关激活状态：滑块位置和样式 */
+input:checked + .sidebar-footer-slider:before {
+  transform: translateX(16px);
+  background-color: var(--color-black);
+  box-shadow: 0 0 4px var(--color-black);
+}
+
+/* --------------------------------------------------------------------------
+   版本信息 // 版本号文本
+   -------------------------------------------------------------------------- */
+.sidebar-footer-version {
+  font-size: 10px;
+  color: #666;
+  /* 使用全局字体族 */
+  font-family: var(--font-family);
+}
+
+/* --------------------------------------------------------------------------
+   GitHub 链接 // GitHub 仓库链接
+   -------------------------------------------------------------------------- */
+.sidebar-footer-github-link {
+  /* 使用全局颜色变量 */
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+/* GitHub 链接悬停效果 */
+.sidebar-footer-github-link:hover {
+  transform: scale(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   GitHub 图标 // GitHub SVG 图标
+   -------------------------------------------------------------------------- */
+.sidebar-footer-github-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor; /* 继承父元素颜色 */
+}

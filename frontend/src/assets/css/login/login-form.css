@@ -1,0 +1,47 @@
+/* --------------------------------------------------------------------------
+   LOGIN FORM // 登录表单样式
+   -------------------------------------------------------------------------- */
+
+.login-form-content {
+  padding-bottom: 10px;
+}
+
+.el-form-item {
+  margin-bottom: 24px;
+}
+
+.login-form-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0 16px;
+}
+
+.login-form-actions .login-form-btn {
+  width: 100%;
+}
+
+.login-form-actions .el-button + .el-button {
+  margin-left: 0;
+}
+
+.login-form-btn.login-form-register {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-black);
+}
+
+.login-form-btn.login-form-third {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-black);
+}
+
+.login-form-btn.login-form-login {
+  width: 100%;
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+  border-color: var(--color-black);
+  font-size: 16px;
+  letter-spacing: 2px;
+}

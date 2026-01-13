@@ -1,0 +1,104 @@
+/* ==========================================================================
+   LOAD TREND CHART // 负载趋势图表样式
+   ========================================================================== */
+
+/**
+ * 图表模块根容器
+ * 使用flex布局，垂直排列头部和图表主体
+ */
+.load-trend-chart-module {
+  width: 100%;
+  height: 100%;
+  /* 使用主题白色背景 */
+  background: var(--lunar-cream-light);
+  /* 使用主题边框宽度和颜色（带透明度） */
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  box-sizing: border-box;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/**
+ * 图表模块底部装饰条
+ * 三色渐变装饰条（芥末黄、鼠尾草绿、酒红）
+ */
+.load-trend-chart-module::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--brand-warning) 0%, var(--brand-warning) 20%, 
+    var(--brand-success) 20%, var(--brand-success) 60%, 
+    var(--brand-danger) 60%, var(--brand-danger) 100%);
+}
+
+/**
+ * 图表模块悬停效果
+ */
+.load-trend-chart-module:hover {
+  /* 使用主题阴影（增强版） */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/**
+ * ==========================================================================
+   HEADER // 头部样式
+   ========================================================================== */
+
+/**
+ * 图表头部
+ * 包含标题和设置图标
+ */
+.load-trend-chart-header {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 12px;
+  background: transparent;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/**
+ * 图表标题
+ * 使用Impact字体，大号粗体
+ */
+.load-trend-chart-title {
+  font-family: "Impact", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * ==========================================================================
+   CHART BODY // 图表主体样式
+   ========================================================================== */
+
+/**
+ * 图表主体容器
+ * ECharts 图表渲染容器
+ */
+.load-trend-chart-body {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  /* 重要：允许flex子元素收缩到内容以下，确保图表可以正确显示 */
+  min-height: 0;
+  position: relative;
+}

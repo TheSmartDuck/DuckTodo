@@ -1,0 +1,193 @@
+/* ==========================================================================
+   DATA PANEL VIEW // 数据面板视图样式
+   ========================================================================== */
+
+/**
+ * 数据面板视图根容器
+ * 使用flex布局，垂直排列头部和内容区域
+ */
+.data-panel-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  box-sizing: border-box;
+  /* 使用主题背景色 */
+  background: var(--color-bg);
+  font-family: var(--font-family);
+  overflow: hidden;
+}
+
+/**
+ * ==========================================================================
+   HEADER // 头部样式
+   ========================================================================== */
+
+/**
+ * 面板头部
+ * 包含标题、副标题和上下文信息
+ */
+.data-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* 使用主题边框宽度和品牌主色 */
+  border-bottom: 1px solid var(--brand-primary);
+  /* 使用主题背景色 */
+  background: var(--color-bg);
+  padding: 8px 16px;
+  margin-bottom: 4px;
+  height: 48px;
+}
+
+/**
+ * 头部左侧区域
+ * 包含主标题、副标题、分隔符和上下文信息
+ */
+.data-panel-header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+/**
+ * 主标题（英文）
+ * 大号粗体标题，使用Impact字体
+ */
+.data-panel-header-main-title {
+  font-family: "Impact", sans-serif;
+  font-size: 32px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/**
+ * 副标题（中文）
+ * 使用黑体字体，品牌主色
+ */
+.data-panel-header-subtitle {
+  font-family: "SimHei", "Heiti SC", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  /* 使用品牌主色 */
+  color: var(--brand-primary);
+}
+
+/**
+ * 分隔符
+ * 用于分隔标题和上下文信息
+ */
+.data-panel-header-separator {
+  font-family: var(--font-family);
+  font-weight: 900;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+}
+
+/**
+ * 上下文信息
+ * 显示当前页面的上下文描述
+ */
+.data-panel-header-context {
+  font-family: "SimHei", "Heiti SC", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  /* 使用品牌成功色（鼠尾草绿） */
+  color: var(--brand-success);
+}
+
+/**
+ * 头部右侧装饰文字
+ * 显示任务控制和统计信息标识
+ */
+.data-panel-header-right {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 900;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/**
+ * ==========================================================================
+   CONTENT LAYOUT // 内容布局样式
+   ========================================================================== */
+
+/**
+ * 面板内容区域
+ * 使用flex布局，水平排列左侧边栏和右侧图表区域
+ */
+.data-panel-content {
+  margin-top: 12px;
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  /* 重要：允许滚动（如果需要），虽然我们使用flex布局 */
+  min-height: 0;
+}
+
+/**
+ * 左侧内容区域
+ * 固定宽度的侧边栏，包含数据概览组件
+ */
+.data-panel-content-left {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * 右侧内容区域
+ * 弹性宽度，包含多个图表组件
+ */
+.data-panel-content-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* 防止溢出 */
+  min-width: 0;
+}
+
+/**
+ * 图表行
+ * 水平排列的图表容器
+ */
+.data-panel-chart-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+/**
+ * 顶部行
+ * 占据55%的高度，用于显示负载趋势图表
+ */
+.data-panel-top-row {
+  flex: 55; /* 55% 高度 */
+}
+
+/**
+ * 底部行
+ * 占据45%的高度，用于显示优先级分布和过期预测图表
+ */
+.data-panel-bottom-row {
+  flex: 45; /* 45% 高度 */
+}
+
+/**
+ * 图表列
+ * 在底部行中水平排列的图表容器
+ */
+.data-panel-chart-col {
+  flex: 1;
+  /* 防止溢出 */
+  min-width: 0;
+  height: 100%;
+}

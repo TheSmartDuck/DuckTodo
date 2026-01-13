@@ -1,0 +1,335 @@
+/* ==========================================================================
+   TEAM REPORT PANEL // 团队报表面板样式表
+   Component: TeamReportPanel.vue
+   ========================================================================== */
+
+/**
+ * 团队报表面板根容器
+ * 使用 Flexbox 纵向布局，支持垂直滚动
+ */
+.team-report-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  padding-right: 4px;
+  box-sizing: border-box;
+}
+
+/**
+ * ==========================================================================
+   METRICS GRID // 指标卡片网格
+   ========================================================================== */
+
+/**
+ * 指标卡片网格容器
+ * 4列网格布局，每列等宽
+ */
+.team-report-panel-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/**
+ * 指标卡片基础样式
+ * 白色背景，带左侧彩色边框装饰条
+ */
+.team-report-panel-stat-box {
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid rgba(0, 0, 0, 0.1);
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* 使用主题阴影变量 */
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/**
+ * 指标卡片左侧装饰条
+ * 通过伪元素实现，不同颜色表示不同指标类型
+ */
+.team-report-panel-stat-box::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+/**
+ * 进行中任务卡片 - 橙色装饰条
+ * 使用主题色 mission-rust（任务铁锈红）
+ */
+.team-report-panel-stat-box-blue::after { 
+  background: var(--mission-rust); /* 使用主题橙色 */
+}
+
+/**
+ * 完成任务卡片 - 绿色装饰条
+ */
+.team-report-panel-stat-box-green::after { 
+  background: var(--oxidized-sage); /* 使用主题绿色 */
+}
+
+/**
+ * 新增任务卡片 - 黄色装饰条
+ */
+.team-report-panel-stat-box-mustard::after { 
+  background: var(--avionics-mustard); /* 使用主题黄色 */
+}
+
+/**
+ * 逾期任务卡片 - 红色装饰条
+ */
+.team-report-panel-stat-box-red::after { 
+  background: var(--alarm-burgundy); /* 使用主题红色 */
+}
+
+/**
+ * 指标卡片悬停状态
+ * 轻微上移并增强阴影
+ */
+.team-report-panel-stat-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/**
+ * 指标数值样式
+ * 大号粗体数字
+ */
+.team-report-panel-stat-val {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.2;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 进行中任务数值颜色
+ * 使用主题色 mission-rust（任务铁锈红）
+ */
+.team-report-panel-stat-val-inprogress { 
+  color: var(--mission-rust); /* 使用主题橙色 */
+}
+
+/**
+ * 完成任务数值颜色
+ */
+.team-report-panel-stat-val-completed { 
+  color: var(--oxidized-sage); /* 使用主题绿色 */
+}
+
+/**
+ * 新增任务数值颜色
+ */
+.team-report-panel-stat-val-created { 
+  color: var(--space-black); /* 使用主题黑色 */
+}
+
+/**
+ * 逾期任务数值颜色
+ */
+.team-report-panel-stat-val-overdue { 
+  color: var(--alarm-burgundy); /* 使用主题红色 */
+}
+
+/**
+ * 指标标签样式
+ * 小号粗体文字，显示指标类型和图标
+ */
+.team-report-panel-stat-key {
+  font-size: 10px;
+  color: #666; /* 灰色文字 */
+  font-weight: bold;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   CHARTS CONTAINER // 图表容器
+   ========================================================================== */
+
+/**
+ * 图表区域容器
+ * 占据剩余空间，横向布局
+ */
+.team-report-panel-charts-container {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  min-height: 400px;
+}
+
+/**
+ * 左侧图表区域
+ * 占据2倍宽度，用于显示趋势分析折线图
+ */
+.team-report-panel-chart-left {
+  flex: 2;
+  height: 100%;
+}
+
+/**
+ * 右侧图表区域
+ * 占据1倍宽度，纵向布局两个饼图
+ */
+.team-report-panel-chart-right {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/**
+ * ==========================================================================
+   CHART CARD // 图表卡片
+   ========================================================================== */
+
+/**
+ * 图表卡片基础样式
+ * 白色背景，带底部彩色渐变装饰条
+ */
+.team-report-panel-chart-card {
+  width: 100%;
+  height: 100%;
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid rgba(0, 0, 0, 0.1);
+  /* 使用主题圆角变量 */
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  box-sizing: border-box;
+  /* 使用主题阴影变量 */
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/**
+ * 半高图表卡片
+ * 用于右侧两个饼图，各占50%高度
+ */
+.team-report-panel-chart-card-half-h {
+  height: calc(50% - 8px);
+}
+
+/**
+ * 图表卡片底部装饰条
+ * 使用主题色渐变，体现磁带复古主义风格
+ */
+.team-report-panel-chart-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  /* 使用主题色创建渐变装饰条 */
+  background: linear-gradient(90deg, 
+    var(--avionics-mustard) 0%, var(--avionics-mustard) 20%, 
+    var(--oxidized-sage) 20%, var(--oxidized-sage) 60%, 
+    var(--alarm-burgundy) 60%, var(--alarm-burgundy) 100%);
+}
+
+/**
+ * 图表卡片悬停状态
+ * 轻微上移并增强阴影
+ */
+.team-report-panel-chart-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/**
+ * ==========================================================================
+   CHART HEADER // 图表头部
+   ========================================================================== */
+
+/**
+ * 图表头部容器
+ * 包含标题和设置图标
+ */
+.team-report-panel-chart-header {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 12px;
+  background: transparent;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/**
+ * 图表标题样式
+ * 粗体大写文字
+ */
+.team-report-panel-chart-title {
+  /* 使用主题字体族 */
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--space-black); /* 使用主题黑色 */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/**
+ * 图表设置图标样式
+ */
+.team-report-panel-chart-setting-icon {
+  color: #ccc; /* 浅灰色 */
+  cursor: pointer;
+}
+
+/**
+ * ==========================================================================
+   CHART WRAPPER // 图表包装器
+   ========================================================================== */
+
+/**
+ * 图表包装器
+ * 占据剩余空间，用于容纳 ECharts 图表
+ */
+.team-report-panel-chart-wrapper {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/**
+ * 完整图表容器
+ * ECharts 图表实例的挂载点
+ */
+.team-report-panel-full-chart {
+  width: 100%;
+  height: 100%;
+}

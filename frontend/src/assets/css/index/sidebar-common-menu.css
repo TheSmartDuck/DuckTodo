@@ -1,0 +1,249 @@
+/* 
+ * SidebarCommonMenu Component Styles
+ * 
+ * Retro Futurism / Cassette Futurism Style
+ * - Card Layout with Clear Borders
+ * - High Contrast Typography
+ * - Decorative Elements
+ * - Prefixed with 'sidebar-common-menu-' to avoid conflicts
+ */
+
+/* 菜单通用样式 */
+.sidebar-common-menu-container {
+  width: 100%;
+  min-height: auto;
+  border-top: none;
+  padding-bottom: 8px 0;
+  background: transparent;
+  margin-bottom: 10px;
+}
+
+.sidebar-common-menu-header-label {
+  padding: 6px 12px 0px 12px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #666;
+  letter-spacing: 1px;
+  text-align: left;
+  text-transform: uppercase;
+  font-family: var(--font-family);
+}
+
+/* 侧边导航项列表样式 */
+.sidebar-common-menu-list {
+  border-right: none;
+  padding: -10px 8px;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 
+   Element UI Menu Item Override
+   Scoped via .sidebar-common-menu-container
+*/
+.sidebar-common-menu-container .el-menu-item {
+  height: 40px; /* Reduced from 48px */
+  line-height: normal; /* Reset line-height */
+  padding: 0 !important; /* Remove padding to let card fill */
+  margin: 6px 12px; /* Further reduced margin */
+  border: none;
+  background: transparent;
+  overflow: visible; /* Allow shadow/transform */
+}
+
+/* 内部卡片样式 */
+.sidebar-common-menu-item-card {
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--space-black);
+  background: var(--lunar-cream);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 10px; /* Tighter padding */
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 2px 2px 0 var(--space-black); /* Minimal shadow for small size */
+  container-type: inline-size;
+  container-name: card;
+}
+
+.sidebar-common-menu-text-group {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px; /* Reduced gap */
+  z-index: 1;
+  flex: 1;
+  min-width: 0; /* Enable flex item shrinking */
+  overflow: hidden; /* Hide overflow */
+}
+
+.sidebar-common-menu-en-title {
+  font-family: var(--font-family);
+  font-size: 14px; /* Back to 14px for balance */
+  font-weight: 900;
+  color: var(--space-black);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  white-space: nowrap; /* Prevent wrapping */
+  flex-shrink: 0; /* Keep English title visible */
+}
+
+.sidebar-common-menu-cn-subtitle {
+  font-family: var(--font-family);
+  font-size: 10px; /* Reduced to 10px as requested */
+  font-weight: bold;
+  color: #666;
+  transform: translateY(-1px); /* Slight adjustment for baseline */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis if needed */
+  flex-shrink: 1; /* Allow shrinking */
+}
+
+/* Hide Chinese subtitle when container is too small */
+@container (max-width: 120px) {
+  .sidebar-common-menu-cn-subtitle {
+    display: none;
+  }
+}
+
+.sidebar-common-menu-icon-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; /* Further reduced width */
+  min-width: 28px; /* Prevent shrinking */
+  position: relative;
+  margin-left: 6px;
+  flex-shrink: 0; /* Fix position, never shrink */
+}
+
+/* Graphic circle background for icon */
+.sidebar-common-menu-icon-area::before {
+  content: '';
+  position: absolute;
+  width: 24px; /* Further reduced size */
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+  border: 1px dashed var(--space-black);
+  z-index: 0;
+  transition: all 0.2s;
+}
+
+.sidebar-common-menu-container .el-menu-item i.el-icon {
+  font-size: 14px; /* Smaller icon */
+  color: var(--space-black);
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+/* Bottom Strip Decoration */
+.sidebar-common-menu-bottom-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  display: flex;
+}
+
+.sidebar-common-menu-bottom-strip::before {
+  content: '';
+  flex: 1;
+  background: var(--mission-rust);
+}
+
+.sidebar-common-menu-bottom-strip::after {
+  content: '';
+  flex: 1;
+  background: var(--oxidized-sage);
+}
+
+/* Hover State */
+.sidebar-common-menu-container .el-menu-item:hover .sidebar-common-menu-item-card,
+.sidebar-common-menu-container .el-menu-item:focus .sidebar-common-menu-item-card {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--space-black);
+  background: #fff;
+}
+
+.sidebar-common-menu-container .el-menu-item:hover .sidebar-common-menu-icon-area::before {
+  background: var(--space-black);
+  border-style: solid;
+}
+
+.sidebar-common-menu-container .el-menu-item:hover i.el-icon {
+  color: var(--lunar-cream);
+}
+
+/* Active State */
+.sidebar-common-menu-container .el-menu-item.is-active .sidebar-common-menu-item-card {
+  background: var(--space-black);
+  border-color: var(--space-black);
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+/* Active Hover State (New) */
+.sidebar-common-menu-container .el-menu-item.is-active:hover .sidebar-common-menu-item-card {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3); /* Softer shadow for dark mode */
+  background: var(--space-black); /* Keep dark background */
+}
+
+/* Ensure text remains readable on hover */
+.sidebar-common-menu-container .el-menu-item.is-active:hover .sidebar-common-menu-en-title {
+  color: #fff;
+  text-shadow: 0 0 4px rgba(255,255,255,0.5);
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active:hover .sidebar-common-menu-cn-subtitle {
+  color: #bbb;
+}
+
+/* Icon interaction on active hover */
+.sidebar-common-menu-container .el-menu-item.is-active:hover .sidebar-common-menu-icon-area::before {
+  transform: scale(1.1);
+  background: var(--mission-rust); /* Maintain active accent */
+  box-shadow: 0 0 8px var(--mission-rust); /* Glow effect */
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active:hover i.el-icon {
+  color: #fff !important; /* Switch to white for better contrast */
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active .sidebar-common-menu-en-title {
+  color: var(--lunar-cream);
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active .sidebar-common-menu-cn-subtitle {
+  color: #999;
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active .sidebar-common-menu-icon-area::before {
+  background: var(--mission-rust);
+  border-color: var(--mission-rust);
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active i.el-icon {
+  color: var(--space-black) !important;
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active .sidebar-common-menu-bottom-strip::before {
+  background: var(--avionics-mustard);
+}
+
+.sidebar-common-menu-container .el-menu-item.is-active .sidebar-common-menu-bottom-strip::after {
+  background: var(--alarm-burgundy);
+}
+
+/* Override Element UI default active styles */
+.sidebar-common-menu-container .el-menu-item.is-active {
+  background: transparent;
+}

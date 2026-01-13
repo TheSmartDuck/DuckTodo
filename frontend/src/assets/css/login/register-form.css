@@ -1,0 +1,39 @@
+/* --------------------------------------------------------------------------
+   REGISTER FORM // 注册表单样式
+   -------------------------------------------------------------------------- */
+
+.register-form-content {
+  padding-bottom: 10px;
+}
+
+.el-form-item {
+  margin-bottom: 24px;
+}
+
+.el-select {
+  width: 100%;
+}
+
+.register-form-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0 16px;
+}
+
+.register-form-actions .register-form-btn {
+  width: 100%;
+}
+
+.register-form-actions .el-button + .el-button {
+  margin-left: 0;
+}
+
+.register-form-btn.register-form-register {
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.register-form-btn.register-form-back {
+  font-size: 16px;
+  letter-spacing: 2px;
+}

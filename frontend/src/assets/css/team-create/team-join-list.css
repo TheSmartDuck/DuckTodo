@@ -1,0 +1,629 @@
+/* ==========================================================================
+   TEAM JOIN LIST // 加入团队列表样式
+   Theme: Retro Futurism / Brutalism (Integrated with App Theme)
+   ========================================================================== */
+
+/**
+ * ==========================================================================
+   MAIN CARD CONTAINER // 主卡片容器样式
+   ========================================================================== */
+
+/**
+ * 主卡片容器
+ * 加入团队列表的根容器
+ */
+.team-join-list-main-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 90vh;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width-bold) solid var(--color-black);
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0; /* 锐角 */
+}
+
+/**
+ * ==========================================================================
+   CARD HEADER // 卡片头部样式
+   ========================================================================== */
+
+/**
+ * 卡片头部（复古风格）
+ * 黑色背景的头部区域
+ */
+.team-join-list-card-header-retro {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  /* 使用主题黑色背景 */
+  background: var(--color-black);
+  /* 使用主题白色文字 */
+  color: var(--color-white);
+  padding: 0 16px;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black);
+  position: relative;
+}
+
+/**
+ * 头部标题文字
+ * 大号粗体标题
+ */
+.team-join-list-header-title-text {
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 头部右侧操作组
+ * 包含按钮和装饰元素的容器
+ */
+.team-join-list-header-right-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/**
+ * 头部装饰元素容器
+ * 包含三个装饰条
+ */
+.team-join-list-header-deco {
+  display: flex;
+  gap: 4px;
+  margin-left: 12px;
+}
+
+/**
+ * 头部装饰条
+ * 倾斜的装饰条元素
+ */
+.team-join-list-header-deco span {
+  width: 4px;
+  height: 16px;
+  background-color: #999;
+  transform: skewX(-20deg);
+}
+
+/**
+ * ==========================================================================
+   BUTTONS // 按钮样式
+   ========================================================================== */
+
+/**
+ * 复古按钮基础样式
+ * 磁带未来主义风格的按钮
+ */
+.team-join-list-retro-btn {
+  background: var(--color-white) !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  color: var(--color-black) !important;
+  font-weight: 700 !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  transition: all 0.1s !important;
+  /* 使用主题字体 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * 复古按钮激活状态
+ * 按下时的阴影和位移效果
+ */
+.team-join-list-retro-btn:active {
+  /* 使用主题激活阴影 */
+  box-shadow: var(--shadow-active) !important;
+  transform: translate(2px, 2px);
+}
+
+/**
+ * 复古主要按钮
+ * 使用品牌主色的主要按钮
+ */
+.team-join-list-retro-btn-primary {
+  /* 使用主题品牌主色 */
+  background: var(--brand-primary) !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-color: var(--color-black) !important;
+  border-radius: 0 !important;
+  color: white !important;
+  margin-bottom: 6px !important; /* 确保阴影不被裁剪 */
+  /* 使用主题字体 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * 复古主要按钮激活状态
+ */
+.team-join-list-retro-btn-primary:active {
+  /* 使用主题激活阴影 */
+  box-shadow: var(--shadow-active) !important;
+  transform: translate(2px, 2px);
+}
+
+/**
+ * 复古小危险按钮
+ * 用于拒绝操作的危险按钮
+ */
+.team-join-list-retro-btn-small-danger {
+  /* 使用主题品牌危险色 */
+  background: var(--brand-danger) !important;
+  border-color: var(--color-black) !important;
+  color: white !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  font-weight: 700 !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  margin-bottom: 6px !important; /* 确保阴影不被裁剪 */
+  /* 使用主题字体 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * 复古小危险按钮激活状态
+ */
+.team-join-list-retro-btn-small-danger:active {
+  /* 使用主题激活阴影 */
+  box-shadow: var(--shadow-active) !important;
+  transform: translate(2px, 2px);
+}
+
+/**
+ * ==========================================================================
+   COMMON LAYOUT COMPONENTS // 通用布局组件样式
+   ========================================================================== */
+
+/**
+ * 列表主体内容区域
+ * 可滚动的列表内容容器
+ */
+.team-join-list-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto; /* 默认滚动条 */
+  padding: 32px;
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  padding-top: 20px;
+  max-width: 50vw;
+  /* 自定义滚动条 - Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--space-black) transparent;
+}
+
+/**
+ * 自定义滚动条 - WebKit
+ * 主体区域的 WebKit 滚动条样式
+ */
+::v-deep .team-join-list-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+::v-deep .team-join-list-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::v-deep .team-join-list-body::-webkit-scrollbar-thumb {
+  background-color: var(--space-black);
+  border-radius: var(--border-radius);
+}
+
+::v-deep .team-join-list-body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mission-rust);
+}
+
+/**
+ * ==========================================================================
+   DECO LINE // 装饰线条样式
+   ========================================================================== */
+
+/**
+ * 复古装饰线条容器
+ * 三色渐变装饰条的容器
+ */
+.team-join-list-retro-deco-line {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/**
+ * 装饰线条段
+ * 单个颜色段的样式
+ */
+.team-join-list-retro-deco-line .team-join-list-line-seg {
+  height: 4px;
+  width: 100%;
+}
+
+/**
+ * ==========================================================================
+   FORM SECTIONS // 表单部分样式
+   ========================================================================== */
+
+/**
+ * 表单部分基础样式
+ * 表单中的各个部分容器
+ */
+.team-join-list-form-section {
+  margin-bottom: 12px;
+}
+
+/**
+ * 部分头部
+ * 包含标记点、标题和操作按钮的头部区域
+ */
+.team-join-list-section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/**
+ * 方形标记点基础样式
+ * 部分标题前的装饰性标记
+ */
+.team-join-list-square-bullet {
+  width: 12px;
+  height: 12px;
+  margin-right: 12px;
+  border: 1px solid transparent; /* 占位符 */
+}
+
+/**
+ * 黄色标记点
+ * 使用主题航空芥末黄色
+ */
+.team-join-list-square-bullet.team-join-list-yellow {
+  background-color: var(--avionics-mustard);
+}
+
+/**
+ * 橙色标记点
+ * 使用主题任务铁锈红色
+ */
+.team-join-list-square-bullet.team-join-list-orange {
+  background-color: var(--mission-rust);
+}
+
+/**
+ * 部分标题
+ * 部分的标题文字
+ */
+.team-join-list-section-title {
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   NARRATIVE LOG STYLE // 叙事日志风格内容样式
+   ========================================================================== */
+
+/**
+ * 叙事日志风格的内容区域
+ * 邀请列表部分的内容样式
+ */
+.team-join-list-narrative-log .team-join-list-section-content {
+  padding-left: 0;
+}
+
+/**
+ * ==========================================================================
+   TABLE STYLES // 表格样式
+   ========================================================================== */
+
+/**
+ * 复古表格基础样式
+ * 技术网格风格的表格
+ */
+.team-join-list-retro-table {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black);
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+  font-weight: 600;
+}
+
+/**
+ * 表格表头样式
+ */
+.team-join-list-retro-table ::v-deep th {
+  /* 继承全局主题样式（黑色背景、白色文字） */
+  border-right: 1px solid #333; /* 保持右边框用于分隔 */
+}
+
+/**
+ * 表格单元格样式
+ */
+.team-join-list-retro-table ::v-deep td {
+  border-bottom: 1px solid var(--color-black);
+  color: var(--color-black);
+  font-weight: bold;
+}
+
+/**
+ * 表格行悬停效果
+ */
+.team-join-list-retro-table ::v-deep .el-table__row:hover > td {
+  /* 使用主题品牌警告色半透明 */
+  background-color: rgba(186, 133, 48, 0.1) !important;
+}
+
+/**
+ * 表格主体滚动条样式
+ * 自定义滚动条 - Firefox
+ */
+.team-join-list-retro-table ::v-deep .el-table__body-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: var(--space-black) transparent;
+}
+
+/**
+ * 表格主体滚动条样式
+ * 自定义滚动条 - WebKit
+ */
+.team-join-list-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.team-join-list-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.team-join-list-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--space-black);
+  border-radius: var(--border-radius);
+}
+
+.team-join-list-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mission-rust);
+}
+
+/**
+ * 固定右侧列样式
+ */
+.team-join-list-retro-table ::v-deep .el-table__fixed-right {
+  height: 100% !important;
+  /* 使用主题边框宽度和颜色 */
+  border-left: var(--border-width) solid var(--color-black) !important;
+  /* 使用主题白色背景 */
+  background: var(--color-white) !important;
+}
+
+.team-join-list-retro-table ::v-deep .el-table__fixed-right::before {
+  display: none; /* 隐藏默认阴影 */
+}
+
+/**
+ * 固定右侧列表头样式
+ */
+.team-join-list-retro-table ::v-deep .el-table__fixed-right th {
+  background-color: var(--color-black) !important;
+  color: var(--color-white) !important;
+  border-bottom: none;
+}
+
+/**
+ * 固定右侧列单元格样式
+ */
+.team-join-list-retro-table ::v-deep .el-table__fixed-right td {
+  background-color: var(--color-white) !important;
+  border-bottom: 1px solid var(--color-black);
+}
+
+/**
+ * 固定右侧列行悬停效果
+ */
+.team-join-list-retro-table ::v-deep .el-table__fixed-right .el-table__row:hover > td {
+  /* 匹配主表格的悬停颜色 */
+  background-color: #F8F2EA !important;
+}
+
+/**
+ * ==========================================================================
+   TAGS // 标签样式
+   ========================================================================== */
+
+/**
+ * 复古成功标签
+ * 使用主题品牌成功色
+ */
+.team-join-list-retro-tag-success { 
+  background: var(--brand-success); 
+  color: var(--color-white); 
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black); 
+  border-radius: 0;
+  font-weight: 900;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+}
+
+/**
+ * 复古警告标签
+ * 使用主题品牌警告色
+ */
+.team-join-list-retro-tag-warning { 
+  background: var(--brand-warning); 
+  color: var(--color-white); 
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black); 
+  border-radius: 0;
+  font-weight: 900;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+}
+
+/**
+ * 复古危险标签
+ * 使用主题品牌危险色
+ */
+.team-join-list-retro-tag-danger { 
+  background: var(--brand-danger); 
+  color: var(--color-white); 
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black); 
+  border-radius: 0;
+  font-weight: 900;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+}
+
+/**
+ * 复古信息标签
+ * 使用主题白色背景和黑色文字
+ */
+.team-join-list-retro-tag-info { 
+  background: var(--color-white); 
+  color: var(--color-black); 
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black); 
+  border-radius: 0;
+  font-weight: 900;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+}
+
+/**
+ * ==========================================================================
+   PAGINATION // 分页样式
+   ========================================================================== */
+
+/**
+ * 邀请列表分页容器
+ */
+.team-join-list-invite-pagination { 
+  margin-top: 16px; 
+  text-align: right; 
+}
+
+/**
+ * ==========================================================================
+   SELECT DROPDOWN OVERRIDES // 选择下拉框覆盖样式
+   ========================================================================== */
+
+/**
+ * 复古选择下拉框
+ * Element UI Select 组件的下拉框样式覆盖
+ */
+.team-join-list-retro-select-dropdown {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-hover) !important;
+}
+
+/**
+ * 下拉框选中项样式
+ */
+.team-join-list-retro-select-dropdown .el-select-dropdown__item.selected {
+  /* 使用主题品牌主色 */
+  color: var(--brand-primary);
+  font-weight: 900;
+}
+
+/**
+ * ==========================================================================
+   MARQUEE / SCROLLING TEXT // 跑马灯/滚动文字样式
+   ========================================================================== */
+
+/**
+ * 项目名称滚动容器
+ * 当项目名称内容超出宽度时的滚动容器
+ */
+.team-join-list-project-name-scroll-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/**
+ * 项目名称内容
+ * 项目名称文字内容
+ */
+.team-join-list-project-name-content {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/**
+ * 项目名称内容滚动状态
+ * 当内容超出容器宽度时添加滚动动画
+ */
+.team-join-list-project-name-content.team-join-list-scrolling {
+  animation: team-join-list-retro-marquee 10s linear infinite;
+  padding-left: 100%; /* 从右边缘开始滚动 */
+}
+
+/**
+ * 跑马灯滚动动画
+ * 项目名称内容的滚动动画
+ */
+@keyframes team-join-list-retro-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/**
+ * ==========================================================================
+   ELEMENT UI SELECT OVERRIDES // Element UI Select 组件覆盖样式
+   ========================================================================== */
+
+/**
+ * Select 组件后缀图标容器
+ * 修复下拉箭头垂直对齐
+ */
+::v-deep .el-select .el-input__suffix {
+  height: 100%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * Select 组件后缀内部容器
+ */
+::v-deep .el-select .el-input__suffix .el-input__suffix-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * Select 组件图标
+ * 修复图标垂直对齐
+ */
+::v-deep .el-select .el-input__suffix .el-input__icon {
+  height: auto;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,472 @@
+/* ==========================================================================
+   SIDEBAR TASK GROUP LIST // 侧边栏任务族列表组件样式
+   Theme: Cassette Futurism / NASA Punk
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   组件根容器 // 任务族列表组件包装器
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-wrapper {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  /* 移除 overflow，确保不会干扰 sticky 定位 */
+  /* sticky 定位需要相对于滚动容器，不能有中间层创建新的包含块 */
+}
+
+/* --------------------------------------------------------------------------
+   分节标题 // 任务族列表标题栏
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-section-title {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  /* 移除 margin-bottom，避免在滚动时产生空隙 */
+  margin-bottom: 0;
+  /* 使用全局颜色变量 */
+  background-color: var(--color-black);
+  color: var(--color-white);
+  /* 使用全局字体族 */
+  font-family: var(--font-family);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  /* 使用全局边框宽度变量 */
+  border: var(--border-width) solid var(--color-black);
+  /* 装饰性左侧指示条 */
+  border-left: 6px solid var(--brand-warning);
+  transition: all 0.2s;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+  /* 粘性定位：滚动时固定在滚动容器顶部 */
+  position: -webkit-sticky; /* Safari 兼容 */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /* 确保背景色覆盖，避免内容透过 */
+  background-color: var(--color-black);
+}
+
+/* 标题栏悬停效果 */
+.sidebar-task-group-list-section-title:hover {
+  background-color: var(--brand-warning);
+  color: var(--color-white);
+  border-left-color: var(--color-white);
+  transform: translateX(2px);
+}
+
+/* 标题栏折叠/展开图标 */
+.sidebar-task-group-list-section-title .sidebar-task-group-list-toggle-icon {
+  margin-right: 8px;
+  font-size: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   菜单容器 // Element UI 菜单组件样式覆盖
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-side-menu {
+  border: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1px; /* 在菜单和标题之间添加小间距，避免标题的 margin-bottom 影响滚动 */
+  background: transparent;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   菜单项 // 任务族菜单项样式
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-side-menu .el-menu-item {
+  height: 32px;
+  line-height: 28px; /* 减去边框高度 */
+  margin: 1px 0;
+  padding: 0 12px 0 8px !important;
+  border: none;
+  /* 左侧技术线条 */
+  border-left: 4px solid var(--color-black);
+  /* 使用全局颜色变量 */
+  color: var(--color-black);
+  /* 使用全局字体族 */
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: bold;
+  background: transparent;
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 菜单项悬停状态 */
+.sidebar-task-group-list-side-menu .el-menu-item:hover,
+.sidebar-task-group-list-side-menu .el-menu-item:focus {
+  background-color: rgba(24, 24, 24, 0.05);
+  /* 高亮左侧边框 */
+  border-left-color: var(--brand-warning);
+  transform: none;
+  box-shadow: none;
+}
+
+/* 菜单项激活状态 */
+.sidebar-task-group-list-side-menu .el-menu-item.is-active {
+  background-color: var(--color-white) !important;
+  color: var(--color-black) !important;
+  /* 使用全局边框宽度变量 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-left: 6px solid var(--brand-warning) !important;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.1) !important;
+}
+
+.sidebar-task-group-list-side-menu .el-menu-item.is-active .sidebar-task-group-list-text {
+  color: var(--color-black) !important;
+  font-weight: 900 !important;
+}
+
+/* --------------------------------------------------------------------------
+   颜色指示点 // 任务族颜色标识点
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-dot {
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  margin-left: 2px;
+  /* 使用全局边框宽度变量 */
+  border: var(--border-width) solid var(--color-black);
+  /* 方形点以符合复古风格 */
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   文本内容 // 任务族名称文本
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  text-align: left;
+}
+
+/* --------------------------------------------------------------------------
+   拖拽状态样式 // 拖拽排序时的视觉反馈
+   -------------------------------------------------------------------------- */
+/* 正在拖拽的项 */
+.sidebar-task-group-list-side-menu .el-menu-item.sidebar-task-group-list-dragging {
+  opacity: 0.6;
+  background: var(--color-bg);
+  border: 2px dashed var(--color-black);
+}
+
+/* 拖拽悬停的目标项 */
+.sidebar-task-group-list-side-menu .el-menu-item.sidebar-task-group-list-drag-over {
+  border-top: var(--border-width) solid var(--brand-warning);
+}
+
+/* 插入位置提示（可选） */
+.sidebar-task-group-list-side-menu .el-menu-item.sidebar-task-group-list-shift-down {
+  /* 可选的插入位置视觉提示 */
+}
+
+/* --------------------------------------------------------------------------
+   右键菜单遮罩层 // 右键菜单背景遮罩
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-context-menu-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   右键菜单容器 // 任务族右键菜单主容器
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-context-menu {
+  position: fixed;
+  z-index: 2001;
+  width: 260px;
+  /* 使用全局颜色变量 */
+  background: var(--color-bg);
+  /* 使用全局边框宽度变量 */
+  border: var(--border-width) solid var(--color-black);
+  /* 使用全局阴影样式 */
+  box-shadow: var(--shadow-hover);
+  /* 使用全局字体族 */
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   右键菜单头部 // 显示任务族ID和隐私状态
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-context-menu-header {
+  background: var(--color-black);
+  color: var(--color-white);
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  /* 使用全局边框宽度变量 */
+  border-bottom: var(--border-width) solid var(--color-black);
+}
+
+/* 隐私标签 */
+.sidebar-task-group-list-privacy-tag {
+  padding: 2px 6px;
+  background: var(--color-bg);
+  color: var(--color-black);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+/* 私有任务族标签 */
+.sidebar-task-group-list-privacy-tag--private {
+  background: var(--brand-warning);
+  color: var(--color-white);
+}
+
+/* 公共任务族标签 */
+.sidebar-task-group-list-privacy-tag--public {
+  /* 使用默认样式 */
+}
+
+/* 头部ID文本 */
+.sidebar-task-group-list-header-id {
+  /* 使用全局字体族 */
+  font-family: var(--font-family);
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   右键菜单主体 // 菜单内容区域
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-context-menu-body {
+  padding: 12px;
+}
+
+/* 标题行 */
+.sidebar-task-group-list-menu-title-row {
+  margin-bottom: 12px;
+  border-bottom: 1px dashed var(--color-black);
+  padding-bottom: 8px;
+}
+
+/* 主标题 */
+.sidebar-task-group-list-menu-main-title {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--color-black);
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 副标题信息 */
+.sidebar-task-group-list-menu-sub-info {
+  font-size: 10px;
+  /* 使用全局成功色变量 */
+  color: var(--brand-success);
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   颜色选择区域 // 标签颜色选择器
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-color-section {
+  /* 颜色选择区域容器 */
+}
+
+/* 区域标签 */
+.sidebar-task-group-list-section-label {
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--color-black);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+
+/* 区域标签前缀装饰 */
+.sidebar-task-group-list-section-label::before {
+  content: '>>';
+  margin-right: 4px;
+  color: var(--brand-warning);
+}
+
+/* 当前颜色显示行 */
+.sidebar-task-group-list-current-color-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 4px;
+  border: 1px solid var(--color-black);
+  background: var(--color-white);
+}
+
+/* 当前颜色文本 */
+.sidebar-task-group-list-current-color-text {
+  font-size: 12px;
+  /* 使用全局字体族 */
+  font-family: var(--font-family);
+  color: var(--color-black);
+}
+
+/* 颜色预览点 */
+.sidebar-task-group-list-preview-dot {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--color-black);
+  margin-right: 8px;
+}
+
+/* 色板容器 */
+.sidebar-task-group-list-palette-container {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid var(--color-black);
+  padding: 4px;
+  background: rgba(0,0,0,0.02);
+}
+
+/* 自定义滚动条样式 */
+.sidebar-task-group-list-palette-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-task-group-list-palette-container::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+.sidebar-task-group-list-palette-container::-webkit-scrollbar-thumb {
+  background: var(--color-black);
+}
+
+/* 色板组标题 */
+.sidebar-task-group-list-palette-group-header {
+  font-size: 10px;
+  padding: 4px;
+  cursor: pointer;
+  background: rgba(0,0,0,0.1);
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.sidebar-task-group-list-palette-group-header:hover {
+  border-color: var(--color-black);
+  background: var(--color-bg);
+}
+
+/* 色板组标题文本 */
+.sidebar-task-group-list-palette-group-title {
+  margin-left: 4px;
+}
+
+/* 色板组容器 */
+.sidebar-task-group-list-palette {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px;
+  gap: 4px;
+}
+
+/* 颜色色块 */
+.sidebar-task-group-list-color-swatch {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-black);
+  cursor: pointer;
+  transition: transform 0.1s;
+  padding: 0;
+}
+
+.sidebar-task-group-list-color-swatch:hover {
+  transform: scale(1.2);
+  z-index: 1;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+/* 激活的颜色色块 */
+.sidebar-task-group-list-color-swatch--active {
+  box-shadow: 0 0 0 2px var(--color-black);
+  transform: scale(0.9);
+}
+
+/* --------------------------------------------------------------------------
+   别名输入区域 // 任务族别名设置
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-alias-section {
+  margin-top: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   菜单底部按钮 // 操作按钮区域
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-menu-footer {
+  display: flex;
+  /* 使用全局边框宽度变量 */
+  border-top: var(--border-width) solid var(--color-black);
+}
+
+/* 底部按钮 */
+.sidebar-task-group-list-footer-btn {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* 取消按钮 */
+.sidebar-task-group-list-footer-btn--cancel {
+  background: var(--color-bg);
+  color: var(--color-black);
+  /* 使用全局边框宽度变量 */
+  border-right: var(--border-width) solid var(--color-black);
+}
+
+.sidebar-task-group-list-footer-btn--cancel:hover {
+  background: #e0e0e0;
+}
+
+/* 保存按钮 */
+.sidebar-task-group-list-footer-btn--save {
+  background: var(--color-black);
+  color: var(--brand-warning);
+}
+
+.sidebar-task-group-list-footer-btn--save:hover {
+  background: var(--brand-warning);
+  color: var(--color-black);
+}
+
+/* --------------------------------------------------------------------------
+   新增按钮图标 // 新增任务族按钮的图标样式
+   -------------------------------------------------------------------------- */
+.sidebar-task-group-list-nav-icon.sidebar-task-group-list-plus {
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--color-black);
+}
+
+.sidebar-task-group-list-side-menu .el-menu-item:hover .sidebar-task-group-list-nav-icon.sidebar-task-group-list-plus {
+  color: var(--brand-warning);
+}

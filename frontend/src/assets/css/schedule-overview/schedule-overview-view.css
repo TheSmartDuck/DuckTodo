@@ -1,0 +1,275 @@
+/* ==========================================================================
+   SCHEDULE OVERVIEW VIEW // 日程概览视图样式
+   ========================================================================== */
+
+/**
+ * 日程概览视图根容器
+ * 使用flex布局，横向排列左右两个模块
+ */
+.schedule-overview-body {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+}
+
+/**
+ * 左侧模块：日程日历区域
+ * 占据3/5的宽度，包含日程日历组件
+ */
+.schedule-overview-left-module {
+  flex: 3;
+  height: 100%;
+  /* 使用主题边框宽度和颜色 */
+  border-right: var(--border-width) solid var(--color-black);
+  display: flex;
+  flex-direction: column;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+  z-index: 10;
+  /* 确保日历有足够的显示空间 */
+  min-width: 500px;
+}
+
+/**
+ * 右侧模块：任务详情区域
+ * 占据2/5的宽度，显示任务详情或空状态
+ */
+.schedule-overview-right-module {
+  flex: 2;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  /* 使用主题浅色背景 */
+  background-color: var(--color-bg-light);
+}
+
+/**
+ * 空状态容器
+ * 当未选择任务时显示，居中显示空状态提示
+ */
+.schedule-overview-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+}
+
+/**
+ * 空状态块样式
+ * 与 TaskGroupDetailView 相同的空状态样式
+ */
+.schedule-overview-empty-block {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+  /* 网格背景图案 */
+  background-image: 
+    linear-gradient(rgba(24, 24, 24, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/**
+ * ==========================================================================
+   EMPTY STATE PARTICLES // 空状态浮动粒子样式
+   ========================================================================== */
+
+/**
+ * 浮动粒子基础样式
+ */
+.schedule-overview-particle {
+  position: absolute;
+  /* 使用主题色（任务铁锈红）带透明度 */
+  background: rgba(178, 101, 59, 0.2);
+  transform: rotate(45deg);
+}
+
+/**
+ * 粒子1：左上区域
+ */
+.schedule-overview-p1 { 
+  width: 40px; 
+  height: 40px; 
+  top: 20%; 
+  left: 20%; 
+  animation: schedule-overview-float-p 8s infinite ease-in-out; 
+}
+
+/**
+ * 粒子2：右下区域
+ */
+.schedule-overview-p2 { 
+  width: 20px; 
+  height: 20px; 
+  top: 70%; 
+  right: 30%; 
+  animation: schedule-overview-float-p 6s infinite ease-in-out reverse; 
+}
+
+/**
+ * 粒子3：左下区域
+ */
+.schedule-overview-p3 { 
+  width: 60px; 
+  height: 60px; 
+  bottom: 15%; 
+  left: 10%; 
+  animation: schedule-overview-float-p 10s infinite ease-in-out 1s; 
+}
+
+/**
+ * 浮动粒子动画
+ */
+@keyframes schedule-overview-float-p {
+  0%, 100% { 
+    transform: translateY(0) rotate(45deg); 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(45deg); 
+  }
+}
+
+/**
+ * ==========================================================================
+   EMPTY STATE CONTENT // 空状态内容样式
+   ========================================================================== */
+
+/**
+ * 空状态内容容器
+ */
+.schedule-overview-empty-content {
+  text-align: center;
+  opacity: 0.8;
+  transform: translateY(-20px);
+  z-index: 10;
+}
+
+/**
+ * 菱形Logo容器
+ */
+.schedule-overview-rhine-empty-logo {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black);
+  position: relative;
+  transform: rotate(45deg);
+  animation: schedule-overview-logo-float 6s ease-in-out infinite;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+}
+
+/**
+ * 菱形Logo内部方块
+ */
+.schedule-overview-rhine-logo-inner {
+  width: 32px;
+  height: 32px;
+  /* 使用品牌主色（任务铁锈红） */
+  background-color: var(--brand-primary);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: schedule-overview-inner-pulse 4s ease-in-out infinite;
+}
+
+/**
+ * 轨道环
+ */
+.schedule-overview-rhine-orbit-ring {
+  position: absolute;
+  top: -12px; 
+  left: -12px; 
+  right: -12px; 
+  bottom: -12px;
+  border: 1px dashed rgba(178, 101, 59, 0.5);
+  animation: schedule-overview-rotate-ring 10s linear infinite;
+}
+
+/**
+ * 轨道点
+ */
+.schedule-overview-rhine-orbit-dot {
+  position: absolute;
+  width: 6px; 
+  height: 6px; 
+  /* 使用主题颜色 */
+  background: var(--color-black);
+  top: -15px; 
+  left: 50%;
+  margin-left: -3px;
+}
+
+/**
+ * Logo浮动动画
+ */
+@keyframes schedule-overview-logo-float {
+  0%, 100% { 
+    transform: rotate(45deg) translateY(0); 
+  }
+  50% { 
+    transform: rotate(45deg) translateY(-10px); 
+  }
+}
+
+/**
+ * 内部方块脉冲动画
+ */
+@keyframes schedule-overview-inner-pulse {
+  0%, 100% { 
+    background-color: var(--brand-primary); 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  50% { 
+    background-color: var(--color-black); 
+    transform: translate(-50%, -50%) scale(0.8); 
+  }
+}
+
+/**
+ * 轨道环旋转动画
+ */
+@keyframes schedule-overview-rotate-ring {
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+/**
+ * 空状态标题
+ */
+.schedule-overview-empty-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 24px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+/**
+ * 空状态副标题
+ */
+.schedule-overview-empty-subtitle {
+  font-size: 12px;
+  font-weight: bold;
+  color: #666;
+}

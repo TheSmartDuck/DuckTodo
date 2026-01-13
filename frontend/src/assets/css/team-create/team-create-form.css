@@ -1,0 +1,698 @@
+/* ==========================================================================
+   TEAM CREATE FORM // 创建团队表单样式
+   Theme: Retro Futurism / Brutalism (Integrated with App Theme)
+   ========================================================================== */
+
+/**
+ * ==========================================================================
+   MAIN CARD CONTAINER // 主卡片容器样式
+   ========================================================================== */
+
+/**
+ * 主卡片容器
+ * 创建团队表单的根容器
+ */
+.team-create-form-main-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 90vh;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width-bold) solid var(--color-black);
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0; /* 锐角 */
+}
+
+/**
+ * ==========================================================================
+   CARD HEADER // 卡片头部样式
+   ========================================================================== */
+
+/**
+ * 卡片头部（复古风格）
+ * 黑色背景的头部区域
+ */
+.team-create-form-card-header-retro {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  /* 使用主题黑色背景 */
+  background: var(--color-black);
+  /* 使用主题白色文字 */
+  color: var(--color-white);
+  padding: 0 16px;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black);
+  position: relative;
+}
+
+/**
+ * 头部标题文字
+ * 大号粗体标题
+ */
+.team-create-form-header-title-text {
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 头部右侧操作组
+ * 包含按钮和装饰元素的容器
+ */
+.team-create-form-header-right-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/**
+ * 头部装饰元素容器
+ * 包含三个装饰条
+ */
+.team-create-form-header-deco {
+  display: flex;
+  gap: 4px;
+  margin-left: 12px;
+}
+
+/**
+ * 头部装饰条
+ * 倾斜的装饰条元素
+ */
+.team-create-form-header-deco span {
+  width: 4px;
+  height: 16px;
+  background-color: #999;
+  transform: skewX(-20deg);
+}
+
+/**
+ * ==========================================================================
+   BUTTONS // 按钮样式
+   ========================================================================== */
+
+/**
+ * 复古按钮基础样式
+ * 磁带未来主义风格的按钮
+ */
+.team-create-form-retro-btn {
+  background: var(--color-white) !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  color: var(--color-black) !important;
+  font-weight: 700 !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  transition: all 0.1s !important;
+  /* 使用主题字体 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * 复古按钮激活状态
+ * 按下时的阴影和位移效果
+ */
+.team-create-form-retro-btn:active {
+  /* 使用主题激活阴影 */
+  box-shadow: var(--shadow-active) !important;
+  transform: translate(2px, 2px);
+}
+
+/**
+ * 复古主要按钮
+ * 使用品牌主色的主要按钮
+ */
+.team-create-form-retro-btn-primary {
+  /* 使用主题品牌主色 */
+  background: var(--brand-primary) !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  color: var(--color-white) !important;
+  font-weight: 700 !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  /* 使用主题字体 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * 复古主要按钮激活状态
+ */
+.team-create-form-retro-btn-primary:active {
+  /* 使用主题激活阴影 */
+  box-shadow: var(--shadow-active) !important;
+  transform: translate(2px, 2px);
+}
+
+/**
+ * 复古小按钮
+ * 用于表格内的小型按钮
+ */
+.team-create-form-retro-btn-small {
+  /* 使用主题品牌主色 */
+  background: var(--brand-primary) !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  color: var(--color-white) !important;
+  font-weight: 700 !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  margin-bottom: 6px !important; /* 修复阴影被裁剪的问题 */
+  /* 使用主题字体 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * 复古小按钮激活状态
+ */
+.team-create-form-retro-btn-small:active {
+  /* 使用主题激活阴影 */
+  box-shadow: var(--shadow-active) !important;
+  transform: translate(2px, 2px);
+}
+
+/**
+ * 复古禁用按钮
+ * 禁用状态的按钮样式
+ */
+.team-create-form-retro-btn-disabled {
+  background: #e0e0e0 !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  color: #999 !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  margin-bottom: 6px !important; /* 对齐 */
+  /* 使用主题字体 */
+  font-family: var(--font-family) !important;
+}
+
+/**
+ * ==========================================================================
+   COMMON LAYOUT COMPONENTS // 通用布局组件样式
+   ========================================================================== */
+
+/**
+ * 表单主体内容区域
+ * 可滚动的表单内容容器
+ */
+.team-create-form-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto; /* 默认滚动条 */
+  padding: 32px;
+  /* 使用主题白色背景 */
+  background: var(--color-white);
+  padding-top: 20px;
+  max-width: 50vw;
+  /* 自定义滚动条 - Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--space-black) transparent;
+}
+
+/**
+ * 自定义滚动条 - WebKit
+ * 主体区域的 WebKit 滚动条样式
+ */
+::v-deep .team-create-form-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+::v-deep .team-create-form-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::v-deep .team-create-form-body::-webkit-scrollbar-thumb {
+  background-color: var(--space-black);
+  border-radius: var(--border-radius);
+}
+
+::v-deep .team-create-form-body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mission-rust);
+}
+
+/**
+ * ==========================================================================
+   FORM STYLES // 表单样式
+   ========================================================================== */
+
+/**
+ * 头像输入行
+ * 头像输入框和上传按钮的容器
+ */
+.team-create-form-avatar-row { 
+  display: flex; 
+  align-items: center; 
+}
+
+/**
+ * 用户选择框容器
+ * 包含搜索工具栏、邀请标签、用户表格和分页的容器
+ */
+.team-create-form-user-select-box {
+  width: 44vw;
+  min-width: 0; /* 防止内容溢出 */
+}
+
+/**
+ * 用户选择工具栏
+ * 搜索输入框和搜索按钮的容器
+ */
+.team-create-form-user-select-toolbar { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  margin-bottom: 12px; 
+}
+
+/**
+ * 邀请标签容器
+ * 显示已邀请用户标签的容器
+ */
+.team-create-form-invite-tags { 
+  display: flex; 
+  flex-wrap: wrap; 
+  margin-bottom: 12px; 
+  width: 100%; 
+}
+
+/**
+ * 用户选择分页容器
+ */
+.team-create-form-user-select-pagination { 
+  margin-top: 12px; 
+  text-align: right; 
+}
+
+/**
+ * 邀请标签样式
+ * 复古风格的标签
+ */
+.team-create-form-invite-tag.team-create-form-retro-tag {
+  /* 使用主题边框宽度和颜色 */
+  border: 1px solid var(--color-black);
+  border-radius: 0;
+  /* 使用主题背景色 */
+  background: var(--color-bg);
+  color: var(--color-black);
+  font-weight: 700;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * 邀请标签中的头像图片
+ */
+.team-create-form-invite-tag.team-create-form-retro-tag .team-create-form-avatar img {
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  object-fit: cover;
+  vertical-align: middle;
+  /* 使用主题边框宽度和颜色 */
+  border: 1px solid var(--color-black);
+  margin-right: 4px;
+}
+
+/**
+ * 复古虚线框
+ * 带虚线边框的容器
+ */
+.team-create-form-retro-dashed-box {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) dashed var(--color-black);
+  border-radius: 0;
+  padding: 20px;
+  background: rgba(0,0,0,0.02);
+}
+
+/**
+ * ==========================================================================
+   SELECT DROPDOWN OVERRIDES // 选择下拉框覆盖样式
+   ========================================================================== */
+
+/**
+ * 复古选择下拉框
+ * Element UI Select 组件的下拉框样式覆盖
+ */
+.team-create-form-retro-select-dropdown {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-hover) !important;
+}
+
+/**
+ * 下拉框选中项样式
+ */
+.team-create-form-retro-select-dropdown .el-select-dropdown__item.selected {
+  /* 使用主题品牌主色 */
+  color: var(--brand-primary);
+  font-weight: 900;
+}
+
+/**
+ * ==========================================================================
+   DECO LINE // 装饰线条样式
+   ========================================================================== */
+
+/**
+ * 复古装饰线条容器
+ * 三色渐变装饰条的容器
+ */
+.team-create-form-retro-deco-line {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/**
+ * 装饰线条段
+ * 单个颜色段的样式
+ */
+.team-create-form-retro-deco-line .team-create-form-line-seg {
+  height: 4px;
+  width: 100%;
+}
+
+/**
+ * ==========================================================================
+   FORM SECTIONS // 表单部分样式
+   ========================================================================== */
+
+/**
+ * 表单部分基础样式
+ * 表单中的各个部分容器
+ */
+.team-create-form-section {
+  margin-bottom: 12px;
+}
+
+/**
+ * 部分头部
+ * 包含标记点和标题的头部区域
+ */
+.team-create-form-section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/**
+ * 方形标记点基础样式
+ * 部分标题前的装饰性标记
+ */
+.team-create-form-square-bullet {
+  width: 12px;
+  height: 12px;
+  margin-right: 12px;
+  border: 1px solid transparent; /* 占位符 */
+}
+
+/**
+ * 黄色标记点
+ * 使用主题航空芥末黄色
+ */
+.team-create-form-square-bullet.team-create-form-yellow {
+  background-color: var(--avionics-mustard);
+}
+
+/**
+ * 橙色标记点
+ * 使用主题任务铁锈红色
+ */
+.team-create-form-square-bullet.team-create-form-orange {
+  background-color: var(--mission-rust);
+}
+
+/**
+ * 部分标题
+ * 部分的标题文字
+ */
+.team-create-form-section-title {
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+}
+
+/**
+ * ==========================================================================
+   NARRATIVE LOG STYLE // 叙事日志风格内容样式
+   ========================================================================== */
+
+/**
+ * 叙事日志风格的内容区域
+ * 基本信息部分的内容样式
+ */
+.team-create-form-narrative-log .team-create-form-section-content {
+  padding-left: 0;
+}
+
+/**
+ * 虚线分隔符
+ * 部分之间的虚线分隔
+ */
+.team-create-form-dashed-line-separator {
+  margin-top: 24px;
+  height: var(--border-width);
+  background-image: linear-gradient(to right, var(--color-black) 50%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 10px var(--border-width);
+  background-repeat: repeat-x;
+  opacity: 0.3;
+}
+
+/**
+ * ==========================================================================
+   COMMUNITY TRANSMISSION STYLE // 社区传输风格内容样式
+   ========================================================================== */
+
+/**
+ * 灰色背景框
+ * 社区传输风格的内容区域（灰色背景）
+ */
+.team-create-form-grey-box {
+  background-color: #f2f2f2;
+  border: 1px solid #dcdcdc;
+  padding: 20px;
+}
+
+/**
+ * 灰色框中的表格样式
+ * 确保表格在灰色框中显示正常
+ */
+.team-create-form-grey-box .team-create-form-retro-table {
+  background: transparent;
+}
+
+.team-create-form-grey-box .team-create-form-retro-table::before {
+  display: none; /* 移除 Element UI 表格底部边框（如需要） */
+}
+
+/**
+ * ==========================================================================
+   TABLE STYLES // 表格样式
+   ========================================================================== */
+
+/**
+ * 复古表格基础样式
+ * 技术网格风格的表格
+ */
+.team-create-form-retro-table {
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black);
+  /* 使用主题字体 */
+  font-family: var(--font-family);
+  /* 固定表格宽度，防止变化 */
+  width: 100% !important;
+  table-layout: fixed; /* 固定表格布局，确保列宽不变 */
+  font-weight: 600;
+}
+
+/**
+ * 表格表头样式
+ */
+.team-create-form-retro-table ::v-deep th {
+  /* 使用主题黑色背景 */
+  background: var(--color-black) !important;
+  /* 使用主题白色文字 */
+  color: var(--color-white) !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+  font-weight: 900;
+  text-transform: uppercase;
+  border-right: 1px solid #333;
+}
+
+/**
+ * 表格单元格样式
+ */
+.team-create-form-retro-table ::v-deep td {
+  border-bottom: 1px solid var(--color-black);
+  color: var(--color-black);
+  font-weight: 600; /* 邀请成员列表字体粗细 */
+}
+
+/**
+ * 表格行悬停效果
+ */
+.team-create-form-retro-table ::v-deep .el-table__row:hover > td {
+  /* 使用主题品牌警告色半透明 */
+  background-color: rgba(186, 133, 48, 0.1) !important;
+}
+
+/**
+ * 表格主体滚动条样式
+ * 自定义滚动条 - Firefox
+ */
+.team-create-form-retro-table ::v-deep .el-table__body-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: var(--space-black) transparent;
+}
+
+/**
+ * 表格主体滚动条样式
+ * 自定义滚动条 - WebKit
+ */
+.team-create-form-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.team-create-form-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.team-create-form-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--space-black);
+  border-radius: var(--border-radius);
+}
+
+.team-create-form-retro-table ::v-deep .el-table__body-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mission-rust);
+}
+
+/**
+ * 修复表格中 Select 下拉箭头垂直对齐
+ */
+.team-create-form-retro-table ::v-deep .el-select .el-input__suffix {
+  height: 100%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-create-form-retro-table ::v-deep .el-select .el-input__suffix .el-input__icon {
+  height: auto;
+  line-height: 1; /* 重置行高以避免偏移 */
+  display: flex;
+  align-items: center;
+}
+
+/**
+ * 固定右侧列样式
+ */
+.team-create-form-retro-table ::v-deep .el-table__fixed-right {
+  height: 100% !important;
+  /* 使用主题边框宽度和颜色 */
+  border-left: var(--border-width) solid var(--color-black) !important;
+  /* 使用主题白色背景 */
+  background: var(--color-white) !important;
+}
+
+.team-create-form-retro-table ::v-deep .el-table__fixed-right::before {
+  display: none; /* 隐藏默认阴影 */
+}
+
+/**
+ * 固定右侧列表头样式
+ */
+.team-create-form-retro-table ::v-deep .el-table__fixed-right th {
+  background-color: var(--color-black) !important;
+  color: var(--color-white) !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+}
+
+/**
+ * 固定右侧列单元格样式
+ */
+.team-create-form-retro-table ::v-deep .el-table__fixed-right td {
+  background-color: var(--color-white) !important;
+  border-bottom: 1px solid var(--color-black);
+}
+
+/**
+ * 固定右侧列行悬停效果
+ */
+.team-create-form-retro-table ::v-deep .el-table__fixed-right .el-table__row:hover > td {
+  /* 匹配主表格的悬停颜色 */
+  background-color: #F8F2EA !important;
+}
+
+/**
+ * ==========================================================================
+   MARQUEE / SCROLLING TEXT // 跑马灯/滚动文字样式
+   ========================================================================== */
+
+/**
+ * 邮箱滚动容器
+ * 当邮箱内容超出宽度时的滚动容器
+ */
+.team-create-form-email-scroll-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/**
+ * 邮箱内容
+ * 邮箱文字内容
+ */
+.team-create-form-email-content {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/**
+ * 邮箱内容滚动状态
+ * 当内容超出容器宽度时添加滚动动画
+ */
+.team-create-form-email-content.team-create-form-scrolling {
+  animation: team-create-form-retro-marquee 10s linear infinite;
+  padding-left: 100%; /* 从右边缘开始滚动 */
+}
+
+/**
+ * 跑马灯滚动动画
+ * 邮箱内容的滚动动画
+ */
+@keyframes team-create-form-retro-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}

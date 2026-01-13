@@ -1,0 +1,456 @@
+/* ==========================================================================
+   DASHBOARD HEADER // 仪表板头部组件样式
+   Theme: Retro Futurism / Cassette Futurism
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   根容器 // 仪表板头部主容器
+   -------------------------------------------------------------------------- */
+.dashboard-header-retro {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 12px 4px;
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    position: relative;
+    /* 使用全局颜色变量，透明度为 0.1 */
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   左侧组 // 包含雷达图和标题信息
+   -------------------------------------------------------------------------- */
+.dashboard-header-left-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* --------------------------------------------------------------------------
+   标题行 // 包含雷达图和标题的横向布局
+   -------------------------------------------------------------------------- */
+.dashboard-header-title-row {
+    display: flex;
+    align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   动态雷达图容器 // 显示时间和雷达扫描效果
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-chart {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    margin-right: 24px;
+    /* 使用全局颜色变量 */
+    background: var(--color-black);
+    border-radius: 50%; /* 圆形，不使用全局圆角变量 */
+    /* 使用全局阴影变量 */
+    box-shadow: var(--shadow-normal);
+    overflow: hidden;
+    border: 4px solid #e0e0e0;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+/* --------------------------------------------------------------------------
+   雷达背景波浪 // SVG 轮廓效果（由 RadarParticles 组件处理）
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-bg-wave {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    opacity: 0.8;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 轮廓旋转动画 */
+@keyframes dashboard-header-contour-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   仪表弧线 // 彩色环形指示器（从红色到黄色到绿色）
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-gauge-arc {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    /* 渐变：从底部左侧（红色）-> 黄色 -> 绿色/鼠尾草色 */
+    background: conic-gradient(
+        from 180deg,
+        var(--alarm-burgundy) 0deg,    /* 警报酒红 */
+        var(--avionics-mustard) 90deg,  /* 航空芥末黄 */
+        var(--oxidized-sage) 180deg,   /* 氧化鼠尾草绿 */
+        transparent 180deg
+    );
+    /* 遮罩：创建环形效果 */
+    mask-image: radial-gradient(transparent 68%, black 69%);
+    -webkit-mask-image: radial-gradient(transparent 68%, black 69%);
+    opacity: 1;
+    z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   静态内环 // 雷达图内部的虚线圆环
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-static-ring {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   刻度标记 // 雷达图上的刻度标记（预留，当前无样式）
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-tick-marks {
+    /* 预留样式：如需添加刻度标记样式，可在此处定义 */
+}
+
+/* --------------------------------------------------------------------------
+   扫描线 // 旋转的雷达扫描线效果
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(255, 255, 255, 0.1) 60deg,
+        rgba(255, 255, 255, 0.5) 90deg,
+        transparent 90.5deg
+    );
+    border-radius: 50%;
+    animation: dashboard-header-radar-spin 4s linear infinite;
+    z-index: 3;
+    mix-blend-mode: overlay;
+}
+
+/* 雷达旋转动画 */
+@keyframes dashboard-header-radar-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   数字显示 // 雷达图中央的时间数字
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-number-big {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    font-size: 38px;
+    font-weight: 900;
+    /* 使用全局颜色变量 */
+    color: var(--color-white);
+    font-family: "Impact", "Arial Black", sans-serif;
+    text-shadow: 2px 2px 0 var(--color-black);
+    z-index: 5;
+    line-height: 1;
+}
+
+.dashboard-header-radar-number-small {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    font-size: 18px;
+    font-weight: bold;
+    /* 使用全局品牌警告色变量 */
+    color: var(--avionics-mustard);
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid var(--avionics-mustard);
+}
+
+/* --------------------------------------------------------------------------
+   指示器 // 雷达图上的三角形和加号标记
+   -------------------------------------------------------------------------- */
+.dashboard-header-radar-indicator-tri {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    /* 使用全局颜色变量 */
+    color: var(--color-white);
+    font-size: 10px;
+    z-index: 5;
+    background: var(--color-black);
+    padding: 2px;
+    border: 1px solid #555;
+    line-height: 1;
+}
+
+.dashboard-header-radar-indicator-plus {
+    position: absolute;
+    right: 12px;
+    top: 30%;
+    /* 使用全局颜色变量 */
+    color: var(--color-white);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 5;
+    opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   标题组 // 包含打字效果文本和装饰线
+   -------------------------------------------------------------------------- */
+.dashboard-header-title-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   标题栏 // 包含打字效果文本的容器
+   -------------------------------------------------------------------------- */
+.dashboard-header-title-bar {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   打字效果容器 // 内联显示打字效果文本和光标
+   -------------------------------------------------------------------------- */
+.dashboard-header-typed-container-inline {
+    font-size: 38px;
+    /* 使用全局颜色变量 */
+    color: var(--color-black);
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    letter-spacing: -1px;
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+}
+
+/* --------------------------------------------------------------------------
+   动态文本 // 打字效果显示的文本
+   -------------------------------------------------------------------------- */
+.dashboard-header-dynamic-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   光标 // 打字效果的光标闪烁动画
+   -------------------------------------------------------------------------- */
+.dashboard-header-cursor {
+    display: inline-block;
+    width: 12px;
+    height: 32px;
+    margin-left: 6px;
+    animation: dashboard-header-blink 1s step-end infinite;
+}
+
+/* --------------------------------------------------------------------------
+   装饰线组 // 三条彩色装饰线
+   -------------------------------------------------------------------------- */
+.dashboard-header-deco-lines {
+    display: flex;
+    height: 10px; /* 较粗的装饰线 */
+    min-width: 600px;
+    margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   装饰线 // 单条装饰线基础样式
+   -------------------------------------------------------------------------- */
+.dashboard-header-deco-line {
+    height: 100%;
+    min-width: 33.3%;
+}
+
+/* 酒红色装饰线 */
+.dashboard-header-deco-line.dashboard-header-line-burgundy {
+    width: 60px;
+    /* 使用全局颜色变量 */
+    background-color: var(--alarm-burgundy);
+    min-width: 50.3%;
+}
+
+/* 芥末黄色装饰线 */
+.dashboard-header-deco-line.dashboard-header-line-mustard {
+    width: 80px;
+    /* 使用全局颜色变量 */
+    background-color: var(--avionics-mustard);
+    min-width: 30.3%;
+}
+
+/* 鼠尾草绿色装饰线 */
+.dashboard-header-deco-line.dashboard-header-line-sage {
+    width: 140px;
+    /* 使用全局颜色变量 */
+    background-color: var(--oxidized-sage);
+    min-width: 20.3%;
+}
+
+/* --------------------------------------------------------------------------
+   信息行 // 包含用户标签和日期信息
+   -------------------------------------------------------------------------- */
+.dashboard-header-info-row {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   用户标签 // 显示登录用户名的标签
+   -------------------------------------------------------------------------- */
+.dashboard-header-user-tag {
+    background-color: #222;
+    color: #ddd;
+    padding: 6px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px; /* 药丸形状，不使用全局圆角变量 */
+    border: none;
+    /* 使用全局阴影变量 */
+    box-shadow: var(--shadow-light);
+    margin-right: 16px;
+    position: relative;
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    letter-spacing: 1px;
+}
+
+/* 用户标签的螺栓/螺丝装饰（伪元素） */
+.dashboard-header-user-tag::before,
+.dashboard-header-user-tag::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #888;
+    border-radius: 50%;
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+.dashboard-header-user-tag::before { left: 6px; }
+.dashboard-header-user-tag::after { right: 6px; }
+
+.dashboard-header-user-tag span {
+    display: inline-block;
+    transform: none;
+    text-shadow: 1px 1px 0 var(--color-black);
+}
+
+/* --------------------------------------------------------------------------
+   日期块（小） // 显示月/日的日期块
+   -------------------------------------------------------------------------- */
+.dashboard-header-date-block-small {
+    display: flex;
+    align-items: baseline;
+    font-family: "Impact", sans-serif;
+    font-size: 24px;
+    color: #333;
+}
+
+/* --------------------------------------------------------------------------
+   时间（小） // 显示时间的文本
+   -------------------------------------------------------------------------- */
+.dashboard-header-time-small {
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: bold;
+    /* 使用全局品牌警告色变量 */
+    color: var(--avionics-mustard);
+    margin-left: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   右侧组（静态） // 显示系统状态信息
+   -------------------------------------------------------------------------- */
+.dashboard-header-right-group-static {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+    padding-bottom: 8px;
+    padding-right: 15px;
+}
+
+/* --------------------------------------------------------------------------
+   静态块 // 系统状态信息容器
+   -------------------------------------------------------------------------- */
+.dashboard-header-static-block {
+    text-align: right;
+    margin-bottom: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   静态标签 // 系统状态标签文字
+   -------------------------------------------------------------------------- */
+.dashboard-header-static-label {
+    font-size: 10px;
+    color: #888;
+    letter-spacing: 2px;
+    font-weight: bold;
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+}
+
+/* --------------------------------------------------------------------------
+   静态值 // 系统状态值（如 ONLINE）
+   -------------------------------------------------------------------------- */
+.dashboard-header-static-val {
+    font-size: 18px;
+    font-weight: 900;
+    /* 使用全局品牌成功色变量 */
+    color: var(--oxidized-sage);
+    text-shadow: 0 0 5px rgba(92, 127, 113, 0.5);
+    /* 使用全局字体族变量 */
+    font-family: var(--font-family);
+    margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   静态装饰框 // 右侧装饰性的条纹框
+   -------------------------------------------------------------------------- */
+.dashboard-header-static-deco-box {
+    width: 40px;
+    height: 6px;
+    background: repeating-linear-gradient(
+        90deg,
+        #444,
+        #444 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   闪烁动画 // 光标闪烁效果
+   -------------------------------------------------------------------------- */
+@keyframes dashboard-header-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

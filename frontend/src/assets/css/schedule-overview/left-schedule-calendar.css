@@ -1,0 +1,887 @@
+/* ==========================================================================
+   LEFT SCHEDULE CALENDAR // 左侧日程日历样式
+   ========================================================================== */
+
+/**
+ * 列表面板根容器
+ * 使用flex布局，垂直排列头部、日历和底部
+ */
+.left-schedule-calendar-pane {
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  white-space: normal;
+  /* 使用主题边框宽度和颜色 */
+  border-right: var(--border-width) solid var(--color-black);
+}
+
+/**
+ * ==========================================================================
+   HEADER & TOOLBAR // 头部和工具栏样式
+   ========================================================================== */
+
+/**
+ * 列表头部和工具栏
+ * 包含标题区域和年份/月份选择器
+ */
+.left-schedule-calendar-header {
+  /* 使用主题背景色 */
+  background: var(--color-bg);
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black);
+  box-shadow: none;
+  padding: 10px 14px;
+  padding-bottom: 16px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 20;
+}
+
+/**
+ * 头部底部装饰条
+ * 三色渐变装饰条（芥末黄、鼠尾草绿、酒红）
+ */
+.left-schedule-calendar-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(
+    to right, 
+    var(--brand-warning) 33.33%, 
+    var(--brand-success) 33.33% 66.66%, 
+    var(--brand-danger) 66.66%
+  );
+}
+
+/**
+ * 头部标题行
+ * 包含英文标题、中文标题和装饰文字
+ */
+.left-schedule-calendar-header-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  /* 使用主题颜色和透明度 */
+  border-bottom: var(--border-width) solid rgba(24, 24, 24, 0.1);
+  padding-bottom: 2px;
+}
+
+/**
+ * 标题文本组
+ * 包含英文和中文标题
+ */
+.left-schedule-calendar-title-text-group {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+/**
+ * 英文标题
+ * 大号粗体标题
+ */
+.left-schedule-calendar-title-en {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 28px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+/**
+ * 中文标题
+ * 使用主题字体和品牌主色
+ */
+.left-schedule-calendar-title-cn {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
+  /* 使用品牌主色 */
+  color: var(--brand-primary);
+}
+
+/**
+ * 头部装饰线
+ * 右侧装饰文字和形状
+ */
+.left-schedule-calendar-header-decor-line {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: #999;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/**
+ * 工具栏
+ * 包含年份和月份选择器等工具
+ */
+.left-schedule-calendar-toolbar {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  height: 26px;
+  gap: 8px;
+}
+
+/**
+ * ==========================================================================
+   CALENDAR GRID STYLES // 日历网格样式
+   ========================================================================== */
+
+/**
+ * 日历包装器
+ */
+.left-schedule-calendar-wrap {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: transparent;
+}
+
+/**
+ * 日历容器
+ * 使用主题背景色和边框
+ */
+.left-schedule-calendar-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+  /* 使用主题边框宽度和颜色 */
+  border-top: var(--border-width) solid var(--color-black);
+  height: 100%;
+}
+
+/**
+ * 星期标题行
+ * 显示周一到周日的标题
+ */
+.left-schedule-calendar-week-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* 使用主题颜色 */
+  background-color: var(--color-black);
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+/**
+ * 星期标题单元格
+ */
+.left-schedule-calendar-weekday {
+  text-align: center;
+  font-family: 'Impact', sans-serif;
+  font-size: 14px;
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg);
+  padding: 8px 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+/**
+ * 最后一个星期标题（周日）不显示右边框
+ */
+.left-schedule-calendar-weekday:last-child {
+  border-right: none;
+}
+
+/**
+ * 日历主体
+ * 6行7列的网格布局
+ */
+.left-schedule-calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr); /* 固定6行 */
+  flex: 1;
+  overflow: hidden;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+}
+
+/**
+ * 日历格子
+ * 每个格子代表一天，使用flex布局垂直排列头部和任务列表
+ */
+.left-schedule-calendar-cell {
+  border-right: 1px solid rgba(24,24,24,0.1);
+  border-bottom: 1px solid rgba(24,24,24,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+  overflow: hidden;
+  /* 确保flex子元素可以正确收缩 */
+  min-height: 0;
+}
+
+/**
+ * 每行的最后一个格子（周日）不显示右边框
+ */
+.left-schedule-calendar-cell:nth-child(7n) {
+  border-right: none;
+}
+
+/**
+ * 日历格子悬停效果
+ */
+.left-schedule-calendar-cell:hover {
+  background-color: rgba(255,255,255,0.5);
+}
+
+/**
+ * 其他月份的日期格子
+ * 显示为半透明，表示不属于当前月份
+ */
+.left-schedule-calendar-cell.left-schedule-calendar-is-other-month {
+  background-color: rgba(0,0,0,0.03);
+  opacity: 0.6;
+}
+
+/**
+ * 今天的日期格子
+ * 高亮显示当前日期
+ */
+.left-schedule-calendar-cell.left-schedule-calendar-is-today {
+  background-color: rgba(255, 215, 0, 0.1);
+}
+
+/**
+ * ==========================================================================
+   CELL HEADER // 格子头部样式
+   ========================================================================== */
+
+/**
+ * 格子头部
+ * 显示日期数字和"TODAY"标签
+ */
+.left-schedule-calendar-cell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+  flex-shrink: 0;
+  /* 确保头部不会被压缩 */
+  min-height: 28px;
+}
+
+/**
+ * 公历日期数字
+ */
+.left-schedule-calendar-gregorian {
+  font-family: 'Impact', sans-serif;
+  font-size: 16px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  opacity: 0.8;
+}
+
+/**
+ * 今天的标签
+ * 显示"TODAY"文字
+ */
+.left-schedule-calendar-today-tag {
+  font-size: 10px;
+  font-weight: 800;
+  /* 使用品牌主色 */
+  background-color: var(--brand-primary);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+/**
+ * ==========================================================================
+   CELL TASKS // 格子任务列表样式
+   ========================================================================== */
+
+/**
+ * 格子任务列表
+ * 可滚动的任务列表区域
+ */
+.left-schedule-calendar-cell-tasks {
+  flex: 1;
+  /* 当内容超出时显示垂直滚动条 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  /* 确保可以正确滚动：min-height: 0 允许flex子元素收缩到内容以下 */
+  min-height: 0;
+}
+
+/**
+ * 滚动条样式：使其更明显和美观
+ */
+.left-schedule-calendar-cell-tasks::-webkit-scrollbar { 
+  width: 6px; 
+  background: rgba(0, 0, 0, 0.05); 
+}
+
+.left-schedule-calendar-cell-tasks::-webkit-scrollbar-track { 
+  background: transparent; 
+  border-radius: 3px;
+}
+
+.left-schedule-calendar-cell-tasks::-webkit-scrollbar-thumb { 
+  /* 使用主题颜色 */
+  background: rgba(24, 24, 24, 0.3); 
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.left-schedule-calendar-cell-tasks::-webkit-scrollbar-thumb:hover { 
+  background: rgba(24, 24, 24, 0.5); 
+}
+
+/**
+ * ==========================================================================
+   CALENDAR TASK ITEM // 日历任务项样式
+   ========================================================================== */
+
+/**
+ * 日历任务项基础样式
+ * 深色背景的任务卡片，显示在日历格子中
+ */
+.left-schedule-calendar-task-item {
+  /* 使用主题颜色 */
+  background-color: var(--color-black);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  padding: 2px 4px;
+  font-size: 10px;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 0;
+  transition: transform 0.1s;
+  font-family: var(--font-family);
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: left;
+  /* 防止任务项在flex布局中被压缩，确保每个任务项都有独立的空间 */
+  flex-shrink: 0;
+  /* 设置最小高度，确保任务项有足够的显示空间 */
+  min-height: 18px;
+  /* 确保任务项正确定位，不会重叠 */
+  position: relative;
+  /* 确保任务项占据完整的宽度 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/**
+ * 任务项悬停效果
+ */
+.left-schedule-calendar-task-item:hover {
+  transform: translateX(2px);
+  z-index: 10;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+}
+
+/**
+ * ==========================================================================
+   TASK PRIORITY COLORS // 任务优先级颜色（左侧边框）
+   ========================================================================== */
+
+/**
+ * 高优先级（P0/P1）
+ */
+.left-schedule-calendar-task-item.p-high { 
+  border-left-color: #F56C6C; 
+}
+
+/**
+ * 中优先级（P2）
+ */
+.left-schedule-calendar-task-item.p-medium { 
+  border-left-color: #E6A23C; 
+}
+
+/**
+ * 低优先级（P3）
+ */
+.left-schedule-calendar-task-item.p-low { 
+  border-left-color: #409EFF; 
+}
+
+/**
+ * 无优先级（P4/默认）
+ */
+.left-schedule-calendar-task-item.p-none { 
+  border-left-color: #909399; 
+}
+
+/**
+ * ==========================================================================
+   TASK STATUS STYLES // 任务状态样式
+   ========================================================================== */
+
+/**
+ * 已完成状态的任务
+ */
+.left-schedule-calendar-task-item.s-completed {
+  background-color: #e6e6e6;
+  color: #999;
+  text-decoration: line-through;
+  border-left-color: #999;
+}
+
+/**
+ * 超期状态的任务
+ * 使用品牌主色（铁锈红）
+ */
+.left-schedule-calendar-task-item.s-timeout {
+  /* 使用品牌主色 */
+  background-color: var(--brand-primary);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  border-left-color: #7c4629;
+}
+
+/**
+ * ==========================================================================
+   FOOTER // 底部样式
+   ========================================================================== */
+
+/**
+ * 列表底部
+ * 显示统计信息和可选控件
+ */
+.left-schedule-calendar-footer {
+  height: 58px;
+  padding: 0 20px;
+  /* 使用主题边框宽度和颜色 */
+  border-top: var(--border-width) solid var(--color-black);
+  /* 使用主题颜色 */
+  background: var(--color-black);
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  border-top: 1px solid var(--color-bg);
+}
+
+/**
+ * 底部左侧
+ */
+.left-schedule-calendar-footer-left {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/**
+ * ==========================================================================
+   INPUT OVERRIDES // 输入框样式覆盖（复古风格）
+   ========================================================================== */
+
+/**
+ * 年份和月份包装器
+ */
+.left-schedule-calendar-year-wrap, 
+.left-schedule-calendar-month-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/**
+ * 年份和月份单位标签
+ */
+.left-schedule-calendar-year-unit, 
+.left-schedule-calendar-month-unit {
+  font-family: 'Impact', sans-serif;
+  font-size: 16px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  margin-left: 0;
+  text-transform: uppercase;
+  line-height: 28px; /* 与输入框高度对齐 */
+  font-weight: 500;
+}
+
+/**
+ * 日历组选择器（当前未使用）
+ */
+.left-schedule-calendar-group-select {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/**
+ * ==========================================================================
+   RETRO INPUT NUMBER STYLE // 复古数字输入框样式
+   ========================================================================== */
+
+/**
+ * 复古数字输入框（迷你版）
+ */
+.left-schedule-calendar-retro-input-number.el-input-number--mini {
+  width: 100px;
+  line-height: 26px;
+}
+
+/**
+ * 右侧控制按钮的输入框内边距调整
+ */
+.el-input-number.is-controls-right .el-input__inner{
+  padding-left: 10px !important;
+  text-align: left !important;
+}
+
+/**
+ * 输入框内部样式
+ */
+.left-schedule-calendar-retro-input-number .el-input__inner {
+  padding-left: 0 !important;
+  padding-right: 45px !important;
+  background: transparent;
+  /* 使用主题边框宽度和颜色 */
+  border: 1px solid var(--color-black) !important;
+  border-radius: 0 !important;
+  /* 使用主题颜色 */
+  color: var(--color-black) !important;
+  font-family: 'Impact', sans-serif;
+  font-size: 16px;
+  height: 28px !important;
+  line-height: 28px !important;
+  text-align: center;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  text-indent: 0 !important;
+}
+
+/**
+ * 增加和减少按钮的基础样式
+ */
+.left-schedule-calendar-retro-input-number .el-input-number__decrease,
+.left-schedule-calendar-retro-input-number .el-input-number__increase {
+  /* 使用主题颜色 */
+  background: var(--color-black) !important;
+  border-left: 1px solid var(--color-black) !important;
+  color: black !important;
+  border-radius: 0 !important;
+  width: 24px !important; /* 稍微宽一点以覆盖边框 */
+  right: 0px !important; /* 在边框内部 */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+/**
+ * 增加按钮（上半部分）
+ */
+.left-schedule-calendar-retro-input-number .el-input-number__increase {
+  border-bottom: 1px solid black !important;
+  height: 13px !important; /* 一半高度 */
+  line-height: 13px !important;
+  top: 1px !important; /* 在边框内部 */
+}
+
+/**
+ * 减少按钮（下半部分）
+ */
+.left-schedule-calendar-retro-input-number .el-input-number__decrease {
+  border-top: none !important;
+  height: 13px !important; /* 一半高度 */
+  line-height: 13px !important;
+  bottom: 1px !important; /* 在边框内部 */
+}
+
+/**
+ * 按钮图标样式
+ */
+.left-schedule-calendar-retro-input-number .el-icon-arrow-up,
+.left-schedule-calendar-retro-input-number .el-icon-arrow-down {
+  font-size: 12px;
+  font-weight: bold;
+  transform: scale(0.8);
+  /* 使用主题白色 */
+  color: var(--color-white);
+}
+
+/**
+ * 按钮悬停效果
+ */
+.left-schedule-calendar-retro-input-number .el-input-number__decrease:hover,
+.left-schedule-calendar-retro-input-number .el-input-number__increase:hover {
+  /* 使用品牌主色 */
+  background-color: var(--brand-primary) !important;
+  /* 使用主题白色 */
+  color: var(--color-white) !important;
+  border-color: var(--brand-primary) !important;
+}
+
+/**
+ * 右侧控制按钮的圆角移除
+ */
+.left-schedule-calendar-retro-input-number.is-controls-right .el-input-number__increase {
+  border-radius: 0;
+}
+.left-schedule-calendar-retro-input-number.is-controls-right .el-input-number__decrease {
+  border-radius: 0;
+}
+
+/**
+ * ==========================================================================
+   SELECTED TAGS // 选中标签样式（当前未使用）
+   ========================================================================== */
+
+/**
+ * 选中标签容器
+ */
+.left-schedule-calendar-selected-tags {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 4px;
+  margin-left: 8px;
+  max-width: 200px;
+}
+
+.left-schedule-calendar-selected-tags::-webkit-scrollbar { 
+  height: 0; 
+}
+
+/**
+ * 标签药丸样式
+ */
+.left-schedule-calendar-tag-pill {
+  display: flex;
+  align-items: center;
+  /* 使用主题颜色 */
+  background: var(--color-black);
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg);
+  padding: 2px 6px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.left-schedule-calendar-tag-pill .left-schedule-calendar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+/**
+ * ==========================================================================
+   RETRO STATUS TRIGGER // 复古状态触发器样式（当前未使用）
+   ========================================================================== */
+
+/**
+ * 复古状态触发器
+ */
+.left-schedule-calendar-retro-status-trigger {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  background: transparent;
+  /* 使用主题边框宽度和颜色 */
+  border: 1px solid var(--color-black);
+  cursor: pointer;
+  margin-right: 8px;
+  transition: all 0.2s;
+  user-select: none;
+  padding: 0;
+  position: relative;
+}
+
+/**
+ * 触发器悬停和有值状态
+ */
+.left-schedule-calendar-retro-status-trigger:hover,
+.left-schedule-calendar-retro-status-trigger.has-value {
+  border-color: var(--color-black);
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal);
+  transform: translate(-1px, -1px);
+}
+
+/**
+ * 有值状态的触发器
+ */
+.left-schedule-calendar-retro-status-trigger.has-value {
+  /* 使用主题颜色 */
+  background: var(--color-black);
+}
+
+/**
+ * 触发器标签
+ */
+.left-schedule-calendar-retro-status-trigger .left-schedule-calendar-trigger-label {
+  font-family: 'Impact', sans-serif;
+  font-size: 15px;
+  padding: 0 8px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  border-right: 1px solid var(--color-black);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 有值状态的触发器标签
+ */
+.left-schedule-calendar-retro-status-trigger.has-value .left-schedule-calendar-trigger-label {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg);
+  border-right-color: var(--color-bg);
+}
+
+/**
+ * 触发器值
+ */
+.left-schedule-calendar-retro-status-trigger .left-schedule-calendar-trigger-value {
+  padding: 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/**
+ * 有值状态的触发器值
+ */
+.left-schedule-calendar-retro-status-trigger.has-value .left-schedule-calendar-trigger-value {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg);
+}
+
+/**
+ * ==========================================================================
+   SELECTED TASK VISIBILITY // 选中任务可见性样式
+   ========================================================================== */
+
+/**
+ * 选中状态的任务项
+ * 高亮显示当前选中的任务
+ */
+.left-schedule-calendar-task-item.left-schedule-calendar-is-selected {
+  /* 使用主题颜色 */
+  background-color: var(--color-black) !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal);
+  z-index: 10;
+  transform: scale(1.02) translate(-1px, -1px);
+}
+
+/**
+ * 选中任务项的名称文字
+ */
+.left-schedule-calendar-task-item.left-schedule-calendar-is-selected .left-schedule-calendar-task-name {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  font-weight: 700;
+}
+
+
+
+/* 全局弹窗样式（用于LeftScheduleCalendar的过滤器弹窗） */
+.left-schedule-calendar-retro-filter-popover {
+  padding: 0 !important;
+  /* 使用主题边框宽度和颜色 */
+  border: var(--border-width) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-normal) !important;
+  /* 使用主题背景色 */
+  background: var(--color-bg) !important;
+}
+
+.left-schedule-calendar-retro-filter-content {
+  padding: 4px;
+}
+
+.left-schedule-calendar-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Impact', sans-serif;
+  font-size: 14px;
+  margin-bottom: 8px;
+  border-bottom: var(--border-width) solid #eee;
+  padding-bottom: 4px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+}
+
+.left-schedule-calendar-clear-btn {
+  font-size: 10px;
+  cursor: pointer;
+  /* 使用品牌危险色 */
+  color: var(--brand-danger);
+  text-decoration: underline;
+  font-family: sans-serif;
+}
+
+.left-schedule-calendar-filter-list {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.left-schedule-calendar-filter-item-row {
+  margin-bottom: 6px;
+}
+
+.left-schedule-calendar-opt-group-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.left-schedule-calendar-opt-group-label .left-schedule-calendar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.left-schedule-calendar-opt-group-label .left-schedule-calendar-name {
+  font-size: 12px;
+  font-weight: 600;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+}

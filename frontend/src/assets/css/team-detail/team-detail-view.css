@@ -1,0 +1,150 @@
+/* ==========================================================================
+   TEAM DETAIL VIEW // 团队详情视图样式表
+   Component: TeamDetailView.vue
+   ========================================================================== */
+
+/**
+ * 团队详情视图根容器
+ * 使用 Flexbox 纵向布局，占据全屏高度
+ */
+.team-detail-view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 16px;
+  background-color: var(--lunar-cream);
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  font-family: var(--font-family);
+  color: var(--space-black);
+  overflow: hidden;
+}
+
+/**
+ * 页面内容区域
+ * 占据剩余空间，支持滚动
+ */
+.team-detail-page-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 12px;
+}
+
+/**
+ * 顶部导航标签页容器
+ */
+.team-detail-top-nav {
+  padding: 0 12px;
+  flex-shrink: 0;
+  margin-bottom: 16px;
+  border-bottom: var(--border-width) solid rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Element UI Tabs 样式覆盖
+ */
+::v-deep .team-detail-panel-tabs .el-tabs__header { 
+  margin-bottom: 0; 
+}
+
+::v-deep .team-detail-panel-tabs .el-tabs__item { 
+  color: rgba(102, 102, 102, 1); /* #666 */
+  font-weight: bold; 
+  font-size: 14px; 
+  font-family: var(--font-family);
+}
+
+::v-deep .team-detail-panel-tabs .el-tabs__item.is-active { 
+  color: var(--mission-rust); 
+  font-weight: 900; 
+}
+
+::v-deep .team-detail-panel-tabs .el-tabs__active-bar { 
+  background-color: var(--mission-rust); 
+  height: 3px; 
+}
+
+::v-deep .team-detail-panel-tabs .el-tabs__nav-wrap::after { 
+  background-color: transparent; 
+}
+
+/**
+ * 标签页内容区域
+ * 占据剩余空间，支持滚动
+ */
+.team-detail-tab-content {
+  flex: 1;
+  overflow: hidden;
+  padding-bottom: 12px;
+}
+
+/**
+ * 加载状态占位符
+ */
+.team-detail-loading-holder {
+  padding: 40px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--space-black);
+  font-family: var(--font-family);
+}
+
+/**
+ * 占位符布局容器
+ * 用于未实现的标签页内容
+ */
+.team-detail-placeholder-layout {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * 占位符内容框
+ */
+.team-detail-placeholder-box {
+  border: var(--border-width) dashed rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  color: rgba(136, 136, 136, 1); /* #888 */
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+}
+
+/**
+ * 加载覆盖层样式
+ */
+::v-deep .duck-loading-overlay { 
+  background-color: rgba(251, 248, 241, 0.9) !important; 
+}
+
+::v-deep .duck-loading-overlay .el-loading-spinner i.duck-spinner {
+  display: inline-block;
+  margin-top: -120px;
+  width: 228px;
+  height: 228px;
+  background: url(~@/assets/imgs/loading-duck.gif) no-repeat center;
+  background-size: contain;
+  filter: grayscale(100%) contrast(120%);
+}
+
+::v-deep .duck-loading-overlay .el-loading-text {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--space-black);
+  font-family: var(--font-family);
+}

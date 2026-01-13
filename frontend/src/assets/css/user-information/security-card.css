@@ -1,0 +1,471 @@
+/* ==========================================================================
+   SECURITY CARD // 安全卡片样式
+   Theme: Store Style (Dark Theme) / Cassette Futurism
+   ========================================================================== */
+
+/**
+ * 安全卡片根容器
+ * 深色主题卡片，与基本信息卡片高度一致
+ */
+.security-card-store {
+  /* 使用主题颜色 */
+  background: var(--color-black);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  height: 220px; /* 与基本信息卡片高度一致 */
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  /* 使用主题阴影 */
+  box-shadow: var(--shadow-light);
+  transition: transform 0.2s;
+  /* 使用主题边框宽度和颜色 */
+  border: 1px solid var(--color-black);
+}
+
+/**
+ * 卡片悬停效果
+ */
+.security-card-store:hover {
+  transform: translate(-2px, -2px);
+  /* 使用主题阴影（增强版） */
+  box-shadow: var(--shadow-hover);
+}
+
+/**
+ * ==========================================================================
+   STORE CONTENT // 卡片内容区域样式
+   ========================================================================== */
+
+/**
+ * 卡片内容容器
+ * 横向排列图标、信息、统计和操作按钮
+ */
+.security-card-store-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 30px;
+}
+
+/**
+ * ==========================================================================
+   ICON AREA // 图标区域样式
+   ========================================================================== */
+
+/**
+ * 图标区域
+ * 左侧图标容器
+ */
+.security-card-store-icon {
+  margin-right: 30px;
+  flex-shrink: 0;
+}
+
+/**
+ * 图标圆圈
+ * 圆形图标容器，带边框和阴影
+ */
+.security-card-icon-c-circle {
+  width: 60px;
+  height: 60px;
+  /* 使用主题白色边框 */
+  border: 4px solid var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  /* 使用主题白色 */
+  color: var(--color-white);
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/**
+ * ==========================================================================
+   INFO AREA // 信息区域样式
+   ========================================================================== */
+
+/**
+ * 信息区域
+ * 中间信息区域，包含标题和描述
+ */
+.security-card-store-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/**
+ * 卡片标题
+ * 大号粗体标题
+ */
+.security-card-store-title {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0 0 5px 0;
+  letter-spacing: -1px;
+}
+
+/**
+ * 卡片副标题
+ * 小号文字，灰色
+ */
+.security-card-store-sub {
+  font-size: 14px;
+  color: #888;
+  font-weight: normal;
+}
+
+/**
+ * 卡片描述
+ * 小号文字，浅灰色
+ */
+.security-card-store-desc {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/**
+ * 描述代码行
+ * 等宽字体，使用品牌主色
+ */
+.security-card-desc-code {
+  font-family: monospace;
+  /* 使用品牌主色 */
+  color: var(--brand-primary);
+  margin-top: 4px;
+  font-weight: bold;
+}
+
+/**
+ * ==========================================================================
+   STATS AREA // 统计区域样式
+   ========================================================================== */
+
+/**
+ * 统计区域
+ * 右侧统计信息，垂直排列
+ */
+.security-card-store-stats {
+  display: flex;
+  flex-direction: column; /* 垂直布局 */
+  gap: 10px; /* 减少间距 */
+  margin-right: 30px;
+  min-width: 120px; /* 确保宽度以对齐 */
+}
+
+/**
+ * 统计组
+ * 单个统计项（标签+值）
+ */
+.security-card-stat-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/**
+ * 统计标签
+ * 小号粗体标签
+ */
+.security-card-stat-group .security-card-label {
+  font-size: 10px;
+  color: #666;
+  font-weight: bold;
+}
+
+/**
+ * 值行
+ * 包含值和复制图标
+ */
+.security-card-value-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/**
+ * 复制图标
+ * 点击复制密钥的图标按钮
+ */
+.security-card-copy-icon {
+  font-size: 12px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+}
+
+/**
+ * 复制图标悬停效果
+ */
+.security-card-copy-icon:hover {
+  /* 使用主题白色 */
+  color: var(--color-white);
+}
+
+/**
+ * 统计值
+ * 中号粗体值
+ */
+.security-card-stat-group .security-card-value {
+  font-size: 14px;
+  font-weight: bold;
+  /* 使用主题白色 */
+  color: var(--color-white);
+}
+
+/**
+ * ==========================================================================
+   ACTIONS AREA // 操作按钮区域样式
+   ========================================================================== */
+
+/**
+ * 操作按钮区域
+ * 右侧操作按钮，垂直排列
+ */
+.security-card-store-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/**
+ * 操作按钮基础样式
+ * 胶囊形状的按钮
+ */
+.security-card-store-btn {
+  padding: 8px 16px;
+  background: transparent;
+  /* 使用主题白色边框 */
+  border: 1px solid var(--color-white);
+  /* 使用主题白色 */
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  border-radius: 20px;
+}
+
+/**
+ * 操作按钮悬停效果
+ */
+.security-card-store-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/**
+ * 主要操作按钮
+ * 白色背景，深色文字
+ */
+.security-card-store-btn-primary {
+  background: var(--color-white);
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  border: none;
+}
+
+/**
+ * 主要操作按钮悬停效果
+ */
+.security-card-store-btn-primary:hover {
+  background: #eee;
+}
+
+/**
+ * ==========================================================================
+   RESPONSIVE DESIGN // 响应式设计
+   ========================================================================== */
+
+/**
+ * 移动端适配
+ * 当屏幕宽度小于等于768px时，改为垂直布局
+ */
+@media (max-width: 768px) {
+  /**
+   * 移动端内容改为垂直布局
+   */
+  .security-card-store-content {
+    flex-direction: column;
+    padding: 20px;
+    align-items: flex-start;
+  }
+  
+  /**
+   * 移动端图标添加底部边距
+   */
+  .security-card-store-icon {
+    margin-bottom: 20px;
+  }
+  
+  /**
+   * 移动端统计区域改为水平布局
+   */
+  .security-card-store-stats {
+    margin: 20px 0;
+    align-items: flex-start;
+    flex-direction: row;
+  }
+  
+  /**
+   * 移动端统计组左对齐
+   */
+  .security-card-stat-group {
+    align-items: flex-start;
+  }
+  
+  /**
+   * 移动端操作按钮区域改为水平布局
+   */
+  .security-card-store-actions {
+    width: 100%;
+    flex-direction: row;
+  }
+}
+
+/**
+ * ==========================================================================
+   DRAWER STYLES // 抽屉样式
+   ========================================================================== */
+
+/**
+ * 复古风格抽屉
+ * 右侧滑出的编辑抽屉
+ */
+.security-card-retro-drawer {
+  /* 使用主题边框宽度和颜色 */
+  outline: var(--border-width) solid var(--color-black) !important;
+}
+
+/**
+ * 抽屉头部
+ * 深色背景的标题栏
+ * 参考 BasicInfoCard 的抽屉头样式
+ */
+.security-card-retro-drawer .el-drawer__header {
+  /* 使用主题颜色 */
+  background-color: var(--color-black) !important;
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  padding: 20px 25px !important;
+  margin-bottom: 0 !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative; /* 用于伪元素定位 */
+}
+
+/**
+ * 抽屉头部三色装饰条（伪元素）
+ * 底部三色渐变装饰条
+ * 参考 BasicInfoCard 的抽屉头样式
+ */
+.security-card-retro-drawer .el-drawer__header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--brand-warning) 0%, var(--brand-warning) 33.33%,
+    var(--brand-success) 33.33%, var(--brand-success) 66.66%,
+    var(--brand-danger) 66.66%, var(--brand-danger) 100%
+  );
+  z-index: 10;
+}
+
+/**
+ * 抽屉标题样式覆盖
+ */
+.security-card-retro-drawer .el-drawer__title {
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  color: var(--color-bg) !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+}
+
+/**
+ * 抽屉关闭按钮
+ */
+.security-card-retro-drawer .el-drawer__close-btn {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  font-size: 24px !important;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-weight: bold !important;
+  top: 15px !important;
+  right: 20px !important;
+}
+
+/**
+ * 抽屉关闭按钮悬停效果
+ */
+.security-card-retro-drawer .el-drawer__close-btn:hover {
+  transform: rotate(90deg) scale(1.2);
+  /* 使用品牌警告色 */
+  color: var(--brand-warning) !important;
+}
+
+/**
+ * 抽屉主体
+ * 包含表单内容的区域，带网格背景
+ */
+.security-card-retro-drawer .el-drawer__body {
+  padding: 20px !important;
+  overflow-y: auto;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg) !important;
+  /* 网格背景图案 */
+  background-image:
+    linear-gradient(rgba(24, 24, 24, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/**
+ * ==========================================================================
+   FORM IN DRAWER // 抽屉内表单样式
+   ========================================================================== */
+
+/**
+ * 表单标签
+ */
+.security-card-retro-drawer .el-form-item__label {
+  /* 使用主题颜色 */
+  color: var(--color-black) !important;
+  font-weight: bold !important;
+}
+
+/**
+ * 修复密码眼睛图标位置
+ * 确保密码输入框的眼睛图标正确对齐
+ */
+.security-card-retro-drawer .el-input__suffix {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  right: 10px !important;
+}
+
+.security-card-retro-drawer .el-input__suffix-inner {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.security-card-retro-drawer .el-input__icon {
+  line-height: inherit !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}

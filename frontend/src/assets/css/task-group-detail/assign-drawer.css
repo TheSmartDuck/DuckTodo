@@ -1,0 +1,349 @@
+/* Rhine Lab Theme - Assign Drawer */
+
+/* Drawer Container */
+/* 参考 BasicInfoCard 的抽屉头样式 */
+.rhine-drawer .el-drawer__header {
+  /* 使用主题颜色 */
+  background-color: var(--color-black) !important;
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  padding: 20px 25px !important;
+  margin-bottom: 0 !important;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) solid var(--color-black) !important;
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative; /* 用于伪元素定位 */
+}
+
+/**
+ * 抽屉头部三色装饰条（伪元素）
+ * 底部三色渐变装饰条
+ * 参考 BasicInfoCard 的抽屉头样式
+ */
+.rhine-drawer .el-drawer__header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--brand-warning) 0%, var(--brand-warning) 33.33%,
+    var(--brand-success) 33.33%, var(--brand-success) 66.66%,
+    var(--brand-danger) 66.66%, var(--brand-danger) 100%
+  );
+  z-index: 10;
+}
+
+/**
+ * 抽屉标题样式覆盖
+ */
+.rhine-drawer .el-drawer__title {
+  /* 使用主题字体族 */
+  font-family: var(--font-family) !important;
+  font-weight: 900 !important;
+  font-size: 18px !important;
+  color: var(--color-bg) !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+}
+
+/**
+ * 抽屉关闭按钮样式覆盖
+ */
+.rhine-drawer .el-drawer__close-btn {
+  /* 使用主题背景色（作为文字颜色） */
+  color: var(--color-bg) !important;
+  font-size: 24px !important;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-weight: bold !important;
+  top: 15px !important;
+  right: 20px !important;
+}
+
+/**
+ * 抽屉关闭按钮悬停效果
+ */
+.rhine-drawer .el-drawer__close-btn:hover {
+  transform: rotate(90deg) scale(1.2);
+  /* 使用品牌警告色 */
+  color: var(--brand-warning) !important;
+}
+
+.rhine-drawer .el-drawer__body {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+  color: #ccc;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.rhine-drawer-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Header Deco - 已移除，使用统一的抽屉头部样式 */
+
+/* Selected Area */
+.selected-users-area {
+  padding: 16px 24px;
+  background: #222;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.area-label {
+  font-size: 10px;
+  color: #888;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-family: 'Courier Prime', monospace;
+}
+
+.selected-users-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.rhine-user-tag {
+  display: flex;
+  align-items: center;
+  background: #333;
+  border: 1px solid #E65D25;
+  border-radius: 16px;
+  padding: 2px 8px 2px 2px;
+  height: 28px;
+  transition: all 0.2s;
+}
+
+.rhine-user-tag:hover {
+  background: #E65D25;
+}
+
+.rhine-user-tag:hover .tag-name {
+  color: #fff;
+}
+
+.tag-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #E65D25;
+  background: #fff;
+  margin-right: 6px;
+}
+
+.tag-name {
+  font-size: 11px;
+  color: #E65D25;
+  font-weight: bold;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag-close {
+  margin-left: 6px;
+  cursor: pointer;
+  color: #888;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tag-close:hover {
+  color: #fff;
+}
+
+.empty-selection {
+  font-size: 12px;
+  color: #555;
+  font-style: italic;
+  padding: 6px 0;
+}
+
+/* Search Box */
+.rhine-search-box {
+  padding: 12px 24px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.rhine-search-input >>> .el-input__inner {
+  background: #222;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
+  font-family: 'Courier Prime', monospace;
+}
+
+.rhine-search-input >>> .el-input__inner:focus {
+  border-color: #E65D25;
+}
+
+/* List Wrapper */
+.drawer-list-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background: #1a1a1a;
+}
+
+/* Loading Mask Override */
+.drawer-list-wrapper .el-loading-mask {
+  background-color: #1a1a1a !important;
+  opacity: 0.9;
+}
+
+.drawer-list-wrapper .el-loading-spinner .path {
+  stroke: #E65D25 !important;
+}
+
+.drawer-list-wrapper .el-loading-spinner .el-loading-text {
+  color: #E65D25 !important;
+}
+
+/* Table Overrides */
+.rhine-table {
+  background: transparent !important;
+}
+
+.rhine-table::before {
+  display: none;
+}
+
+.rhine-table >>> .el-table__header-wrapper th {
+  background: #1a1a1a !important;
+  color: #888;
+  border-bottom: 1px solid #333 !important;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 8px 0;
+}
+
+.rhine-table >>> .el-table__body-wrapper td {
+  background: #1a1a1a !important;
+  border-bottom: 1px solid #222 !important;
+  padding: 8px 0;
+}
+
+.rhine-table >>> .el-table__row:hover td {
+  background: #222 !important;
+}
+
+/* Checkbox Overrides */
+.rhine-table >>> .el-checkbox__inner {
+  background: #333;
+  border-color: #555;
+}
+
+.rhine-table >>> .el-checkbox__input.is-checked .el-checkbox__inner {
+  background: #E65D25;
+  border-color: #E65D25;
+}
+
+/* Cell Content */
+.user-cell {
+  display: flex;
+  align-items: center;
+}
+
+.cell-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #444;
+  margin-right: 10px;
+}
+
+.cell-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cell-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cell-info .name {
+  font-size: 13px;
+  color: #ccc;
+  font-weight: bold;
+}
+
+.cell-info .uid {
+  font-size: 10px;
+  color: #666;
+  font-family: monospace;
+}
+
+.empty-muted {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #555;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* Footer */
+.drawer-footer {
+  height: 64px;
+  background: #181818;
+  border-top: 1px solid #333;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.rhine-btn {
+  padding: 6px 20px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Impact', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-left: 12px;
+}
+
+.rhine-btn.secondary {
+  color: #888;
+  border: 1px solid #444;
+}
+
+.rhine-btn.secondary:hover {
+  color: #ccc;
+  border-color: #666;
+  background: #222;
+}
+
+.rhine-btn.primary {
+  color: #1a1a1a;
+  background: #E65D25;
+  border: 1px solid #E65D25;
+}
+
+.rhine-btn.primary:hover {
+  background: #ff7f4d;
+  border-color: #ff7f4d;
+}

@@ -1,0 +1,90 @@
+/* CRT Effect Variables */
+:root {
+  --crt-bg: #181818;
+  --crt-scanline: rgba(245, 237, 220, 0.05); /* Lunar Cream 5% */
+  --crt-scanline-alt: rgba(92, 127, 113, 0.05); /* Oxidized Sage 5% */
+  --crt-scanline-gray: rgba(120, 120, 120, 0.15); /* Darker Gray for Light Theme */
+}
+
+/* Full screen overlay container */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Scanlines */
+.crt-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--crt-scanline-gray) 1px,
+    transparent 1px
+  );
+  background-size: 100% 3px;
+  /* animation: scanline-scroll 10s linear infinite; */
+}
+
+@keyframes scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* Grain / Noise */
+.crt-grain {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  /* Simple SVG noise data URI */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+  animation: grain-shift 0.5s steps(5) infinite;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* Vignette */
+.crt-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    transparent 60%,
+    rgba(24, 24, 24, 0.4) 100%
+  );
+  pointer-events: none;
+}
+
+/* Chromatic Aberration (applied to body content) */
+.crt-aberration {
+  /* Subtle text shadow aberration */
+  text-shadow: 
+    1px 0 0 rgba(255, 0, 0, 0.4),
+    -1px 0 0 rgba(0, 255, 0, 0.4);
+}

@@ -1,0 +1,1576 @@
+/* ==========================================================================
+   TASK CREATE/DETAIL COMPONENT // 任务创建/详情组件样式表
+   Component: TaskCreate.vue, TaskDetail.vue
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   字体定义
+   -------------------------------------------------------------------------- */
+@font-face {
+  src: local('Impact'), local('Haettenschweiler'), local('Arial Narrow Bold'), sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   根容器样式
+   -------------------------------------------------------------------------- */
+
+/**
+ * 任务创建/详情卡片根容器
+ * 使用 Flexbox 布局，占据全高
+ */
+.task-detail-create-card {
+  background: #f0f0f0;
+  border: 2px solid #1a1a1a;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   终端样式头部区域
+   -------------------------------------------------------------------------- */
+
+/**
+ * 终端样式头部容器
+ * 深色背景，带点阵图案
+ */
+.task-detail-terminal-header {
+  background-color: var(--space-black);
+  background-image: radial-gradient(#333333 2px, transparent 2px);
+  background-size: 24px 24px;
+  border-bottom: var(--border-width) solid var(--color-black);
+  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/**
+ * 头部顶部区域
+ * 包含任务名称输入框和装饰线条
+ */
+.task-detail-header-top {
+  display: flex;
+  align-items: flex-end;
+  padding: 12px 16px 4px;
+  position: relative;
+}
+
+/**
+ * 终端标题输入容器
+ */
+.task-detail-terminal-title-container {
+  position: relative;
+  margin-right: 12px;
+  min-width: 250px;
+  max-width: 80%;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Removed title-mirror style */
+
+/**
+ * 终端标题输入框
+ * 大号 Impact 字体，自动调整大小
+ */
+.task-detail-terminal-title-input {
+  position: relative;
+  width: auto;
+  min-width: 250px;
+  min-height: 28px;
+  font-family: 'Impact', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: transparent;
+  border: none;
+  resize: none;
+  overflow: hidden;
+  padding: 0;
+  outline: none;
+  display: block; /* 确保表现为块级元素以便调整大小 */
+}
+
+.task-detail-terminal-title-input::placeholder {
+  color: rgba(102, 102, 102, 1); /* #666 */
+  opacity: 1;
+}
+
+/**
+ * 已完成状态的任务名称
+ * 添加删除线，文字变淡
+ */
+.task-detail-terminal-title-input.task-detail-completed {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.6); /* 淡白色 */
+}
+
+/**
+ * 逾期状态的任务名称
+ * 使用警告色
+ */
+.task-detail-terminal-title-input.task-detail-timeout {
+  color: var(--avionics-mustard); /* 航空芥末黄 */
+}
+
+/**
+ * 废弃的标题样式（已不再使用）
+ * 保留以防万一，但已隐藏
+ */
+.terminal-title {
+  display: none; /* 隐藏旧标题 */
+}
+
+.task-detail-header-lines {
+  flex: 1;
+  display: flex;
+  height: 8px;
+  margin-bottom: 4px;
+}
+
+/**
+ * 装饰线条 - 芥末黄
+ */
+.task-detail-line-mustard {
+  width: 40px;
+  min-width: 30px;
+  background: var(--avionics-mustard);
+  height: 100%;
+}
+
+/**
+ * 装饰线条 - 鼠尾草绿
+ */
+.task-detail-line-sage {
+  width: 60px;
+  min-width: 30px;
+  background: var(--oxidized-sage);
+  height: 100%;
+}
+
+/**
+ * 装饰线条 - 酒红色
+ */
+.task-detail-line-burgundy {
+  flex: 1;
+  min-width: 30px;
+  background: var(--alarm-burgundy);
+  height: 100%;
+}
+
+
+.task-detail-header-sub {
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 12px;
+}
+
+/**
+ * 废弃的优先级 Logo 相关样式（已不再使用）
+ * 保留以防万一，但已隐藏
+ */
+.priority-logo-group,
+.priority-box,
+.rp-circle {
+  display: none;
+}
+
+/* Priority Logo (RP Style - Restored) */
+.task-detail-priority-logo {
+  display: flex;
+  height: 32px;
+  margin-right: 12px;
+  margin-top: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.task-detail-logo-half {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-detail-logo-half.task-detail-left {
+  background-color: rgba(78, 78, 78, 1); /* #4e4e4e，接近 Space Black */
+}
+
+.task-detail-logo-half.task-detail-right {
+  transition: background-color 0.3s;
+}
+
+.task-detail-logo-circle {
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Impact', sans-serif;
+  font-size: 14px;
+  color: #181818;
+  line-height: 1;
+  padding-top: 2px;
+  user-select: none;
+}
+
+/* Hide conflicting/old classes */
+.priority-logo-group, .priority-box, .rp-circle, .rp-box, .priority-display {
+  display: none;
+}
+
+/* Header Status Button (Capsule Style) */
+.task-detail-header-status-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 24px;
+  margin-right: 12px;
+  
+  border-radius: 12px;
+  border: none; /* No border for capsule style */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  
+  font-family: 'Impact', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  
+  cursor: default;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.task-detail-header-status-btn.task-detail-is-clickable {
+  cursor: pointer;
+}
+
+.task-detail-header-status-btn.is-clickable:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.task-detail-header-status-btn.is-clickable:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  filter: brightness(0.95);
+}
+
+/* Dots */
+.task-detail-header-status-btn::before,
+.task-detail-header-status-btn::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+}
+
+.task-detail-header-status-btn::before { left: 10px; }
+.task-detail-header-status-btn::after { right: 10px; }
+
+/* Status Colors */
+.task-detail-header-status-btn.task-detail-process {
+  background-color: #5C7F71; /* Oxidized Sage */
+  color: #fff;
+}
+.task-detail-header-status-btn.process::before, .task-detail-header-status-btn.process::after { background-color: #fff; }
+
+.task-detail-header-status-btn.task-detail-completed {
+  background-color: #EAE0C8; /* Lunar Cream */
+  color: #000000; /* Mission Rust / Brown */
+}
+.task-detail-header-status-btn.completed::before, .task-detail-header-status-btn.completed::after { background-color: #000000; }
+
+.task-detail-header-status-btn.task-detail-disabled {
+  background-color: #909399; /* Grey */
+  color: #fff;
+}
+.task-detail-header-status-btn.disabled::before, .task-detail-header-status-btn.disabled::after { background-color: #fff; }
+
+.task-detail-header-status-btn.task-detail-timeout {
+  background-color: #802520; /* Alarm Burgundy */
+  color: #fff;
+}
+.task-detail-header-status-btn.timeout::before, .task-detail-header-status-btn.timeout::after { background-color: #fff; }
+
+
+/**
+ * 头部描述文字
+ */
+.task-detail-header-desc {
+  font-size: 12px;
+  color: rgba(153, 153, 153, 1); /* #999 */
+  font-style: italic;
+  font-family: var(--font-family);
+}
+
+/* BODY - RHINE LAB THEME */
+/**
+ * 详情主体区域
+ * 使用主题背景色，支持滚动
+ */
+.task-detail-body {
+  background-color: var(--lunar-cream);
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  position: relative;
+  font-family: var(--font-family);
+}
+
+/* Background Decoration */
+.task-detail-bg-text {
+  position: absolute;
+  bottom: 28%;
+  left: 51%;
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(0,0,0,0.03);
+  transform: rotate(90deg);
+  pointer-events: none;
+  z-index: 0;
+  font-family: 'Impact', sans-serif;
+  letter-spacing: 10px;
+}
+
+/* Section 1: Header & Catalogue */
+.task-detail-section-header {
+  padding: 24px 24px 12px;
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+/**
+ * 标题块容器
+ * 左侧有装饰边框
+ */
+.task-detail-title-block {
+  margin-bottom: 24px;
+  border-left: 6px solid var(--mission-rust);
+  padding-left: 16px;
+}
+
+/**
+ * 主标题
+ */
+.task-detail-main-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 32px;
+  color: rgba(43, 43, 43, 1); /* #2B2B2B */
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.task-detail-main-title .task-detail-thin {
+  font-weight: 300;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  color: rgba(102, 102, 102, 1); /* #666 */
+}
+
+/**
+ * 副标题
+ */
+.task-detail-subtitle {
+  font-size: 10px;
+  color: var(--mission-rust);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+  font-weight: bold;
+}
+
+/* Info Grid (Cards) */
+.task-detail-info-grid {
+  display: flex;
+  gap: 12px;
+}
+
+/**
+ * 信息卡片
+ * 半透明白色背景，带边框和阴影
+ */
+.task-detail-info-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(209, 192, 165, 1); /* #D1C0A5 */
+  border-radius: 0;
+  padding: 16px 12px 12px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.task-detail-info-card.task-detail-full-width,
+.task-detail-info-card.full-width {
+  margin-top: 24px; /* 增加与上方3个box的间距 */
+  width: 100%;
+  flex: none;
+}
+
+/**
+ * 信息卡片标签（胶囊样式）
+ */
+.task-detail-pill-label {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  background: rgba(74, 59, 50, 1); /* #4A3B32，深棕色 */
+  color: var(--color-white);
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.task-detail-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/**
+ * 输入组容器
+ * 包含标签和输入控件
+ */
+.task-detail-input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(209, 192, 165, 1); /* #D1C0A5 */
+  padding-bottom: 2px;
+  min-height: 28px;
+}
+
+.task-detail-input-group.clickable {
+  cursor: pointer;
+}
+
+.task-detail-input-group.clickable:hover {
+  background: rgba(230, 93, 37, 0.05); /* mission-rust 的淡色 */
+}
+
+/**
+ * 输入标签
+ */
+.task-detail-input-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.1;
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--mission-rust);
+  min-width: 60px;
+}
+
+.task-detail-input-label .task-detail-sub-label {
+  font-size: 8px;
+  transform: scale(0.9);
+  transform-origin: left top;
+  opacity: 0.8;
+  font-weight: normal;
+  margin-top: 1px;
+}
+
+/**
+ * 静态值显示
+ */
+.task-detail-static-value {
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(43, 43, 43, 1); /* #2B2B2B */
+  text-align: right;
+  flex: 1;
+  font-family: var(--font-family);
+}
+
+/* Scrolling Text Support */
+.task-detail-scroll-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0; /* Allow flex item to shrink below content size */
+}
+
+.task-detail-scroll-wrapper.task-detail-is-scrolling {
+  justify-content: flex-start;
+}
+
+/**
+ * 跑马灯轨道
+ */
+.task-detail-marquee-track {
+  display: flex;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(43, 43, 43, 1); /* #2B2B2B */
+  font-family: var(--font-family);
+}
+
+.task-detail-marquee-track.task-detail-animate-marquee {
+  animation: task-detail-marquee-left 10s linear infinite;
+}
+
+/* Ensure the duplicate has spacing */
+.task-detail-marquee-track span {
+  display: inline-block;
+}
+
+.task-detail-marquee-track.task-detail-animate-marquee span {
+  padding-right: 24px;
+}
+
+.task-detail-marquee-duplicate {
+  /* margin-left: 24px; Removed in favor of padding on all spans for symmetry */
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Revised Keyframe for JS-controlled or pure CSS */
+@keyframes task-detail-marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.task-detail-collaborator-row {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 4px;
+}
+
+.task-detail-collaborator-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+
+/**
+ * 协助人芯片样式
+ */
+.task-detail-collab-chip {
+  display: flex;
+  align-items: center;
+  background: rgba(43, 43, 43, 1); /* #2B2B2B */
+  border: 1px solid var(--mission-rust);
+  border-radius: 20px;
+  padding: 2px 10px 2px 2px;
+  height: 30px;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.task-detail-collab-chip:hover {
+  background: var(--mission-rust);
+  border-color: var(--mission-rust);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(178, 101, 59, 0.3);
+}
+
+.task-detail-collab-chip:hover .task-detail-collab-name {
+  color: var(--color-white);
+}
+
+/**
+ * 协助人头像
+ */
+.task-detail-collab-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--mission-rust);
+  background: var(--color-white);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/**
+ * 协助人名称
+ */
+.task-detail-collab-name {
+  font-size: 11px;
+  color: var(--color-white);
+  font-weight: bold;
+  margin-left: 8px;
+  white-space: nowrap;
+  font-family: var(--font-family);
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+/**
+ * 头像图片
+ */
+.task-detail-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/**
+ * 协助人占位符
+ */
+.task-detail-collab-placeholder {
+  font-size: 10px;
+  color: rgba(153, 153, 153, 1); /* #999 */
+  font-style: italic;
+  padding: 4px 0;
+}
+
+/**
+ * 迷你添加按钮
+ */
+.task-detail-mini-add-btn {
+  width: 24px;
+  height: 24px;
+  background: var(--mission-rust);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 12px;
+  box-shadow: 0 2px 4px rgba(178, 101, 59, 0.3);
+  transition: all 0.2s;
+  border-radius: 2px;
+  flex-shrink: 0; /* 防止按钮被压缩 */
+}
+
+.task-detail-mini-add-btn:hover {
+  background: rgba(255, 127, 80, 1); /* #ff7f50，更亮的橙色 */
+  transform: scale(1.1);
+}
+
+/**
+ * 加号图标
+ */
+.task-detail-plus-sign {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Clean Inputs Overrides (Restored to Boxed Style per User Request) */
+/* Date Picker - Needs left padding for icon */
+.task-detail-clean-picker .el-input__inner {
+  border: 1px solid #DCDFE6 !important;
+  background: #FFFFFF !important;
+  height: 24px !important;
+  line-height: 24px !important;
+  padding: 0 8px 0 30px !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  color: #2B2B2B !important;
+  text-align: left !important;
+  width: 100% !important;
+  border-radius: 0 !important; /* 直角边框 */
+}
+
+/* Select - Needs normal padding, center alignment looks best for status/priority */
+.task-detail-clean-select .el-input__inner {
+  border: 1px solid #DCDFE6 !important;
+  background: #FFFFFF !important;
+  height: 24px !important;
+  line-height: 24px !important;
+  padding: 0 25px 0 10px !important; /* Right padding for dropdown arrow */
+  font-size: 12px !important;
+  font-weight: bold !important;
+  color: #2B2B2B !important;
+  text-align: left !important;
+  width: 100% !important;
+  border-radius: 0 !important; /* 直角边框 */
+}
+
+.task-detail-clean-picker .el-input__prefix,
+.task-detail-clean-select .el-input__prefix {
+  left: 5px !important;
+  top: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.task-detail-clean-picker .el-input__icon,
+.task-detail-clean-select .el-input__icon {
+  line-height: 24px !important;
+}
+
+.task-detail-clean-picker, .task-detail-clean-select {
+  width: 130px !important;
+}
+
+/* Assign Display */
+.task-detail-assign-display {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #2B2B2B;
+}
+
+.task-detail-arrow {
+  color: #E65D25;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+/* Section 2: List */
+.task-detail-list-section {
+  padding: 0 24px 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.task-detail-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+/**
+ * 列表标题容器
+ */
+.task-detail-header-title-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+/**
+ * 标题装饰方块
+ */
+.task-detail-header-square {
+  width: 14px;
+  height: 14px;
+  background-color: var(--mission-rust);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+/**
+ * 列表标题文字
+ */
+.task-detail-list-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 16px;
+  color: rgba(43, 43, 43, 1); /* #2B2B2B */
+  letter-spacing: 1px;
+  margin-right: 12px;
+  white-space: nowrap;
+}
+
+/**
+ * 标题装饰虚线
+ */
+.task-detail-header-dashed-line {
+  flex: 1;
+  border-bottom: 2px dashed rgba(187, 187, 187, 1); /* #bbb */
+  height: 0;
+  margin-top: 2px;
+}
+
+/**
+ * 添加按钮
+ */
+.task-detail-add-btn {
+  background: rgba(43, 43, 43, 1); /* #2B2B2B */
+  color: var(--color-white);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.task-detail-add-btn:hover {
+  background: var(--mission-rust);
+}
+
+/* Subtasks List Container */
+.task-detail-task-list {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-top: 16px;
+  /* Custom Scrollbar for Webkit */
+}
+.task-detail-task-list::-webkit-scrollbar {
+  width: 6px;
+}
+.task-detail-task-list::-webkit-scrollbar-thumb {
+  background: var(--mission-rust);
+  border-radius: 3px;
+}
+.task-detail-task-list::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+}
+
+/**
+ * 无数据状态容器
+ */
+.task-detail-no-data {
+    background-color: var(--space-black);
+    padding: 14px 32px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    user-select: none;
+    border-left: 4px solid var(--avionics-mustard);
+}
+
+.task-detail-nd-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+/**
+ * 无数据标签
+ */
+.task-detail-nd-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--lunar-cream);
+    margin-right: 12px;
+    line-height: 1;
+}
+
+/**
+ * 无数据装饰线容器
+ */
+.task-detail-nd-line-container {
+    display: flex;
+    height: 3px;
+    flex: 1;
+    align-self: center;
+    margin-top: 1px;
+}
+
+/**
+ * 装饰线段
+ */
+.task-detail-nd-line-segment {
+    height: 100%;
+}
+
+.task-detail-nd-line-segment.task-detail-seg-1 {
+    width: 32px;
+    background-color: rgba(209, 73, 46, 1); /* #D1492E，红色 */
+}
+
+.task-detail-nd-line-segment.task-detail-seg-2 {
+    width: 32px;
+    background-color: rgba(232, 176, 54, 1); /* #E8B036，黄色 */
+}
+
+.task-detail-nd-line-segment.task-detail-seg-3 {
+    flex: 1;
+    background-color: rgba(107, 179, 168, 1); /* #6BB3A8，青色 */
+}
+
+/**
+ * 无数据标题
+ */
+.task-detail-nd-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--color-white);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+/* Individual Task Strip */
+
+/**
+ * 子任务条容器
+ * 深色背景，支持拖拽
+ */
+.task-detail-task-strip-detail {
+  display: flex;
+  min-height: 72px;
+  background-color: var(--mission-rust);
+  border-radius: 2px;
+  margin-bottom: 12px;
+  position: relative;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  border-left: none;
+  border-top: 1px solid rgba(36, 36, 36, 1); /* #242424 */
+  border-bottom: 2px solid rgba(59, 59, 59, 1); /* #3b3b3b */
+}
+
+.task-detail-task-strip-detail:hover {
+  transform: translateX(2px);
+  background-color: rgba(158, 89, 52, 1); /* #9e5934，更深的铁锈红 */
+}
+
+.task-detail-task-strip-detail.task-detail-dragging {
+  opacity: 0.5;
+  border: 2px dashed var(--mission-rust);
+}
+
+/* Tri-Color Left Strip */
+.task-detail-strip-left-tri {
+  width: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-detail-tri-bar {
+  flex: 1;
+  width: 100%;
+}
+
+.task-detail-bar-mustard { 
+  background-color: var(--avionics-mustard); 
+}
+
+.task-detail-bar-sage { 
+  background-color: var(--oxidized-sage); 
+}
+
+.task-detail-bar-burgundy { 
+  background-color: var(--alarm-burgundy); 
+}
+
+.task-detail-strip-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 14px;
+  justify-content: center;
+}
+
+/* Row 1: Status + Index */
+.task-detail-strip-row-1 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+/**
+ * 状态胶囊按钮
+ * 默认状态为进行中
+ */
+.task-detail-status-pill {
+  font-size: 11px;
+  background: var(--oxidized-sage);
+  padding: 3px 24px;
+  height: 18px;
+  border-radius: 9px;
+  color: var(--color-white);
+  font-weight: 500;
+  margin-right: 12px;
+  letter-spacing: 1px;
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 80px;
+  font-family: 'Impact', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 状态胶囊装饰点
+ */
+.task-detail-status-pill::before,
+.task-detail-status-pill::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.task-detail-status-pill::before {
+  left: 8px;
+}
+
+.task-detail-status-pill::after {
+  right: 8px;
+}
+
+.task-detail-status-pill:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/**
+ * 已完成状态
+ */
+.task-detail-status-pill.task-detail-completed {
+  background: var(--lunar-cream);
+  color: rgba(94, 58, 42, 1); /* #5E3A2A，棕色 */
+}
+
+.task-detail-status-pill.task-detail-completed::before,
+.task-detail-status-pill.task-detail-completed::after {
+  background-color: rgba(94, 58, 42, 1); /* #5E3A2A，棕色 */
+}
+
+/**
+ * 逾期状态
+ */
+.task-detail-status-pill.task-detail-timeout {
+  background: var(--alarm-burgundy);
+  color: var(--color-white);
+}
+
+.task-detail-status-pill.task-detail-timeout::before,
+.task-detail-status-pill.task-detail-timeout::after {
+  background-color: var(--color-white);
+}
+
+.task-detail-idx {
+  font-family: 黑体;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.task-detail-char-count {
+  font-family: 黑体;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  margin-left: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Row 2: Name Input */
+.task-detail-strip-row-2 {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+/**
+ * 输入前缀符号
+ */
+.task-detail-input-prefix {
+  font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--avionics-mustard);
+  margin-right: 4px;
+  line-height: 1.1;
+  margin-top: 6px;
+  user-select: none;
+}
+
+.task-detail-strip-name-input {
+  margin-top: 6px;
+  flex: 1;
+}
+
+.task-detail-strip-name-input .el-textarea__inner {
+  background: transparent !important;
+  border: none !important;
+  color: #FFFFFF !important;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0;
+  line-height: 1.2;
+  font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+  text-shadow: none;
+  box-shadow: none !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  overflow: hidden !important; /* Prohibit scrollbar */
+}
+
+.task-detail-strip-name-input .el-textarea__inner:focus {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.task-detail-strip-name-input .el-textarea__inner::placeholder {
+  color: rgba(255,255,255,0.5);
+  font-style: normal;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/**
+ * 子任务名称状态样式
+ */
+
+/* 已完成状态 */
+.task-detail-strip-name-input.task-detail-completed .el-textarea__inner {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.6) !important; /* 淡白色 */
+}
+
+/* 逾期状态 */
+.task-detail-strip-name-input.task-detail-timeout .el-textarea__inner {
+  color: #fdd832 !important; /* 超时任务的子任务名称颜色 */
+}
+
+/* Row 3: Controls */
+.task-detail-strip-row-3 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Mini Date Picker */
+.task-detail-mini-date {
+    width: 140px !important;
+    margin-right: 12px;
+}
+.task-detail-mini-date .el-input__inner {
+    background-color: rgba(43, 43, 43, 1) !important; /* #2B2B2B */
+    border: none !important;
+    color: var(--color-white) !important;
+    -webkit-text-fill-color: var(--color-white) !important;
+    opacity: 1 !important;
+    padding-left: 36px !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    border-radius: 20px !important; /* 胶囊形状 */
+    box-shadow: none !important; /* 无阴影 */
+}
+.task-detail-mini-date .el-input__prefix {
+    left: 8px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: var(--mission-rust);
+    transform: translateY(-2px); /* 稍微提升图标 */
+}
+.task-detail-mini-date .el-input__icon {
+    line-height: 32px !important;
+}
+
+/* Assignee Selector - Capsule Style (Fig 3) */
+.task-detail-capsule-selector {
+    margin-right: 12px;
+    width: 130px; /* Fixed shorter width */
+}
+
+.task-detail-capsule-select {
+    width: 100%;
+}
+
+/* The actual input box acts as the capsule background */
+.task-detail-capsule-select .el-input__inner {
+    background-color: rgba(43, 43, 43, 1) !important; /* #2B2B2B */
+    border: none !important; /* 无边框 */
+    border-radius: 20px !important; /* 胶囊形状 */
+    color: var(--color-white) !important;
+    -webkit-text-fill-color: var(--color-white) !important;
+    opacity: 1 !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    height: 32px !important;
+    line-height: 28px !important;
+    padding-left: 44px !important; /* 为头像预留空间 */
+    padding-right: 12px !important;
+    cursor: pointer;
+    box-shadow: none !important; /* 无阴影 */
+}
+
+.task-detail-capsule-select .el-input__suffix {
+    display: none !important; /* 隐藏默认箭头 */
+}
+
+/**
+ * 胶囊选择器中的头像容器
+ */
+.task-detail-capsule-avatar-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 6px;
+}
+
+/**
+ * 胶囊选择器中的头像
+ */
+.task-detail-capsule-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/**
+ * 删除按钮
+ */
+.task-detail-delete-btn {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin-left: auto;
+}
+
+.task-detail-delete-btn:hover {
+  color: var(--color-white);
+}
+
+/* Section 3: Recorder */
+.task-detail-recorder-section {
+  padding: 0 24px 24px;
+}
+
+/**
+ * 录音机风格描述框容器
+ */
+.task-detail-recorder-box {
+  background: var(--space-black);
+  border-radius: 2px;
+  padding: 12px;
+  color: var(--mission-rust);
+  position: relative;
+  border: 1px solid rgba(51, 51, 51, 1); /* #333 */
+  margin-right: 8px;
+}
+
+/**
+ * 录音机头部
+ */
+.task-detail-recorder-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(51, 51, 51, 1); /* #333 */
+  padding-bottom: 8px;
+}
+
+/**
+ * 录音机图标芯片
+ */
+.task-detail-recorder-icon-chip {
+  width: 24px;
+  height: 16px;
+  background: rgba(51, 51, 51, 1); /* #333 */
+  border: 1px solid rgba(85, 85, 85, 1); /* #555 */
+  margin-right: 8px;
+  position: relative;
+}
+
+/**
+ * 芯片内部装饰
+ */
+.task-detail-chip-inner {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  height: 4px;
+  background: var(--mission-rust);
+}
+
+/**
+ * 录音机元信息
+ */
+.task-detail-recorder-meta {
+  font-family: var(--font-family);
+  font-size: 10px;
+  color: rgba(136, 136, 136, 1); /* #888 */
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+/**
+ * 录音机代码
+ */
+.task-detail-recorder-code {
+  color: var(--mission-rust);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/**
+ * 录音机输入框
+ */
+.task-detail-recorder-input .el-textarea__inner {
+  background: transparent;
+  border: none;
+  color: var(--color-white) !important;
+  -webkit-text-fill-color: var(--color-white) !important;
+  font-family: var(--font-family);
+  font-size: 14px;
+  padding: 0;
+  resize: none;
+  line-height: 1.5;
+  min-height: 80px !important; /* 增加高度 */
+  max-height: 180px !important;
+}
+
+.task-detail-recorder-input .el-textarea__inner:focus {
+  background: rgba(178, 101, 59, 0.05); /* mission-rust 的淡色 */
+}
+
+.task-detail-recorder-input .el-textarea__inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-detail-recorder-input .el-textarea__inner::-webkit-scrollbar-thumb {
+  background: var(--mission-rust);
+  border-radius: 3px;
+}
+
+.task-detail-recorder-input .el-textarea__inner::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * 录音机底部
+ */
+.task-detail-recorder-footer {
+  margin-top: 8px;
+  border-top: 1px solid rgba(51, 51, 51, 1); /* #333 */
+  padding-top: 4px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-family);
+  font-size: 10px;
+  color: var(--mission-rust);
+}
+
+/* Submit Section */
+/**
+ * 创建/更新底部操作栏
+ */
+.task-detail-create-footer {
+  height: 56px;
+  padding: 0 24px;
+  align-items: center;
+  background: var(--space-black);
+  border-top: var(--border-width) solid var(--color-black);
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 10;
+}
+
+/**
+ * 提交按钮
+ */
+.task-detail-submit-btn {
+  background: var(--oxidized-sage);
+  color: var(--color-white);
+  height: 32px; /* 降低高度 */
+  padding: 0 24px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.task-detail-submit-btn:hover {
+  background: rgba(209, 73, 46, 1); /* #D1492E，更深的红橙色 */
+}
+
+/**
+ * 提交按钮计数标签
+ */
+.task-detail-submit-count {
+  font-family: var(--font-family);
+  font-size: 12px;
+  margin-right: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: bold;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  padding-right: 12px;
+  height: 16px;
+  margin-top: 6px;
+}
+
+/**
+ * 提交按钮文本
+ */
+.task-detail-submit-text {
+  font-family: 'Impact', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-white);
+}
+
+/**
+ * 详情主体滚动条样式
+ */
+.task-detail-body::-webkit-scrollbar { 
+  width: 6px; 
+}
+
+.task-detail-body::-webkit-scrollbar-thumb { 
+  background: rgba(209, 192, 165, 1); /* #D1C0A5 */ 
+  border-radius: 3px; 
+}
+
+.task-detail-body::-webkit-scrollbar-track { 
+  background: transparent; 
+}
+
+/**
+ * 选择器选项中的颜色点
+ */
+.task-detail-option-with-dot { 
+  display: flex; 
+  align-items: center; 
+}
+
+.task-detail-color-dot { 
+  width: 8px; 
+  height: 8px; 
+  border-radius: 50%; 
+  margin-right: 8px; 
+}
+
+
+.task-detail-dropdown,
+.task-detail-date-picker-popper,
+.task-detail-date-popper {
+  border: 2px solid #1a1a1a !important;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.1) !important;
+  font-family: 'Courier Prime', monospace !important;
+}
+
+/**
+ * 日期选择器日历表格中所有日期字体的字体粗细
+ */
+.task-detail-date-picker-popper .el-date-table td span,
+.task-detail-date-popper .el-date-table td span {
+  font-weight: 600 !important;
+}
+
+.task-detail-dropdown .el-select-dropdown__item.selected {
+  color: var(--mission-rust) !important;
+  font-weight: 900 !important;
+}
+
+.task-detail-dropdown .el-select-dropdown__item:hover,
+.task-detail-dropdown .el-select-dropdown__item.hover {
+  background-color: rgba(240, 240, 240, 1) !important; /* #f0f0f0 */
+  color: var(--color-black) !important;
+}
+
+.task-detail-date-picker-popper .el-date-table td.current:not(.disabled) span,
+.task-detail-date-popper .el-date-table td.current:not(.disabled) span {
+  background-color: var(--mission-rust) !important;
+  border-radius: 0 !important;
+}
+
+.task-detail-date-picker-popper .el-date-table td.today span,
+.task-detail-date-popper .el-date-table td.today span {
+  color: var(--mission-rust) !important;
+  font-weight: 600 !important;
+}
+
+/**
+ * 日期选择器日历表格自定义样式
+ * 标注开始时间、结束时间和中间时间
+ */
+
+/* 开始时间：背景颜色 oxidized-sage，字体白色 */
+.task-detail-date-popper .el-date-table td.task-detail-date-start span,
+.task-detail-date-picker-popper .el-date-table td.task-detail-date-start span {
+  background-color: var(--oxidized-sage) !important;
+  color: var(--color-white) !important;
+  border-radius: 0 !important;
+  font-weight: 600 !important;
+}
+
+/* 结束时间：背景颜色 alarm-burgundy，字体白色 */
+.task-detail-date-popper .el-date-table td.task-detail-date-end span,
+.task-detail-date-picker-popper .el-date-table td.task-detail-date-end span {
+  background-color: var(--alarm-burgundy) !important;
+  color: var(--color-white) !important;
+  border-radius: 0 !important;
+  font-weight: 600 !important;
+}
+
+/* 中间时间：背景颜色 mission-rust 30%不透明度，字体颜色为原来颜色 */
+.task-detail-date-popper .el-date-table td.task-detail-date-range span,
+.task-detail-date-picker-popper .el-date-table td.task-detail-date-range span {
+  background-color: rgba(178, 101, 59, 0.3) !important; /* mission-rust 30%不透明度 */
+  color: inherit !important; /* 使用原来的字体颜色 */
+  border-radius: 0 !important;
+}
+
+/* 中间时间（带 small 类名时也使用相同样式） */
+.task-detail-date-popper .el-date-table td.task-detail-date-range-small span,
+.task-detail-date-picker-popper .el-date-table td.task-detail-date-range-small span {
+  background-color: rgba(178, 101, 59, 0.3) !important; /* mission-rust 30%不透明度 */
+  color: inherit !important; /* 使用原来的字体颜色 */
+  border-radius: 0 !important;
+}
+
+/* 如果开始时间和结束时间是同一天，优先显示结束时间样式 */
+.task-detail-date-popper .el-date-table td.task-detail-date-start.task-detail-date-end span,
+.task-detail-date-picker-popper .el-date-table td.task-detail-date-start.task-detail-date-end span {
+  background-color: var(--alarm-burgundy) !important;
+  color: var(--color-white) !important;
+}

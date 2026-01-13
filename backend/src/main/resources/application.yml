@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: DuckTodo-Backend
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+
+app:
+  version: 1.0.0
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: is_delete
+      logic-delete-value: 1
+      logic-not-delete-value: 0

@@ -1,0 +1,123 @@
+/* ==========================================================================
+   USER INFORMATION VIEW // 用户信息视图样式
+   Theme: Cassette Futurism / NASA Punk
+   ========================================================================== */
+
+/**
+ * 用户信息视图根容器
+ * 磁带未来主义风格页面，包含网格背景图案
+ */
+.user-information-page {
+  min-height: 100vh;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+  /* 网格背景图案 */
+  background-image: 
+    linear-gradient(rgba(24, 24, 24, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+  padding: 40px;
+  font-family: var(--font-family);
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  box-sizing: border-box;
+}
+
+/**
+ * 内容包装器
+ * 包含所有内容区域的容器
+ */
+.user-information-content-wrapper {
+  width: 100%;
+}
+
+/**
+ * ==========================================================================
+   ARCHIVE HEADER // 归档标题样式
+   ========================================================================== */
+
+/**
+ * 归档标题分隔线
+ * 用于分隔不同信息区域的装饰性标题
+ */
+.user-information-archive-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  /* 使用主题颜色 */
+  color: var(--color-black);
+  font-weight: bold;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/**
+ * 标题前的方块装饰
+ * 使用品牌主色（任务铁锈红）
+ */
+.user-information-archive-header .user-information-square {
+  /* 使用品牌主色 */
+  color: var(--brand-primary);
+}
+
+/**
+ * 标题文字
+ * 使用主题字体
+ */
+.user-information-archive-header .user-information-title {
+  font-family: var(--font-family);
+  letter-spacing: 1px;
+}
+
+/**
+ * 标题后的装饰线
+ * 虚线装饰，延伸到容器边缘
+ */
+.user-information-archive-header .user-information-line-deco {
+  flex: 1;
+  height: 0;
+  /* 使用主题边框宽度和颜色 */
+  border-bottom: var(--border-width) dashed var(--color-black);
+  opacity: 0.3;
+}
+
+/**
+ * ==========================================================================
+   ARCHIVE GRID // 归档网格样式
+   ========================================================================== */
+
+/**
+ * 归档网格容器
+ * 两列网格布局，用于显示基本信息和安全信息卡片
+ */
+.user-information-archive-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/**
+ * ==========================================================================
+   RESPONSIVE DESIGN // 响应式设计
+   ========================================================================== */
+
+/**
+ * 移动端适配
+ * 当屏幕宽度小于等于768px时，改为单列布局
+ */
+@media (max-width: 768px) {
+  /**
+   * 移动端页面内边距调整
+   */
+  .user-information-page {
+    padding: 20px;
+  }
+  
+  /**
+   * 移动端网格改为单列布局
+   */
+  .user-information-archive-grid {
+    grid-template-columns: 1fr;
+  }
+}
