@@ -5,13 +5,13 @@ pipeline {
     DOCKER_IMAGE = 'ducktodo:latest'
   }
   parameters {
-    string(name: 'GIT_URL', defaultValue: 'https://your-git-server.com/your-org/DuckTodo.git', description: 'git地址')
+    string(name: 'GIT_URL', defaultValue: 'https://gitea.server.smartduck.top:10086/smartduck/DuckTodo.git', description: 'git地址')
     string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'git分支')
-    string(name: 'GITEA_CREDENTIALS_ID', defaultValue: 'git-credentials-id', description: 'git账号用户名密码凭证id')
-    string(name: 'HARBOR_REGISTRY', defaultValue: 'your-harbor-registry.com', description: 'Harbor注册地址')
-    string(name: 'HARBOR_PROJECT', defaultValue: 'ducktodo', description: 'Harbor项目')
+    string(name: 'GITEA_CREDENTIALS_ID', defaultValue: '	smartduck-gitea-account', description: 'git账号用户名密码凭证id')
+    string(name: 'HARBOR_REGISTRY', defaultValue: 'https://harbor.server.smartduck.top:10086', description: 'Harbor注册地址')
+    string(name: 'HARBOR_PROJECT', defaultValue: 'smartduck', description: 'Harbor项目')
     string(name: 'HARBOR_REPO', defaultValue: 'ducktodo', description: 'Harbor仓库名')
-    string(name: 'HARBOR_CREDENTIALS_ID', defaultValue: 'harbor-credentials-id', description: 'Harbor用户名密码凭证id')
+    string(name: 'HARBOR_CREDENTIALS_ID', defaultValue: 'smartduck-harbor-account', description: 'Harbor用户名密码凭证id')
     string(name: 'IMAGE_TAG', defaultValue: 'v1.0', description: '镜像标签')
   }
   stages {
