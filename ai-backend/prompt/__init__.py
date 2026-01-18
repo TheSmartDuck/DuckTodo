@@ -1,0 +1,15 @@
+"""
+Prompt 模块
+用于存储 prompt 模板
+"""
+from prompt.daily_report_prompt import (
+    DAILY_REPORT_THINKING_PROMPT,
+    DAILY_REPORT_TODAY_FINISH_PROMPT,
+    DAILY_REPORT_TOMORROW_TODO_PROMPT
+)
+
+__all__ = [
+    'DAILY_REPORT_THINKING_PROMPT',
+    'DAILY_REPORT_TODAY_FINISH_PROMPT',
+    'DAILY_REPORT_TOMORROW_TODO_PROMPT',
+]
