@@ -49,8 +49,10 @@ pipeline {
             if ! command -v uv &> /dev/null; then
               echo "正在安装 uv..."
               curl -LsSf https://astral.sh/uv/install.sh | sh
-              export PATH="$HOME/.cargo/bin:$PATH"
+              export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
             fi
+            # 确保 PATH 包含 uv 的安装路径
+            export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
             uv sync --frozen --no-dev
           '''
         }
