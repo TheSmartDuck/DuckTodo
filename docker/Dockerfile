@@ -32,7 +32,7 @@ COPY ${JAR_FILE} /app/app.jar
 RUN echo "================ 正在复制前端文件 ====Ciallo～(∠・ω< )⌒★"
 RUN rm -rf /usr/share/nginx/html/*
 COPY docker/nginx.conf /etc/nginx/nginx.conf
-COPY ${FRONTEND_DIR} /usr/share/nginx/html
+COPY ${FRONTEND_DIR}/ /usr/share/nginx/html/
 
 # 安装和部署 ai-backend
 RUN echo "================ 正在安装 ai-backend 依赖 ====Ciallo～(∠・ω< )⌒★"

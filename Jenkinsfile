@@ -67,6 +67,11 @@ pipeline {
           def frontEndDir = 'frontend/dist'
           def dockerImage = env.DOCKER_IMAGE
 
+          // 检查前端构建目录是否存在
+          if (!fileExists(frontEndDir)) {
+            error("前端构建目录不存在: ${frontEndDir}，请确保前端构建成功")
+          }
+
           sh "docker build -f docker/Dockerfile --build-arg JAR_FILE=${backEndJarPath} --build-arg FRONTEND_DIR=${frontEndDir} -t ${dockerImage} ."
         }
         echo "============ 构建Docker镜像完成 ====Ciallo～(∠・ω< )⌒★"
