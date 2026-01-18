@@ -41,24 +41,6 @@ pipeline {
         echo "============ 构建前端完成 ====Ciallo～(∠・ω< )⌒★"
       }
     }
-    stage('Install AI Backend Dependencies') {
-      steps {
-        echo "============ 正在安装 ai-backend 依赖 ====Ciallo～(∠・ω< )⌒★"
-        dir('ai-backend') {
-          sh '''
-            if ! command -v uv &> /dev/null; then
-              echo "正在安装 uv..."
-              curl -LsSf https://astral.sh/uv/install.sh | sh
-              export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
-            fi
-            # 确保 PATH 包含 uv 的安装路径
-            export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
-            uv sync --frozen --no-dev
-          '''
-        }
-        echo "============ ai-backend 依赖安装完成 ====Ciallo～(∠・ω< )⌒★"
-      }
-    }
     stage('Build Docker Image') {
       steps {
         echo "============ 正在构建Docker镜像 ====Ciallo～(∠・ω< )⌒★"
