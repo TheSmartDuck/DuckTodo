@@ -19,6 +19,9 @@
          
          <!-- 卡片2：安全和密钥 -->
          <security-card :user="user" :keys="keys" @refresh-keys="loadKeys" />
+         
+         <!-- 卡片3：LLM配置 -->
+         <user-l-lm-config-card />
       </div>
     </div>
   </div>
@@ -28,6 +31,7 @@
 import IdentityCard from '@/components/user-information/IdentityCard'
 import BasicInfoCard from '@/components/user-information/BasicInfoCard'
 import SecurityCard from '@/components/user-information/SecurityCard'
+import UserLLmConfigCard from '@/components/user-information/UserLLmConfigCard'
 import { getMe, getAccessKeys } from '@/api/user-api'
 
 /**
@@ -56,7 +60,9 @@ export default {
     // 基本信息卡片组件
     BasicInfoCard,
     // 安全卡片组件
-    SecurityCard
+    SecurityCard,
+    // LLM配置卡片组件
+    UserLLmConfigCard
   },
   data() {
     return {

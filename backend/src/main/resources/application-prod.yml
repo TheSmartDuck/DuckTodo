@@ -22,3 +22,7 @@ jwt:
 logging:
   level:
     root: INFO
+
+# AI Backend 配置
+ai-backend:
+  url: ${AI_BACKEND_URL:http://localhost:8082}

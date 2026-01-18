@@ -62,6 +62,7 @@ public class DatabaseInitializer implements ApplicationRunner {
             tableToResource.put("user_security", "schema/user_security.sql");
             tableToResource.put("user_llm_config", "schema/user_llm_config.sql");
             tableToResource.put("user_dingtalk_robot", "schema/user_dingtalk_robot.sql");
+            tableToResource.put("user_tool_config", "schema/user_tool_config.sql");
             tableToResource.put("team", "schema/team.sql");
             tableToResource.put("team_user_relation", "schema/team_user_relation.sql");
             tableToResource.put("task_group", "schema/task_group.sql");
@@ -102,6 +103,11 @@ public class DatabaseInitializer implements ApplicationRunner {
                     log.error("[DB-Init] Failed to create table '{}': {}", table, ex.getMessage());
                 }
             }
+
+            // 执行版本升级脚本
+            log.info("[DB-Init] Checking for database schema upgrades...");
+            executeUpgradeScripts(conn, schema);
+
             log.info("[DB-Init] Database schema check & init completed.");
         } catch (Exception ex) {
             log.error("[DB-Init] Initialization failed: {}", ex.getMessage());
@@ -126,5 +132,78 @@ public class DatabaseInitializer implements ApplicationRunner {
             bos.write(buffer, 0, len);
         }
         return bos.toByteArray();
+    }
+
+    /**
+     * 执行数据库升级脚本
+     *
+     * @param conn 数据库连接
+     * @param schema 数据库名称
+     */
+    private void executeUpgradeScripts(Connection conn, String schema) {
+        // 升级：为 user_llm_config 表添加 llm_model_type 字段
+        upgradeUserLlmConfigAddModelType(conn, schema);
+    }
+
+    /**
+     * 升级：为 user_llm_config 表添加 llm_model_type 字段
+     *
+     * @param conn 数据库连接
+     * @param schema 数据库名称
+     */
+    private void upgradeUserLlmConfigAddModelType(Connection conn, String schema) {
+        String tableName = "user_llm_config";
+        String columnName = "llm_model_type";
+        
+        // 检查表是否存在
+        long tableExists = 0;
+        try (PreparedStatement ps = conn.prepareStatement(
+                "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = ? AND table_name = ?")) {
+            ps.setString(1, schema);
+            ps.setString(2, tableName);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) tableExists = rs.getLong(1);
+            }
+        } catch (Exception e) {
+            log.warn("[DB-Init] Failed to check table existence: {}", e.getMessage());
+            return;
+        }
+        
+        if (tableExists == 0) {
+            log.info("[DB-Init] Table '{}' does not exist; skip upgrade.", tableName);
+            return;
+        }
+        
+        // 检查字段是否存在
+        long columnExists = 0;
+        try (PreparedStatement ps = conn.prepareStatement(
+                "SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = ? AND table_name = ? AND column_name = ?")) {
+            ps.setString(1, schema);
+            ps.setString(2, tableName);
+            ps.setString(3, columnName);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) columnExists = rs.getLong(1);
+            }
+        } catch (Exception e) {
+            log.warn("[DB-Init] Failed to check column existence: {}", e.getMessage());
+            return;
+        }
+        
+        if (columnExists > 0) {
+            log.info("[DB-Init] Column '{}' already exists in table '{}'; skip upgrade.", columnName, tableName);
+            return;
+        }
+        
+        // 添加字段
+        try (Statement st = conn.createStatement()) {
+            String sql = String.format(
+                "ALTER TABLE `%s` ADD COLUMN `%s` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'LLM 模型类型，1-chat模型，2-embedding模型，3-rerank模型' AFTER `llm_model_thinking`",
+                tableName, columnName
+            );
+            st.execute(sql);
+            log.info("[DB-Init] Added column '{}' to table '{}' successfully.", columnName, tableName);
+        } catch (Exception ex) {
+            log.error("[DB-Init] Failed to add column '{}' to table '{}': {}", columnName, tableName, ex.getMessage());
+        }
     }
 }

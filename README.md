@@ -68,6 +68,15 @@ DuckTodo 是一个面向个人与小型团队的任务管理系统，采用前�
 - **API 文档**：Knife4j 4.5.0（OpenAPI 3）
 - **AI 集成**：Spring AI 1.0.0-M1（OpenAI）
 
+### AI 后端
+- **框架**：FastAPI 0.104.0+
+- **Python 版本**：Python 3.9+
+- **ASGI 服务器**：Uvicorn 0.24.0+
+- **数据库驱动**：PyMySQL 1.1.0+
+- **LLM 框架**：LangChain 0.1.0+
+- **数据验证**：Pydantic 2.0.0+
+- **包管理**：uv（Python 包管理器）
+
 ## 📁 项目结构
 
 ```
@@ -80,6 +89,20 @@ DuckTodo/
 │   ├── src/               # Vue 源码
 │   ├── public/            # 静态资源
 │   └── package.json       # NPM 依赖配置
+├── ai-backend/             # AI 后端服务（Python）
+│   ├── api/               # API 接口配置
+│   │   └── router/        # 具体接口路由
+│   ├── db/                # 数据库相关
+│   ├── common/            # 通用模块
+│   ├── llm/               # LLM 配置
+│   ├── prompt/            # Prompt 模板
+│   ├── models/            # 实体类
+│   ├── service/            # 服务层
+│   ├── utils/             # 工具函数
+│   ├── api/
+│   │   └── app.py          # 入口文件
+│   ├── run.py             # 启动脚本
+│   └── pyproject.toml     # 项目配置（uv）
 ├── docs/                   # 项目文档
 │   ├── api/               # API 接口文档
 │   ├── design/            # 设计文档（架构、需求、功能）
@@ -100,6 +123,7 @@ DuckTodo/
 ### 前置要求
 - **后端**：JDK 21+、Maven 3.6+、MySQL 8.0+、MinIO（或兼容 S3 的对象存储）
 - **前端**：Node.js 16+、npm 或 pnpm
+- **AI 后端**：Python 3.9+、uv（Python 包管理器）
 
 ### 后端启动
 
@@ -165,6 +189,68 @@ DuckTodo/
    ```
    
    构建产物在 `dist/` 目录
+
+### AI 后端启动
+
+1. **安装依赖**
+   ```bash
+   cd ai-backend
+   uv sync
+   ```
+
+2. **配置环境变量**
+   ```bash
+   cp env.example .env
+   # 编辑 .env 文件，填写数据库和 LLM 配置
+   ```
+   
+   环境变量说明：
+   ```bash
+   # 数据库配置
+   MYSQL_HOST=localhost
+   MYSQL_PORT=3306
+   MYSQL_USER=root
+   MYSQL_PASSWORD=your_password
+   MYSQL_DATABASE=ducktodo
+   
+   # LLM 配置
+   LLM_PROVIDER=openai  # openai, modelscope, ollama
+   LLM_API_KEY=your_api_key
+   LLM_BASE_URL=  # 可选，用于自定义 API 端点
+   LLM_MODEL_NAME=gpt-3.5-turbo
+   LLM_TEMPERATURE=0.7
+   LLM_MAX_TOKENS=2000
+   
+   # 服务配置
+   SERVER_HOST=0.0.0.0
+   SERVER_PORT=8000
+   ```
+
+3. **启动服务**
+   ```bash
+   # 使用启动脚本（推荐）
+   uv run python run.py
+   
+   # 或直接运行主文件
+   uv run python -m api.app
+   
+   # 或使用 uvicorn 直接运行
+   uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
+   ```
+   
+   默认运行在 `http://localhost:8000`
+   - API 文档：http://localhost:8000/docs（Swagger UI）
+   - 健康检查：http://localhost:8000/health
+
+4. **项目结构说明**
+   - `api/router/` - 具体接口路由，在 `api/router/__init__.py` 中注册
+   - `db/` - 数据库连接和 CRUD 操作
+   - `service/` - 业务逻辑服务层
+   - `models/` - 实体类（entity/数据库实体、llm_construct/LLM输出格式化、dao/数据传输层）
+   - `llm/` - LLM 配置和服务
+   - `prompt/` - Prompt 模板
+   - `common/` - 通用模块（统一响应格式等）
+   - `utils/` - 工具函数
 
 ## 🔐 鉴权与安全
 
@@ -366,6 +452,12 @@ docker run -d \
 - **API 请求失败**：检查 `vue.config.js` 中的代理配置，确认后端服务运行在正确端口
 - **Token 过期**：前端会自动处理 Token 刷新，如仍失败请检查后端 JWT 配置
 - **构建失败**：清除 `node_modules` 和 `package-lock.json` 后重新安装依赖
+
+### AI 后端问题
+- **依赖安装失败**：确保已安装 uv，使用 `uv sync` 安装依赖
+- **数据库连接失败**：检查 `.env` 文件中的数据库配置，确认数据库服务运行正常
+- **LLM 初始化失败**：检查 `.env` 文件中的 LLM 配置，确认 API Key 和模型名称正确
+- **端口冲突**：修改 `.env` 文件中的 `SERVER_PORT` 避免端口冲突
 
 ### Docker 部署问题
 - **环境变量未生效**：确认 `.env` 文件存在且格式正确，检查 `docker-compose.yml` 中的环境变量映射

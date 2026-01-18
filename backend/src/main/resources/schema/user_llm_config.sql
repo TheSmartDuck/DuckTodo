@@ -7,6 +7,7 @@ CREATE TABLE `user_llm_config` (
   `llm_model_name` varchar(255) DEFAULT NULL COMMENT 'LLM 模型名称',
   `llm_model_temperature` decimal(2,1) DEFAULT NULL COMMENT 'LLM 模型温度（0.0-1.0）',
   `llm_model_thinking` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否支持Thinking，0-不支持，1-支持',
+  `llm_model_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'LLM 模型类型，1-chat模型，2-embedding模型，3-rerank模型',
   `is_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除 0-未删除 1-已删除',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

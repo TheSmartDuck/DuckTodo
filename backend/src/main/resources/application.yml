@@ -8,6 +8,10 @@ spring:
       max-file-size: -1
       max-request-size: -1
 
+# AI Backend 配置
+ai-backend:
+  url: http://localhost:8000
+
 app:
   version: 1.0.0
 

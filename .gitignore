@@ -2,9 +2,20 @@
 # 敏感配置文件
 # ============================================
 backend/src/main/resources/application-dev.yml
+
+# 环境变量文件（所有目录下的 .env 文件）
 .env
 .env.local
 .env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
+
+# 但保留示例文件
+!.env.example
+!env.example
+!**/.env.example
+!**/env.example
 
 # ============================================
 # 操作系统文件
@@ -60,3 +71,66 @@ target/
 # 依赖目录
 # ============================================
 node_modules/
+
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# uv
+.uv/
+# 注意：uv.lock 通常应该被提交以确保依赖版本一致性
+# 如果项目根目录有 uv.lock，可以取消下面的注释来忽略它
+# uv.lock
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Python 类型检查和代码质量工具缓存
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pytype/
+.pyre/
+.pyre_check/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version

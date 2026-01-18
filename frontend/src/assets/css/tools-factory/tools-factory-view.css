@@ -1,0 +1,637 @@
+/* ==========================================================================
+   TOOLS FACTORY VIEW // 工具工厂视图样式
+   Theme: Cassette Futurism / Operator Style
+   ========================================================================== */
+
+/**
+ * 工具工厂页面根容器
+ * 左右分栏布局
+ */
+.tools-factory-page {
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  /* 使用主题背景色 */
+  background-color: var(--color-bg);
+  /* 网格背景图案 */
+  background-image: 
+    linear-gradient(rgba(24, 24, 24, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 24, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+  font-family: var(--font-family);
+  color: var(--color-black);
+  overflow: hidden;
+}
+
+/**
+ * ==========================================================================
+   LEFT PANEL // 左侧工具列表面板
+   ========================================================================== */
+
+/**
+ * 左侧面板
+ * 固定宽度，包含搜索框和工具列表
+ */
+.tools-factory-left-panel {
+  width: 400px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  height: calc(100vh - 40px); /* 减去上下padding */
+  max-height: calc(100vh - 40px);
+}
+
+/**
+ * 搜索区域
+ */
+.tools-factory-search-section {
+  flex-shrink: 0;
+}
+
+/**
+ * 搜索和分类选择行容器
+ */
+.tools-factory-search-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/**
+ * 搜索框容器
+ * 磁带未来主义风格搜索框
+ */
+.tools-factory-search-box {
+  position: relative;
+  flex: 1;
+  background-color: var(--color-white);
+  border: var(--border-width-bold) solid var(--color-black);
+  box-shadow: var(--shadow-normal);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/**
+ * 搜索图标
+ */
+.tools-factory-search-icon {
+  color: var(--brand-primary);
+  font-size: 16px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/**
+ * 搜索输入框
+ */
+.tools-factory-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-black);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.tools-factory-search-input::placeholder {
+  color: #999;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
+/**
+ * 搜索框装饰角
+ */
+.tools-factory-search-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent var(--brand-primary) transparent transparent;
+}
+
+/**
+ * 分类选择器（el-select）
+ */
+.tools-factory-category-select {
+  flex-shrink: 0;
+  width: 160px;
+}
+
+.tools-factory-category-select .el-input__inner {
+  border: var(--border-width-bold) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  background-color: var(--color-white) !important;
+  color: var(--color-black) !important;
+  font-family: var(--font-family) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  padding: 10px 14px !important;
+  height: auto !important;
+  box-shadow: var(--shadow-normal) !important;
+}
+
+.tools-factory-category-select .el-input__inner:focus {
+  border-color: var(--brand-primary) !important;
+}
+
+.tools-factory-category-select .el-input__inner::placeholder {
+  color: #999 !important;
+  font-weight: normal !important;
+}
+
+.tools-factory-category-select .el-input__suffix {
+  right: 8px !important;
+}
+
+.tools-factory-category-select .el-input__suffix .el-input__suffix-inner .el-select__caret {
+  color: var(--brand-primary) !important;
+  font-weight: bold !important;
+}
+
+/**
+ * 分类选择器下拉菜单样式
+ */
+.tools-factory-category-select-dropdown {
+  border: var(--border-width-bold) solid var(--color-black) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--shadow-normal) !important;
+  background-color: var(--color-white) !important;
+}
+
+.tools-factory-category-select-dropdown .el-select-dropdown__item {
+  color: var(--color-black) !important;
+  font-family: var(--font-family) !important;
+  font-weight: bold !important;
+  font-size: 13px !important;
+}
+
+.tools-factory-category-select-dropdown .el-select-dropdown__item.hover,
+.tools-factory-category-select-dropdown .el-select-dropdown__item:hover {
+  background-color: var(--brand-primary) !important;
+  color: var(--color-white) !important;
+}
+
+.tools-factory-category-select-dropdown .el-select-dropdown__item.selected {
+  color: var(--brand-primary) !important;
+  font-weight: 900 !important;
+  background-color: transparent !important;
+}
+
+/**
+ * 工具列表容器
+ */
+.tools-factory-tool-list {
+  flex: 1;
+  min-height: 0; /* 重要：允许 flex 子元素收缩，触发滚动 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-right: 16px; /* 增加右侧padding，让滚动条和卡片之间有间隙 */
+  padding-left: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/**
+ * 工具列表滚动条样式
+ */
+.tools-factory-tool-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tools-factory-tool-list::-webkit-scrollbar-track {
+  background: var(--color-white);
+  border: var(--border-width-bold) solid var(--color-black);
+  border-radius: 0;
+}
+
+.tools-factory-tool-list::-webkit-scrollbar-thumb {
+  background: var(--brand-primary);
+  border: var(--border-width-bold) solid var(--color-black);
+  border-radius: 0;
+}
+
+.tools-factory-tool-list::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-warning);
+}
+
+/**
+ * 工具卡片
+ * 宽卡片样式，符合磁带未来主义主题
+ */
+.tools-factory-tool-card {
+  position: relative;
+  background-color: var(--color-white);
+  border: var(--border-width-bold) solid var(--color-black);
+  box-shadow: var(--shadow-normal);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  overflow: hidden;
+  height: 160px; /* 固定高度 */
+  flex-shrink: 0; /* 不允许收缩 */
+}
+
+/**
+ * 工具卡片悬停效果
+ */
+.tools-factory-tool-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--brand-primary);
+}
+
+/**
+ * 工具卡片激活状态
+ */
+.tools-factory-tool-card-active {
+  border-color: var(--brand-primary);
+  background-color: var(--lunar-cream-light);
+  box-shadow: var(--shadow-hover);
+}
+
+.tools-factory-tool-card-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+}
+
+/**
+ * 工具卡片内容区域
+ */
+.tools-factory-tool-card-content {
+  flex: 1;
+  padding: 20px 20px 24px 20px; /* 底部增加padding，为三色横线留出空间 */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left; /* 文字靠左对齐 */
+  position: relative;
+}
+
+/**
+ * 工具卡片底部三色渐变装饰线
+ * 使用 avionics-mustard, oxidized-sage, alarm-burgundy 三种颜色
+ */
+.tools-factory-tool-card-content::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--avionics-mustard) 0%,
+    var(--avionics-mustard) 33.33%,
+    var(--oxidized-sage) 33.33%,
+    var(--oxidized-sage) 66.66%,
+    var(--alarm-burgundy) 66.66%,
+    var(--alarm-burgundy) 100%
+  );
+  z-index: 1;
+}
+
+/**
+ * 工具卡片头部
+ */
+.tools-factory-tool-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  min-width: 0; /* 允许 flex 子元素收缩 */
+  width: 100%;
+}
+
+/**
+ * 工具卡片标题包装器
+ * 用于限制标题宽度并实现滚动效果
+ */
+.tools-factory-tool-card-title-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-width: 0; /* 允许收缩 */
+  max-width: calc(100% - 60px); /* 减去badge的宽度和gap */
+  height: 24px; /* 固定高度，确保单行显示 */
+  display: flex;
+  align-items: center;
+}
+
+/**
+ * 工具卡片标题轨道
+ * 用于跑马灯滚动效果
+ */
+.tools-factory-tool-card-title-track {
+  display: inline-flex;
+  white-space: nowrap;
+  align-items: center;
+  min-width: 100%;
+}
+
+.tools-factory-tool-card-title-track.tools-factory-title-animate {
+  animation: tools-factory-title-marquee 15s linear infinite;
+}
+
+.tools-factory-tool-card-title-track.tools-factory-title-animate span {
+  padding-right: 30px;
+}
+
+/**
+ * 工具卡片标题
+ */
+.tools-factory-tool-card-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-black);
+  letter-spacing: -0.5px;
+  text-align: left;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 24px;
+  overflow: visible;
+}
+
+/**
+ * 工具卡片标题副本（用于跑马灯效果）
+ */
+.tools-factory-tool-card-title-duplicate {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-black);
+  letter-spacing: -0.5px;
+  text-align: left;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 24px;
+}
+
+/**
+ * 标题跑马灯动画
+ */
+@keyframes tools-factory-title-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/**
+ * 工具卡片徽章
+ */
+.tools-factory-tool-card-badge {
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border: 1px solid var(--color-black);
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 工具卡片描述
+ * 固定高度，最多2行，超出显示省略号
+ */
+.tools-factory-tool-card-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  height: 39px; /* 固定高度：2行 * line-height(1.5) * font-size(13px) = 39px */
+  max-height: 39px;
+  text-align: left; /* 文字靠左 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 最多显示2行 */
+  line-clamp: 2; /* 标准属性，用于兼容性 */
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  flex-shrink: 0; /* 不允许收缩，保持固定高度 */
+}
+
+/**
+ * 工具卡片底部
+ */
+.tools-factory-tool-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 靠左对齐 */
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/**
+ * 工具卡片标签
+ */
+.tools-factory-tool-card-tag {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--brand-primary);
+  background-color: var(--color-white);
+  border: 1px solid var(--brand-primary);
+  padding: 4px 8px;
+  letter-spacing: 0.5px;
+  text-align: left; /* 文字靠左 */
+}
+
+/**
+ * 工具卡片指示器
+ */
+.tools-factory-tool-card-indicator {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.tools-factory-tool-card-active .tools-factory-tool-card-indicator {
+  background-color: var(--brand-primary);
+}
+
+/**
+ * 工具卡片指示器文字
+ */
+.tools-factory-tool-card-indicator-text {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/**
+ * ==========================================================================
+   RIGHT PANEL // 右侧工具界面面板
+   ========================================================================== */
+
+/**
+ * 右侧面板
+ * 占据剩余空间，显示选中的工具界面
+ */
+.tools-factory-right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-white);
+  border: var(--border-width-bold) solid var(--color-black);
+  box-shadow: var(--shadow-normal);
+}
+
+/**
+ * 工具视图容器
+ */
+.tools-factory-tool-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/**
+ * 工具视图头部
+ */
+.tools-factory-tool-view-header {
+  flex-shrink: 0;
+  padding: 20px 24px;
+  border-bottom: var(--border-width-bold) solid var(--color-black);
+  background-color: var(--color-white);
+}
+
+/**
+ * 工具视图标题组
+ */
+.tools-factory-tool-view-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/**
+ * 工具视图标题方块装饰
+ */
+.tools-factory-tool-view-square {
+  color: var(--brand-primary);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/**
+ * 工具视图标题
+ */
+.tools-factory-tool-view-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--color-black);
+  letter-spacing: -1px;
+}
+
+/**
+ * 工具视图标题装饰线
+ */
+.tools-factory-tool-view-line-deco {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    var(--brand-primary) 0%, 
+    var(--brand-primary) 33.33%,
+    var(--brand-success) 33.33%, 
+    var(--brand-success) 66.66%,
+    var(--brand-warning) 66.66%, 
+    var(--brand-warning) 100%
+  );
+}
+
+/**
+ * 工具视图内容区域
+ */
+.tools-factory-tool-view-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/**
+ * 工具视图占位符
+ */
+.tools-factory-tool-view-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+}
+
+/**
+ * 占位符文字
+ */
+.tools-factory-placeholder-text {
+  font-size: 16px;
+  color: var(--color-black);
+  font-weight: bold;
+}
+
+/**
+ * 占位符提示
+ */
+.tools-factory-placeholder-hint {
+  font-size: 14px;
+  color: #999;
+}
+
+/**
+ * 空状态
+ */
+.tools-factory-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+}
+
+/**
+ * 空状态图标
+ */
+.tools-factory-empty-icon {
+  font-size: 48px;
+  color: var(--brand-primary);
+  font-weight: bold;
+}
+
+/**
+ * 空状态文字
+ */
+.tools-factory-empty-text {
+  font-size: 16px;
+  color: #666;
+  font-weight: bold;
+}

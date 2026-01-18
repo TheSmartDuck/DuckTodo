@@ -37,6 +37,12 @@ erDiagram
         varchar(255) dingtalk_robot_secret
         varchar(255) dingtalk_robot_keyword
     }
+    user_tool_config {
+        varchar(128) id PK
+        varchar(128) user_id
+        varchar(512) tool_name
+        text config_json
+    }
     team {
         varchar(128) team_id PK
         varchar(255) team_name
@@ -144,6 +150,7 @@ erDiagram
     user ||--|| user_security : 安全信息
     user ||--o{ user_llm_config : LLM配置
     user ||--o{ user_dingtalk_robot : 钉钉机器人
+    user ||--o{ user_tool_config : 工具配置
     team ||--o{ team_user_relation : 成员关系
     user ||--o{ team_user_relation : 成员关系
     team ||--o{ task_group : 包含

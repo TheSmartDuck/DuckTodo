@@ -66,7 +66,11 @@ public class SecurityConfig {
                         // 方便开发调试，生产环境可根据需要调整
                         .requestMatchers("/doc.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
 
-                        // 3.3 其他所有请求都需要认证 (Authenticated)
+                        // 3.3 放行 AI 后端代理接口（可根据需要添加认证）
+                        // /api/ai/** 会被代理到 AI 后端服务
+                        .requestMatchers("/api/ai/**").permitAll()
+
+                        // 3.4 其他所有请求都需要认证 (Authenticated)
                         // 只有通过认证的用户才能访问
                         .anyRequest().authenticated()
                 );

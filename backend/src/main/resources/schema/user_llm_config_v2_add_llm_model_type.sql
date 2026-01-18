@@ -1,0 +1,11 @@
+-- 版本升级脚本：为 user_llm_config 表添加 llm_model_type 字段
+-- 版本：v2
+-- 日期：2024-01-14
+-- 说明：添加 LLM 模型类型字段，用于区分 chat、embedding、rerank 模型
+-- 注意：此脚本由 DatabaseInitializer 自动执行，会先检查字段是否存在
+-- 如需手动执行，请先检查字段是否存在：
+-- SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'user_llm_config' AND column_name = 'llm_model_type';
+
+-- 添加 llm_model_type 字段
+-- ALTER TABLE `user_llm_config` 
+-- ADD COLUMN `llm_model_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'LLM 模型类型，1-chat模型，2-embedding模型，3-rerank模型' AFTER `llm_model_thinking`;

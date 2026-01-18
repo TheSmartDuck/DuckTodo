@@ -1,0 +1,1231 @@
+/**
+ * ==========================================================================
+   DAILY REPORT TOOL // 每日日报工具样式
+   ==========================================================================
+ */
+
+.daily-report-tool {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-white);
+  font-family: var(--font-family);
+}
+
+/**
+ * 左右布局容器
+ */
+.daily-report-tool-layout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/**
+ * 左侧面板
+ * 占据 40% 宽度（4:6 比例）
+ */
+.daily-report-tool-left-panel {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  border-right: var(--border-width-bold) solid var(--color-black);
+  background-color: var(--color-white);
+  overflow: hidden;
+  min-width: 0;
+  padding: 0px 10px 0px 0px;
+}
+
+/**
+ * 右侧面板
+ * 占据 60% 宽度（4:6 比例）
+ */
+.daily-report-tool-right-panel {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-white);
+  padding-left: 20px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.daily-report-tool-right-content {
+  flex: 1;
+  padding: 0px 0px 0px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.daily-report-tool-content-loading {
+  overflow: hidden;
+}
+
+.daily-report-tool-right-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  color: var(--color-black);
+}
+
+.daily-report-tool-right-placeholder-icon {
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--brand-primary);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.daily-report-tool-right-placeholder-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.daily-report-tool-right-placeholder-hint {
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 头部区域
+ */
+.daily-report-tool-header {
+  flex-shrink: 0;
+  background-color: var(--color-white);
+}
+
+.daily-report-tool-date-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.daily-report-tool-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-black);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.daily-report-tool-date-picker {
+  flex: 1;
+  max-width: 200px;
+}
+
+.daily-report-tool-date-picker .el-input__inner {
+  border: var(--border-width) solid var(--color-black);
+  border-radius: 0;
+  font-family: var(--font-family);
+  font-size: 13px;
+  padding: 8px 12px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.daily-report-tool-date-picker .el-input__inner:focus {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-normal);
+}
+
+.daily-report-tool-refresh-btn {
+  border: var(--border-width) solid var(--color-black);
+  border-radius: 0;
+  font-family: var(--font-family);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+  padding: 8px 16px;
+  box-shadow: var(--shadow-normal);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.daily-report-tool-refresh-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.daily-report-tool-refresh-btn:active {
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-active);
+}
+
+/**
+ * 装饰线条（三色渐变）
+ */
+.daily-report-tool-deco-line {
+  display: flex;
+  height: 4px;
+  gap: 0;
+}
+
+.daily-report-tool-line-seg {
+  flex: 1;
+  height: 100%;
+}
+
+.daily-report-tool-line-mustard {
+  background-color: var(--avionics-mustard);
+}
+
+.daily-report-tool-line-sage {
+  background-color: var(--oxidized-sage);
+}
+
+.daily-report-tool-line-burgundy {
+  background-color: var(--alarm-burgundy);
+}
+
+/**
+ * 任务列表区域
+ */
+.daily-report-tool-task-section {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0px 20px 0px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+}
+
+/**
+ * 空状态
+ */
+.daily-report-tool-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  color: var(--color-black);
+}
+
+.daily-report-tool-empty-icon {
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--brand-primary);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.daily-report-tool-empty-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.daily-report-tool-empty-hint {
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * 任务树形列表
+ */
+.daily-report-tool-task-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/**
+ * 树形节点
+ */
+.daily-report-tool-tree-node {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/**
+ * 主任务
+ */
+.daily-report-tool-tree-main-task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-black);
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.daily-report-tool-tree-status-tag {
+  display: inline-block;
+  padding: 4px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.daily-report-tool-status-completed {
+  background-color: var(--oxidized-sage);
+  color: var(--color-white);
+}
+
+.daily-report-tool-status-pending {
+  background-color: var(--avionics-mustard);
+  color: var(--color-black);
+}
+
+.daily-report-tool-status-custom {
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+}
+
+.daily-report-tool-tree-icon {
+  color: var(--brand-primary);
+  font-size: 14px;
+  font-weight: bold;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+.daily-report-tool-tree-name {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.daily-report-tool-tree-group-name {
+  color: var(--brand-primary);
+  font-size: 12px;
+  margin-left: 6px;
+  opacity: 0.8;
+}
+
+.daily-report-tool-tree-back-btn {
+  padding: 0 6px !important;
+  margin-left: auto !important;
+  margin-right: 4px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  font-size: 12px !important;
+  color: var(--brand-primary) !important;
+  font-weight: normal !important;
+  height: 20px !important;
+  line-height: 20px !important;
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+}
+
+.daily-report-tool-tree-back-btn:hover {
+  opacity: 1 !important;
+  color: var(--brand-primary) !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.daily-report-tool-tree-delete-btn {
+  padding: 0 !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  font-size: 14px !important;
+  color: #999 !important;
+  font-weight: normal !important;
+  min-width: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+}
+
+.daily-report-tool-tree-delete-btn:hover,
+.daily-report-tool-tree-delete-btn:focus,
+.daily-report-tool-tree-delete-btn:active {
+  opacity: 1 !important;
+  color: var(--alarm-burgundy) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.daily-report-tool-tree-delete-btn .el-button__inner {
+  padding: 0 !important;
+  line-height: 16px !important;
+  height: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.daily-report-tool-tree-delete-btn .el-button__inner:hover,
+.daily-report-tool-tree-delete-btn .el-button__inner:focus,
+.daily-report-tool-tree-delete-btn .el-button__inner:active {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/**
+ * 子任务
+ */
+.daily-report-tool-tree-child-task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  padding-left: 24px;
+  font-size: 14px;
+  color: var(--color-black);
+  letter-spacing: 0.3px;
+  position: relative;
+  text-align: left;
+}
+
+.daily-report-tool-tree-line {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--brand-primary);
+  opacity: 0.3;
+}
+
+.daily-report-tool-tree-child-task .daily-report-tool-tree-icon {
+  font-size: 12px;
+  width: 12px;
+}
+
+.daily-report-tool-tree-child-task .daily-report-tool-tree-status-tag {
+  font-size: 9px;
+  padding: 4px 5px;
+}
+
+.daily-report-tool-tree-child-task .daily-report-tool-tree-name {
+  font-size: 14px;
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/**
+ * 添加任务区域
+ */
+.daily-report-tool-add-section {
+  flex-shrink: 0;
+  background-color: var(--color-white);
+}
+
+.daily-report-tool-add-deco-line {
+  display: flex;
+  height: 3px;
+  gap: 0;
+  margin-bottom: 12px;
+}
+
+.daily-report-tool-add-main-task,
+.daily-report-tool-add-child-task,
+.daily-report-tool-select-main-task {
+  margin-bottom: 12px;
+}
+
+.daily-report-tool-add-label {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--color-black);
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.daily-report-tool-add-label-hint {
+  font-size: 11px;
+  color: var(--brand-primary);
+  font-weight: normal;
+  margin-left: 6px;
+}
+
+.daily-report-tool-back-link {
+  font-size: 12px;
+  color: var(--brand-primary);
+  font-weight: normal;
+  margin-left: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  text-decoration: none;
+}
+
+.daily-report-tool-back-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.daily-report-tool-add-input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.daily-report-tool-add-input {
+  flex: 1;
+}
+
+.daily-report-tool-add-input .el-input__inner {
+  border: var(--border-width) solid var(--color-black);
+  border-radius: 0;
+  font-family: var(--font-family);
+  font-size: 12px;
+  padding: 6px 10px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  height: 32px;
+  line-height: 20px;
+}
+
+.daily-report-tool-add-input .el-input__inner:focus {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-normal);
+}
+
+.daily-report-tool-add-btn {
+  border: var(--border-width) solid var(--color-black);
+  border-radius: 0;
+  font-family: var(--font-family);
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+  padding: 6px 12px;
+  height: 32px;
+  box-shadow: var(--shadow-normal);
+  transition: transform 0.1s, box-shadow 0.1s;
+  flex-shrink: 0;
+}
+
+.daily-report-tool-add-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.daily-report-tool-add-btn:active {
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-active);
+}
+
+.daily-report-tool-select-group {
+  display: flex;
+  align-items: center;
+}
+
+.daily-report-tool-select {
+  flex: 1;
+  max-width: 300px;
+}
+
+.daily-report-tool-select .el-input__inner {
+  border: var(--border-width) solid var(--color-black);
+  border-radius: 0;
+  font-family: var(--font-family);
+  font-size: 12px;
+  padding: 6px 10px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  height: 32px;
+  line-height: 20px;
+}
+
+.daily-report-tool-select .el-input__inner:focus {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-normal);
+}
+
+/**
+ * 生成日报按钮区域
+ */
+.daily-report-tool-generate-section {
+  padding: 15px 0;
+  border-top: var(--border-width-bold) solid var(--color-black);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.daily-report-tool-generate-btn {
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: var(--border-width-bold) solid var(--color-black);
+  border-radius: 0;
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.daily-report-tool-generate-btn:hover:not(:disabled) {
+  background-color: var(--brand-warning);
+  box-shadow: var(--shadow-normal);
+  transform: translate(-2px, -2px);
+}
+
+.daily-report-tool-generate-btn:active:not(:disabled) {
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-active);
+}
+
+.daily-report-tool-generate-btn:disabled {
+  background-color: var(--color-light-gray);
+  color: var(--color-gray);
+  border-color: var(--color-gray);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/**
+ * 报告内容显示区域
+ */
+.daily-report-tool-report-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.daily-report-tool-report-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.daily-report-tool-report-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-black);
+  padding-bottom: 12px;
+  position: relative;
+}
+
+/* 标题左侧颜色方块 */
+.daily-report-tool-color-block {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: none;
+}
+
+.daily-report-tool-color-mustard {
+  background-color: var(--avionics-mustard);
+}
+
+.daily-report-tool-color-sage {
+  background-color: var(--oxidized-sage);
+}
+
+.daily-report-tool-color-burgundy {
+  background-color: var(--alarm-burgundy);
+}
+
+.daily-report-tool-title-text {
+  flex: 1;
+}
+
+/* 三色下划线 - 水平三色条 */
+.daily-report-tool-report-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  display: flex;
+  background: linear-gradient(
+    to right,
+    var(--avionics-mustard) 0%,
+    var(--avionics-mustard) 33.33%,
+    var(--oxidized-sage) 33.33%,
+    var(--oxidized-sage) 66.66%,
+    var(--alarm-burgundy) 66.66%,
+    var(--alarm-burgundy) 100%
+  );
+}
+
+.daily-report-tool-report-textarea {
+  width: 100%;
+}
+
+.daily-report-tool-report-textarea .el-textarea__inner {
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.6;
+  border: none;
+  border-radius: 0;
+  padding: 12px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  resize: none;
+}
+
+.daily-report-tool-report-textarea .el-textarea__inner:focus {
+  border: none;
+  box-shadow: none;
+}
+
+/* 今日完成 - 高度 220px */
+.daily-report-tool-textarea-today .el-textarea__inner {
+  height: 220px !important;
+  min-height: 220px !important;
+  max-height: 220px !important;
+}
+
+/* 明日待办 - 高度 150px */
+.daily-report-tool-textarea-tomorrow .el-textarea__inner {
+  height: 170px !important;
+  min-height: 170px !important;
+  max-height: 170px !important;
+}
+
+/* 思考 - 高度 130px */
+.daily-report-tool-textarea-thinking .el-textarea__inner {
+  height: 130px !important;
+  min-height: 130px !important;
+  max-height: 130px !important;
+}
+
+/**
+ * 推送钉钉日报按钮区域
+ */
+.daily-report-tool-push-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0px;
+  border-top: var(--border-width-bold) solid var(--color-black);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.daily-report-tool-push-btn {
+  width: 90%;
+  flex-shrink: 0;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: var(--border-width-bold) solid var(--color-black) !important;
+  border-radius: 0;
+  background-color: var(--brand-primary) !important;
+  color: var(--color-white) !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.daily-report-tool-push-hint-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.daily-report-tool-push-hint-icon {
+  font-size: 16px;
+  color: var(--color-gray);
+  transition: color 0.2s ease;
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.daily-report-tool-push-hint-wrapper:hover .daily-report-tool-push-hint-icon {
+  color: var(--brand-primary);
+}
+
+.daily-report-tool-push-btn:hover:not(:disabled) {
+  background-color: var(--brand-warning) !important;
+  box-shadow: var(--shadow-normal);
+  transform: translate(-2px, -2px);
+  border-color: var(--color-black) !important;
+}
+
+.daily-report-tool-push-btn:active:not(:disabled) {
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-active);
+  background-color: var(--brand-warning) !important;
+  border-color: var(--color-black) !important;
+}
+
+.daily-report-tool-push-btn:disabled {
+  background-color: var(--color-light-gray) !important;
+  color: var(--color-gray) !important;
+  border-color: var(--color-gray) !important;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/**
+ * 菱形风格 Loading 动画
+ */
+.daily-report-tool-diamond-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* 背景装饰菱形 */
+.diamond-bg-decoration {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(186, 133, 48, 0.15); /* 半透明桃色/腮红色 */
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+
+.diamond-bg-1 {
+  top: 10%;
+  left: 10%;
+  animation: diamond-bg-float 4s ease-in-out infinite;
+}
+
+.diamond-bg-2 {
+  bottom: 15%;
+  left: 8%;
+  animation: diamond-bg-float 5s ease-in-out infinite 1s;
+}
+
+.diamond-bg-3 {
+  bottom: 12%;
+  right: 10%;
+  animation: diamond-bg-float 4.5s ease-in-out infinite 0.5s;
+}
+
+@keyframes diamond-bg-float {
+  0%, 100% {
+    transform: rotate(45deg) translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: rotate(45deg) translateY(-10px);
+    opacity: 0.7;
+  }
+}
+
+/* 中心菱形容器 */
+.diamond-loading-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* 外层虚线菱形（旋转） */
+.diamond-outer-dashed {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border: var(--border-width) dashed rgba(178, 101, 59, 0.6); /* 浅红棕色 */
+  transform: rotate(15deg);
+  animation: diamond-outer-rotate 3s linear infinite;
+}
+
+@keyframes diamond-outer-rotate {
+  from {
+    transform: rotate(15deg);
+  }
+  to {
+    transform: rotate(375deg);
+  }
+}
+
+/* 中层轮廓菱形 */
+.diamond-middle-outline {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: var(--border-width-bold) solid var(--color-black);
+  transform: rotate(45deg);
+  background-color: transparent;
+  position: relative;
+}
+
+/* 小菱形（右上角） */
+.diamond-small {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-black);
+  transform: rotate(45deg);
+  top: -10px;
+  right: -10px;
+  animation: diamond-small-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes diamond-small-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: rotate(45deg) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(45deg) scale(1.1);
+  }
+}
+
+/* 内层实心菱形 */
+.diamond-inner-solid {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-black);
+  transform: rotate(45deg);
+  animation: diamond-inner-pulse 2s ease-in-out infinite;
+}
+
+@keyframes diamond-inner-pulse {
+  0%, 100% {
+    opacity: 0.9;
+    transform: rotate(45deg) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(45deg) scale(1.05);
+  }
+}
+
+/* 加载文字 */
+.diamond-loading-text {
+  text-align: center;
+}
+
+.diamond-loading-text-main {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-black);
+  letter-spacing: 2px;
+  animation: diamond-text-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes diamond-text-pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/**
+ * 滚动条样式 - 垂直进度条风格
+ */
+.daily-report-tool-task-section::-webkit-scrollbar,
+.daily-report-tool-right-content::-webkit-scrollbar {
+  width: 16px;
+}
+
+.daily-report-tool-task-section::-webkit-scrollbar-track,
+.daily-report-tool-right-content::-webkit-scrollbar-track {
+  background: var(--color-white);
+  border: var(--border-width-bold) solid var(--color-black);
+  border-radius: 0;
+}
+
+.daily-report-tool-task-section::-webkit-scrollbar-thumb,
+.daily-report-tool-right-content::-webkit-scrollbar-thumb {
+  background: var(--mission-rust);
+  border: none;
+  border-radius: 0;
+  min-height: 30px;
+}
+
+.daily-report-tool-task-section::-webkit-scrollbar-thumb:hover,
+.daily-report-tool-right-content::-webkit-scrollbar-thumb:hover {
+  background: var(--mission-rust);
+}
+
+/* Firefox 滚动条样式 */
+.daily-report-tool-task-section,
+.daily-report-tool-right-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mission-rust) var(--color-white);
+}
+
+/**
+ * 配置相关样式
+ */
+.daily-report-tool-config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+}
+
+.daily-report-tool-current-model {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.daily-report-tool-current-model-label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-black);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.daily-report-tool-current-model-value {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.daily-report-tool-current-model-empty {
+  color: var(--color-gray);
+  font-style: italic;
+}
+
+.daily-report-tool-config-btn {
+  font-family: var(--font-family);
+  width: 140px;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-black);
+  padding: 6px 12px;
+  border: var(--border-width-bold) solid var(--color-black);
+  background-color: var(--color-white);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.daily-report-tool-config-btn:hover {
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-normal);
+  transform: translate(-2px, -2px);
+}
+
+.daily-report-tool-config-btn:active {
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-active);
+}
+
+.daily-report-tool-config-dialog .el-dialog {
+  border: var(--border-width-bold) solid var(--color-black);
+  border-radius: 0;
+  font-family: var(--font-family);
+}
+
+.daily-report-tool-config-dialog .el-dialog__header {
+  padding: 15px 20px;
+  border-bottom: var(--border-width-bold) solid var(--color-black);
+  background-color: var(--color-white);
+  text-align: left;
+}
+
+.daily-report-tool-config-dialog .el-dialog__title {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-black);
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  text-align: left;
+}
+
+.daily-report-tool-config-dialog-title {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-black);
+  text-align: left;
+}
+
+.daily-report-tool-config-dialog .el-dialog__body {
+  padding: 20px;
+  background-color: var(--color-white);
+  text-align: left;
+}
+
+.daily-report-tool-config-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.daily-report-tool-config-label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-black);
+  text-align: left;
+}
+
+.daily-report-tool-config-select {
+  width: 100%;
+}
+
+.daily-report-tool-config-select .el-input__inner {
+  border: var(--border-width-bold) solid var(--color-black);
+  border-radius: 0;
+  font-family: var(--font-family);
+  font-size: 14px;
+  padding: 8px 12px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  height: 36px;
+  line-height: 20px;
+}
+
+.daily-report-tool-config-select .el-input__inner:focus {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-normal);
+}
+
+.daily-report-tool-config-empty {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-gray);
+  text-align: center;
+  padding: 20px;
+  border: var(--border-width) dashed var(--color-gray);
+  background-color: var(--color-light-gray);
+}
+
+.daily-report-tool-config-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 15px 20px;
+  border-top: var(--border-width-bold) solid var(--color-black);
+  background-color: var(--color-white);
+}
+
+.daily-report-tool-config-footer .el-button {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: var(--border-width-bold) solid var(--color-black);
+  border-radius: 0;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  transition: all 0.2s ease;
+}
+
+.daily-report-tool-config-footer .el-button:hover {
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-normal);
+  transform: translate(-2px, -2px);
+}
+
+.daily-report-tool-config-footer .el-button:active {
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-active);
+}
+
+.daily-report-tool-config-footer .el-button--primary {
+  background-color: var(--brand-primary);
+  color: var(--color-white);
+}
+
+.daily-report-tool-config-footer .el-button--primary:hover {
+  background-color: var(--brand-warning);
+}
+
+.daily-report-tool-config-footer .el-button:disabled {
+  background-color: var(--color-light-gray);
+  color: var(--color-gray);
+  border-color: var(--color-gray);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

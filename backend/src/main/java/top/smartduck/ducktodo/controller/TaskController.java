@@ -1,6 +1,7 @@
 package top.smartduck.ducktodo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.smartduck.ducktodo.aspect.TaskAuditLog;
@@ -159,7 +160,9 @@ public class TaskController {
 
         // 3. 协助者校验
         if(taskGroup.getTeamId().isEmpty() && !createTaskRequest.getHelperUserIdList().isEmpty()){
-            return R.fail("私人任务族无法添加协助者");
+            if(createTaskRequest.getHelperUserIdList().size() > 1 || !currentUser.getUserId().equals(createTaskRequest.getHelperUserIdList().getFirst())){
+                return R.fail("私人任务族无法添加协助者");
+            }
         }else if(createTaskRequest.getHelperUserIdList().size() != taskGroupUserRelationService.count(new LambdaQueryWrapper<TaskGroupUserRelation>().eq(TaskGroupUserRelation::getTaskGroupId, taskGroupId).in(TaskGroupUserRelation::getUserId, createTaskRequest.getHelperUserIdList()))){
             return R.fail("添加的协助者中存在非本团队的协助者");
         }
@@ -175,7 +178,13 @@ public class TaskController {
         task.setTaskPriority(taskPriority);
         task.setStartTime(startTime);
         task.setDueTime(dueTime);
+        // 如果状态为已完成（3）且 finish_time 为空或 null，则设置为当前日期
+        // 如果状态为非已完成（不是3），则确保 finish_time 为 null
+        if (taskStatus != null && taskStatus.equals(TaskStatusEnum.COMPLETED.getCode())) {
+            task.setFinishTime(LocalDate.now());
+        } else {
         task.setFinishTime(null);
+        }
         task.setCreateTime(LocalDateTime.now());
         task.setUpdateTime(LocalDateTime.now());
 
@@ -248,7 +257,13 @@ public class TaskController {
             childTask.setChildTaskIndex(childTaskIndex);
             childTask.setChildTaskAssigneeId(childTaskAssigneeUserId);
             childTask.setDueTime(childTaskDucTime);
+            // 如果状态为已完成（3）且 finish_time 为空或 null，则设置为当前日期
+            // 如果状态为非已完成（不是3），则确保 finish_time 为 null
+            if (childTaskStatus != null && childTaskStatus.equals(TaskStatusEnum.COMPLETED.getCode())) {
+                childTask.setFinishTime(LocalDate.now());
+            } else {
             childTask.setFinishTime(null);
+            }
             childTask.setCreateTime(LocalDateTime.now());
             childTask.setUpdateTime(LocalDateTime.now());
 
@@ -382,7 +397,13 @@ public class TaskController {
         ct.setChildTaskIndex(index);
         ct.setChildTaskAssigneeId(assigneeUserId);
         ct.setDueTime(dueTime);
+        // 如果状态为已完成（3）且 finish_time 为空或 null，则设置为当前日期
+        // 如果状态为非已完成（不是3），则确保 finish_time 为 null
+        if (childTaskStatus != null && childTaskStatus.equals(TaskStatusEnum.COMPLETED.getCode())) {
+            ct.setFinishTime(LocalDate.now());
+        } else {
         ct.setFinishTime(null);
+        }
         ct.setCreateTime(now);
         ct.setUpdateTime(now);
 
@@ -974,9 +995,25 @@ public class TaskController {
             String desc = CommonUtil.trim(taskToUpdate.getTaskDescription());
             task.setTaskDescription(desc);
         }
+        // 记录状态是否被更新，以及 finish_time 是否需要设置为 null
+        boolean statusUpdated = false;
+        boolean needSetFinishTimeNull = false;
+        LocalDate finishTimeToSet = null;
+        
         if (taskToUpdate.getTaskStatus() != null) {
             if (!CommonUtil.inEnumCodes(TaskStatusEnum.values(),taskToUpdate.getTaskStatus())) return R.fail("任务状态不合法");
             task.setTaskStatus(taskToUpdate.getTaskStatus());
+            statusUpdated = true;
+            // 如果状态为已完成（3）且 finish_time 为空或 null，则设置为当前日期
+            // 如果状态为非已完成（不是3），则确保 finish_time 为 null
+            if (taskToUpdate.getTaskStatus().equals(TaskStatusEnum.COMPLETED.getCode())) {
+                if (task.getFinishTime() == null) {
+                    finishTimeToSet = LocalDate.now();
+                }
+            } else {
+                // 状态更新为非已完成，需要置空 finish_time
+                needSetFinishTimeNull = true;
+            }
         }
         if (taskToUpdate.getTaskPriority() != null) {
             if (!CommonUtil.inEnumCodes(TaskPriorityEnum.values(),taskToUpdate.getTaskPriority())) return R.fail("任务优先级不合法");
@@ -989,14 +1026,68 @@ public class TaskController {
             }
             task.setDueTime(taskToUpdate.getDueTime());
         }
-        if (taskToUpdate.getFinishTime() != null) {
+        // 如果状态为已完成（3）且 finish_time 为空或 null，则设置为当前日期
+        // 如果状态为非已完成（不是3），则确保 finish_time 为 null
+        // 注意：如果状态已更新，finish_time 的处理已在状态更新时完成，这里只处理单独更新 finish_time 的情况
+        if (taskToUpdate.getFinishTime() != null && !statusUpdated) {
             if (taskToUpdate.getStartTime() != null && taskToUpdate.getFinishTime().isBefore(taskToUpdate.getStartTime())) {
                 return R.fail("完成日期不能早于开始日期");
             }
-            task.setFinishTime(taskToUpdate.getFinishTime());
+            // 只有在状态为已完成时才允许设置 finish_time
+            if (task.getTaskStatus() != null && task.getTaskStatus().equals(TaskStatusEnum.COMPLETED.getCode())) {
+                finishTimeToSet = taskToUpdate.getFinishTime();
+            } else {
+                // 状态不是已完成，需要置空 finish_time
+                needSetFinishTimeNull = true;
+            }
         }
 
-        task.setUpdateTime(LocalDateTime.now());
+        LocalDateTime updateTime = LocalDateTime.now();
+        task.setUpdateTime(updateTime);
+        
+        // 如果需要设置 finish_time 为 null，使用 UpdateWrapper 显式更新（因为 updateById 不会更新 null 值）
+        if (needSetFinishTimeNull) {
+            LambdaUpdateWrapper<Task> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(Task::getTaskId, taskId)
+                    .set(Task::getFinishTime, null)  // 显式设置 null
+                    .set(Task::getUpdateTime, updateTime);
+            // 同时更新其他已修改的字段
+            if (taskToUpdate.getTaskName() != null) {
+                String name = CommonUtil.trim(taskToUpdate.getTaskName());
+                if (name != null && name.length() >= 2) {
+                    updateWrapper.set(Task::getTaskName, name);
+                }
+            }
+            if (taskToUpdate.getTaskDescription() != null) {
+                updateWrapper.set(Task::getTaskDescription, CommonUtil.trim(taskToUpdate.getTaskDescription()));
+            }
+            if (statusUpdated) {
+                updateWrapper.set(Task::getTaskStatus, taskToUpdate.getTaskStatus());
+            }
+            if (taskToUpdate.getTaskPriority() != null) {
+                updateWrapper.set(Task::getTaskPriority, taskToUpdate.getTaskPriority());
+            }
+            if (taskToUpdate.getStartTime() != null) {
+                updateWrapper.set(Task::getStartTime, taskToUpdate.getStartTime());
+            }
+            if (taskToUpdate.getDueTime() != null) {
+                updateWrapper.set(Task::getDueTime, taskToUpdate.getDueTime());
+            }
+            boolean ok = taskService.update(updateWrapper);
+            if (!ok) return R.error("更新失败");
+            // 重新查询更新后的任务
+            task = taskService.getById(taskId);
+            return R.success(task, "更新成功");
+        } else if (finishTimeToSet != null) {
+            // 需要设置 finish_time 为具体日期，使用 UpdateWrapper 确保更新
+            task.setFinishTime(finishTimeToSet);
+            // 如果还有其他字段更新，使用 updateById；否则也使用 UpdateWrapper 确保 finish_time 被更新
+            boolean ok = taskService.updateById(task);
+            if (!ok) return R.error("更新失败");
+            return R.success(task, "更新成功");
+        }
+        
+        // 普通更新，不需要特殊处理 finish_time
         boolean ok = taskService.updateById(task);
         if (!ok) return R.error("更新失败");
         return R.success(task, "更新成功");
@@ -1070,11 +1161,27 @@ public class TaskController {
             }
         }
 
+        // 记录状态是否被更新，以及 finish_time 是否需要设置为 null
+        boolean statusUpdated = false;
+        boolean needSetFinishTimeNull = false;
+        LocalDate finishTimeToSet = null;
+
         if (childTask.getChildTaskStatus() != null) {
             if (!CommonUtil.inEnumCodes(TaskStatusEnum.values(),childTask.getChildTaskStatus())) {
                 return R.fail("子任务状态不合法");
             }
             ct.setChildTaskStatus(childTask.getChildTaskStatus());
+            statusUpdated = true;
+            // 如果状态为已完成（3）且 finish_time 为空或 null，则设置为当前日期
+            // 如果状态为非已完成（不是3），则确保 finish_time 为 null
+            if (childTask.getChildTaskStatus().equals(TaskStatusEnum.COMPLETED.getCode())) {
+                if (ct.getFinishTime() == null) {
+                    finishTimeToSet = LocalDate.now();
+                }
+            } else {
+                // 状态更新为非已完成，需要置空 finish_time
+                needSetFinishTimeNull = true;
+            }
         }
 
         if (childTask.getDueTime() != null) {
@@ -1084,8 +1191,17 @@ public class TaskController {
             }
             ct.setDueTime(childTask.getDueTime());
         }
-        if (childTask.getFinishTime() != null) {
-            ct.setFinishTime(childTask.getFinishTime());
+        // 如果状态为已完成（3）且 finish_time 为空或 null，则设置为当前日期
+        // 如果状态为非已完成（不是3），则确保 finish_time 为 null
+        // 注意：如果状态已更新，finish_time 的处理已在状态更新时完成，这里只处理单独更新 finish_time 的情况
+        if (childTask.getFinishTime() != null && !statusUpdated) {
+            // 只有在状态为已完成时才允许设置 finish_time
+            if (ct.getChildTaskStatus() != null && ct.getChildTaskStatus().equals(TaskStatusEnum.COMPLETED.getCode())) {
+                finishTimeToSet = childTask.getFinishTime();
+            } else {
+                // 状态不是已完成，需要置空 finish_time
+                needSetFinishTimeNull = true;
+            }
         }
 
         if (childTask.getChildTaskAssigneeId() != null) {
@@ -1102,7 +1218,45 @@ public class TaskController {
             ct.setChildTaskAssigneeId(newAssigneeId);
         }
 
-        ct.setUpdateTime(LocalDateTime.now());
+        LocalDateTime updateTime = LocalDateTime.now();
+        ct.setUpdateTime(updateTime);
+        
+        // 如果需要设置 finish_time 为 null，使用 UpdateWrapper 显式更新（因为 updateById 不会更新 null 值）
+        if (needSetFinishTimeNull) {
+            LambdaUpdateWrapper<ChildTask> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(ChildTask::getChildTaskId, childTaskId)
+                    .set(ChildTask::getFinishTime, null)  // 显式设置 null
+                    .set(ChildTask::getUpdateTime, updateTime);
+            // 同时更新其他已修改的字段
+            if (childTask.getChildTaskName() != null) {
+                String name = CommonUtil.trim(childTask.getChildTaskName());
+                if (name != null && name.length() >= 2) {
+                    updateWrapper.set(ChildTask::getChildTaskName, name);
+                }
+            }
+            if (statusUpdated) {
+                updateWrapper.set(ChildTask::getChildTaskStatus, childTask.getChildTaskStatus());
+            }
+            if (childTask.getDueTime() != null) {
+                updateWrapper.set(ChildTask::getDueTime, childTask.getDueTime());
+            }
+            if (childTask.getChildTaskAssigneeId() != null) {
+                updateWrapper.set(ChildTask::getChildTaskAssigneeId, CommonUtil.trim(childTask.getChildTaskAssigneeId()));
+            }
+            boolean ok = childTaskService.update(updateWrapper);
+            if (!ok) return R.error("更新子任务失败");
+            // 重新查询更新后的子任务
+            ct = childTaskService.getById(childTaskId);
+            return R.success(ct, "更新成功");
+        } else if (finishTimeToSet != null) {
+            // 需要设置 finish_time 为具体日期
+            ct.setFinishTime(finishTimeToSet);
+            boolean ok = childTaskService.updateById(ct);
+            if (!ok) return R.error("更新子任务失败");
+            return R.success(ct, "更新成功");
+        }
+        
+        // 普通更新，不需要特殊处理 finish_time
         boolean ok = childTaskService.updateById(ct);
         if (!ok) return R.error("更新子任务失败");
         return R.success(ct, "更新成功");

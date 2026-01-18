@@ -12,6 +12,7 @@ import top.smartduck.ducktodo.util.CommonUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -77,21 +78,112 @@ public class LlmConfigController {
     @PostMapping
     public R<UserLlmConfig> createConfig(HttpServletRequest request, @RequestBody UserLlmConfig config) {
         User currentUser = CommonUtil.getCurrentUser(request);
-        if (currentUser == null) return R.unauthorized("未能识别当前用户");
+        if (currentUser == null) {
+            return R.unauthorized("未能识别当前用户");
+        }
+
+        // 设置用户ID
         config.setUserId(currentUser.getUserId());
+        
+        // 生成配置ID（如果未提供）
         if (config.getUserLlmConfigId() == null || config.getUserLlmConfigId().trim().isEmpty()) {
             config.setUserLlmConfigId(UUID.randomUUID().toString());
         }
+
+        // ========== 参数验证 ==========
+        
+        // 1. 提供商验证（必填）
         String provider = CommonUtil.trim(config.getLlmProvider());
+        if (provider == null || provider.isEmpty()) {
+            log.warn("创建LLM配置失败：提供商不能为空，用户ID={}", currentUser.getUserId());
+            return R.fail("LLM提供商不能为空");
+        }
+        config.setLlmProvider(provider);
+
+        // 2. API Key验证（必填）
         String apiKey = CommonUtil.trim(config.getLlmApiKey());
+        if (apiKey == null || apiKey.isEmpty()) {
+            log.warn("创建LLM配置失败：API Key不能为空，用户ID={}", currentUser.getUserId());
+            return R.fail("LLM API Key不能为空");
+        }
+        config.setLlmApiKey(apiKey);
+
+        // 3. API URL验证（仅在OpenAi兼容时必填）
         String apiUrl = CommonUtil.trim(config.getLlmApiUrl());
+        if ("openai-compatible".equals(provider)) {
+            // OpenAi兼容时，API URL必填
+            if (apiUrl == null || apiUrl.isEmpty()) {
+                log.warn("创建LLM配置失败：OpenAi兼容时API地址不能为空，用户ID={}", currentUser.getUserId());
+                return R.fail("LLM API地址不能为空");
+            }
+            config.setLlmApiUrl(apiUrl);
+        } else if (apiUrl != null && !apiUrl.isEmpty()) {
+            // 非OpenAi兼容时，如果提供了URL也保存（可选）
+            config.setLlmApiUrl(apiUrl);
+        }
+
+        // 4. 模型名称验证（必填）
         String modelName = CommonUtil.trim(config.getLlmModelName());
-        if (provider != null) config.setLlmProvider(provider);
-        if (apiKey != null) config.setLlmApiKey(apiKey);
-        if (apiUrl != null) config.setLlmApiUrl(apiUrl);
-        if (modelName != null) config.setLlmModelName(modelName);
+        if (modelName == null || modelName.isEmpty()) {
+            log.warn("创建LLM配置失败：模型名称不能为空，用户ID={}", currentUser.getUserId());
+            return R.fail("模型名称不能为空");
+        }
+        config.setLlmModelName(modelName);
+
+        // 5. 模型类型验证（必填）
+        Integer modelType = config.getLlmModelType();
+        if (modelType == null) {
+            log.warn("创建LLM配置失败：模型类型不能为空，用户ID={}", currentUser.getUserId());
+            return R.fail("模型类型不能为空");
+        }
+        if (modelType != 1 && modelType != 2 && modelType != 3) {
+            log.warn("创建LLM配置失败：模型类型参数无效，必须是1-chat/2-embedding/3-rerank，用户ID={}, modelType={}", 
+                    currentUser.getUserId(), modelType);
+            return R.fail("模型类型参数无效，必须是 1-chat, 2-embedding, 3-rerank");
+        }
+
+        // 6. 温度验证（可选，仅CHAT模型，范围0.0-1.0）
+        if (config.getLlmModelTemperature() != null) {
+            BigDecimal temperature = config.getLlmModelTemperature();
+            if (temperature.compareTo(BigDecimal.ZERO) < 0 || temperature.compareTo(BigDecimal.ONE) > 0) {
+                log.warn("创建LLM配置失败：温度参数无效，必须在0.0-1.0之间，用户ID={}, temperature={}", 
+                        currentUser.getUserId(), temperature);
+                return R.fail("温度参数无效，必须在0.0-1.0之间");
+            }
+            // 仅CHAT模型支持温度参数
+            if (modelType != 1) {
+                log.warn("创建LLM配置失败：温度参数仅支持CHAT模型，用户ID={}, modelType={}", 
+                        currentUser.getUserId(), modelType);
+                return R.fail("温度参数仅支持CHAT模型");
+            }
+        }
+
+        // 7. 思考模式验证（可选，仅CHAT模型，0或1）
+        if (config.getLlmModelThinking() != null) {
+            Integer thinking = config.getLlmModelThinking();
+            if (thinking != 0 && thinking != 1) {
+                log.warn("创建LLM配置失败：思考模式参数无效，必须是0-否或1-是，用户ID={}, thinking={}", 
+                        currentUser.getUserId(), thinking);
+                return R.fail("思考模式参数无效，必须是 0-否 或 1-是");
+            }
+            // 仅CHAT模型支持思考模式
+            if (modelType != 1) {
+                log.warn("创建LLM配置失败：思考模式仅支持CHAT模型，用户ID={}, modelType={}", 
+                        currentUser.getUserId(), modelType);
+                return R.fail("思考模式仅支持CHAT模型");
+            }
+        }
+
+        // ========== 保存配置 ==========
+        config.setCreateTime(LocalDateTime.now());
         boolean ok = userLlmConfigService.save(config);
-        if (!ok) return R.error("创建失败");
+        if (!ok) {
+            log.error("创建LLM配置失败：数据库保存失败，用户ID={}", currentUser.getUserId());
+            return R.error("创建失败");
+        }
+        
+        log.info("创建LLM配置成功，用户ID={}, 配置ID={}, 模型类型={}, 提供商={}", 
+                currentUser.getUserId(), config.getUserLlmConfigId(), modelType, provider);
         return R.success(config, "创建成功");
     }
 

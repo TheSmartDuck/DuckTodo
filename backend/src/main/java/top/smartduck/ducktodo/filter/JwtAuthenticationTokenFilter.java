@@ -30,6 +30,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // 跳过 AI 后端代理路径，不需要 JWT 认证
+        String requestPath = request.getRequestURI();
+        if (requestPath != null && requestPath.startsWith("/api/ai")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // 1. 获取token
         String token = resolveToken(request);
 

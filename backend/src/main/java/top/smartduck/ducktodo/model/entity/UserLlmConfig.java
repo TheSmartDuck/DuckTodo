@@ -64,6 +64,11 @@ public class UserLlmConfig implements Serializable {
     private Integer llmModelThinking;
 
     /**
+     * LLM 模型类型，1-chat模型，2-embedding模型，3-rerank模型
+     */
+    private Integer llmModelType;
+
+    /**
      * 是否删除 0-未删除 1-已删除
      */
     @TableLogic
